@@ -10,6 +10,10 @@
     boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
     LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
     String applicationMessage = (String) request.getAttribute("applicationMessage");
+    
+    String airportIata = (String) request.getAttribute("iata");
+    String airportName = (String) request.getAttribute("airportName");
+    String airportCity = (String) request.getAttribute("city");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,8 +26,35 @@
     <body>
         <section>
         <% if(loggedOn) { %>
+        
+        
+        
         Bentornato <%=loggedUser.getFirstname()%> <%=loggedUser.getLastname()%> ! <br>
         ID <%=loggedUser.getUserId()%> <br><br>
+        
+        Ricerca Aeroporto <br>
+        <form name="airportForm" action="Dispatcher" method="post">
+            <label for="iata"> IATA CODE </label>
+            <input type="text" id="iata" name="iata" maxlenght="3" required>
+            <input type="hidden" name="controllerAction" value="HomeManager.findAirport"/>
+            <input type="submit" value="OK">
+        </form>
+        
+        <br>
+        <% if (applicationMessage != null) { %>
+        <%=applicationMessage%> <br>
+        <% } %>
+        
+        <% if(airportIata != null){ %>
+            
+        
+        <%=airportIata%> <%=airportName%> <%=airportCity%>
+        
+        
+        
+        <% } %>
+        
+        <br><br>
         
         Fai click qui per effettuare il logout: <br>
         <form name="logoutForm" action="Dispatcher" method="post">

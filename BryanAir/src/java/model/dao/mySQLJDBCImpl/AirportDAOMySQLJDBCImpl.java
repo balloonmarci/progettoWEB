@@ -42,6 +42,7 @@ public class AirportDAOMySQLJDBCImpl implements AirportDAO{
 
     @Override
     public Airport findByIata(String iata) {
+        
         PreparedStatement ps;
         Airport airport = null;
         
@@ -69,7 +70,7 @@ public class AirportDAOMySQLJDBCImpl implements AirportDAO{
         }
         
         return airport;
-}
+    }
 
     @Override
     public Airport[] findByCity(String city) {
@@ -77,7 +78,9 @@ public class AirportDAOMySQLJDBCImpl implements AirportDAO{
     }
     
     Airport read(ResultSet rs){
+        
         Airport airport = new Airport();
+        
         try {
             airport.setIata(rs.getString("iata"));
         }catch(SQLException sqle){

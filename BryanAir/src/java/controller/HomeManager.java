@@ -21,6 +21,9 @@ import model.session.mo.LoggedUser;
 import model.session.dao.LoggedUserDAO;
 import model.session.dao.SessionDAOFactory;
 
+import model.dao.AirportDAO;
+import model.mo.Airport;
+
 public class HomeManager {
     
     private HomeManager(){
@@ -141,6 +144,74 @@ public class HomeManager {
     }
     
     public static void findAirport(HttpServletRequest request, HttpServletResponse response){
-        //TODO
+        
+        SessionDAOFactory sessionDAOFactory;
+        LoggedUser loggedUser;        
+        DAOFactory daoFactory = null;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+            
+            sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+            sessionDAOFactory.initSession(request, response);
+            
+            
+            
+            LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+            loggedUser = loggedUserDAO.find();
+            
+            String iata = request.getParameter("iata");
+            
+            if(loggedUser != null && iata != null) {
+                
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                
+                daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                daoFactory.beginTransaction();
+                
+                AirportDAO airportDAO = daoFactory.getAirportDAO();
+                
+                Airport airport = airportDAO.findByIata(iata);
+                
+                
+                
+                daoFactory.commitTransaction();
+                
+                if(airport == null){
+                    applicationMessage = "Aeroporto non esistente";                    
+                } else {
+                    applicationMessage = "Aeroporto trovato";
+                    request.setAttribute("iata", airport.getIata());
+                    request.setAttribute("airportName", airport.getAirportname());
+                    request.setAttribute("city", airport.getCity());
+                }
+                
+                
+                request.setAttribute("applicationMessage", applicationMessage);
+                request.setAttribute("loggedOn",loggedUser!=null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "homeManager/view");
+                
+            } 
+        }catch(Exception e){
+            logger.log(Level.SEVERE, "Controller Error", e);
+            try {
+                if(daoFactory != null){
+                    daoFactory.rollbackTransaction();
+                }
+            }catch (Throwable t){
+        }
+        throw new RuntimeException(e);
+        } finally {
+            try {
+                if(daoFactory != null) {
+                    daoFactory.closeTransaction();
+                }
+            }catch(Throwable t){
+            }
+        }
     }
 }
