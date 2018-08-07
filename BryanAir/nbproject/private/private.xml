@@ -6,12 +6,11 @@
             <file>file:/C:/Progetti/BryanAir/src/java/model/mo/User.java</file>
             <file>file:/C:/Progetti/BryanAir/src/java/model/dao/UserDAO.java</file>
             <file>file:/C:/Progetti/BryanAir/src/java/model/dao/mySQLJDBCImpl/AirportDAOMySQLJDBCImpl.java</file>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/AirportDAO.java</file>
             <file>file:/C:/Progetti/BryanAir/src/java/controller/HomeManager.java</file>
+            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/AirportDAO.java</file>
             <file>file:/C:/Progetti/BryanAir/src/java/model/mo/Airport.java</file>
+            <file>file:/C:/Progetti/BryanAir/web/jsp/homeManager/view.jsp</file>
             <file>file:/C:/Progetti/BryanAir/src/java/model/dao/mySQLJDBCImpl/UserDAOMySQLJDBCImpl.java</file>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/mySQLJDBCImpl/MySQLJDBCDAOFactory.java</file>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/DAOFactory.java</file>
         </group>
     </open-files>
 </project-private>
