@@ -1,0 +1,68 @@
+/*immagine centrale + form*/
+.m-centrale{
+  position:relative;
+}
+
+.m-aereoimg{
+  content: url("../images/aereo.png");
+  width: 100%;
+}
+
+.main-form{
+  position: absolute;
+  width: 100%;
+  bottom: -11%;
+  left: 6%;
+}
+
+/*corpo pagina html*/
+.m-main{
+  margin-top: 6%;
+}
+
+div.m-content{
+  width: 70%;
+  float: left;
+}
+
+.m-content div{
+  float: left;
+  width: 33.3%;
+}
+
+article{
+  max-width: 100%;
+  margin: 4%;
+  background: rgba(255,255,255,0.7);
+  border-radius: 2%;
+  text-align: center;
+}
+
+.m-content div article img{
+  max-width: 100%;
+  display: block;
+}
+
+/*wishlist*/
+aside.m-sidebar{
+  float: right;
+}
+
+.m-sidebar{
+  width: 30%;
+  text-align: center;
+}
+
+.m-sidebar h3{
+  margin: 0;
+}
+
+.m-sidebar div{
+  padding: 2%;
+  margin: 4%;
+  background-color: #fff;
+}
+
+.m-jsVisibility{
+  visibility: hidden;
+}

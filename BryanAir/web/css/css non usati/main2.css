@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    background: #dceef7;
+}
+
+.tm-header{
+    background: #fff;
+}
+.tm-container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.tm-logo{
+    float:left;
+}
+
+.tm-nav{
+    float:right;
+}
+
+.tm-nav ul li{
+    display: inline-block; /*li mette in riga*/
+}
+
+.tm-nav ul{
+    margin-bottom: 0;
+}
+
+.tm-nav ul li a{
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #303030;
+    line-height: 96px;
+}
+
+.tm-nav ul li a:hover{
+    color: #3e99ff;
+}
+
+.tm-section img{
+    max-width: 100%;
+    height: 500px;
+}
+
+.tm-content{
+    max-width: 75%;
+    float: left;
+}
+
+.tm-content div{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 33%;
+    float: left;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin-bottom: 20px;
+}
+
+p{
+    margin-bottom: 20px;
+}
+
+article{
+    background: rgba(255,255,255,0.7);
+    border-radius: 2%;
+    text-align: center;
+}
+
+.tm-content div article{
+    margin: 15px;
+}
+
+.tm-content div article h1{
+    padding-top: 5%;
+}
+
+.tm-content div article img{
+    display: block;
+}
+
+article:hover{
+    background: rgba(255,255,255,1);
+    cursor: pointer;
+}
+
+.tm-content div article img{
+    max-width: 100%;
+}
+
+.tm-sidebar{
+    margin-top: 45px;
+    margin-bottom: 30px;
+    max-width: 25%;
+    float: right;
+    width: 25%;
+}
+
+.tm-sidebar div{
+    padding: 30px;
+    background: #fff;
+}
+
+.tm-footer{
+    background: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.clearfix::after{
+   content: " ";
+   clear: both;
+   display: block;
+   visibility: none;
+}

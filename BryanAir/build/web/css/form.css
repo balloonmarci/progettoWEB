@@ -1,0 +1,102 @@
+.loginform-dimensioni, .regform-dimensioni{
+  padding: 7%;
+  width: 84%;
+}
+
+.regform-position{
+  position: relative;
+}
+
+.main-form form{
+  display: inline-block;
+  width: 80%;
+  padding: 2%;
+}
+
+.main-form input[type="radio"]{
+  opacity: 0;
+  width: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+label[for="Andata"], label[for="AndataRitorno"]{
+  margin-right: 2%;
+}
+
+label[for="Andata"]:hover, label[for="AndataRitorno"]:hover{
+  cursor: pointer;
+}
+
+input:checked + label[for="Andata"],
+input:checked + label[for="AndataRitorno"]{
+  color: #288fba;
+}
+
+.form-color{
+  background-color: #fff;
+  opacity: 0.83;
+  border: 2px solid #288fba;
+}
+
+.regform-dimensioni label{
+  display: inline-block;
+  width: 7%;
+  margin-right: 27%;
+}
+
+.main-form input[type="text"],
+.main-form input[type="date"]{
+  display: inline-block;
+  width: 45%;
+  border: 1px solid #eee;
+  padding: 2%;
+  font-size: 100%;
+}
+
+.loginform-dimensioni input[type="text"],
+.loginform-dimensioni input[type="email"],
+.loginform-dimensioni input[type="password"]{
+  display: block;
+  width: 95%;
+  border: 1px solid #eee;
+  padding: 3%;
+  font-size: 90%;
+}
+
+.regform-dimensioni input[type="text"],
+.regform-dimensioni input[type="email"],
+.regform-dimensioni input[type="password"]{
+  display: inline-block;
+  width: 60%;
+  padding: 2%;
+  font-size: 85%;
+  border: 1px solid #eee;
+}
+
+.submit-dimensioni{
+  display: block;
+  width: 20%;
+  padding: 2%;
+  border: 0;
+}
+
+.submit-color{
+  background-color: #288fba;
+  color: #fff;
+}
+
+.submit-color2{
+  background-color: #9b9898;
+  color: #fff;
+}
+
+.submit-position{
+  position: absolute;
+  left: 78%;
+  top: 90%;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
