@@ -174,6 +174,10 @@
       </main>
       <footer class="m-footer">
           &copy; copyright 2018
+          <form name="flights" action="Dispatcher" method="post">
+                <input type="hidden" name="controllerAction" value="FlightManager.view"/>
+                <input class="logout" type="submit" value="VOLI">
+          </form>
       </footer>
     </body>
 </html>

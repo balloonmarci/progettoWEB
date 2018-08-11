@@ -8,6 +8,7 @@ package model.dao.mySQLJDBCImpl;
 import model.dao.DAOFactory;
 import model.dao.UserDAO;
 import model.dao.AirportDAO;
+import model.dao.VirtualFlightDAO;
 import services.config.Configuration;
 
 import java.sql.DriverManager;
@@ -64,6 +65,11 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
     @Override
     public AirportDAO getAirportDAO(){
         return new AirportDAOMySQLJDBCImpl(connection);
+    }
+    
+    @Override
+    public VirtualFlightDAO getVirtualFlightDAO(){
+        return new VirtualFlightDAOMySQLJDBCImpl(connection);
     }
     
 }
