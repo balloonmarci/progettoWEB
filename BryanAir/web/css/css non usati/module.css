@@ -1,0 +1,134 @@
+/*header styling*/
+header li{
+  display: inline-block;
+}
+
+.m-topbar{
+  background-color: #fff;
+  padding: 1% 0 1% 4%;
+}
+
+.m-topbar-position{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+div.m-utente{
+  text-align: right;
+  padding: 0 0 1% 0;
+  font-size: 85%;
+}
+
+.m-list-ul{
+  margin: auto;
+  padding: 0 0 0.5% 0;
+}
+
+div.m-utente ul{
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+div.m-utente ul li{
+  padding-right: 3%;
+}
+
+div.m-logo{
+  font-size: 120%;
+  float: left;
+}
+
+div.m-services{
+  float: right;
+  width: 70%;
+}
+
+div.m-services ul li{
+  padding: 0 4.5%;
+  position:relative;
+  left: 20%;
+}
+
+/*immagine centrale + form*/
+.m-centrale{
+  position:relative;
+}
+
+.m-aereoimg{
+  content: url("../images/aereo.png");
+  width: 100%;
+}
+
+.m-form{
+  position: absolute;
+  width: 100%;
+  bottom: -11%;
+  left: 6%;
+}
+
+/*corpo pagina html*/
+.m-main{
+  margin-top: 6%;
+}
+
+div.m-content{
+  width: 70%;
+  float: left;
+}
+
+.m-content div{
+  float: left;
+  width: 33.3%;
+}
+
+article{
+  max-width: 100%;
+  margin: 4%;
+  background: rgba(255,255,255,0.7);
+  border-radius: 2%;
+  text-align: center;
+}
+
+.m-content div article img{
+  max-width: 100%;
+  display: block;
+}
+
+/*wishlist*/
+aside.m-sidebar{
+  float: right;
+}
+
+.m-sidebar{
+  width: 30%;
+  text-align: center;
+}
+
+.m-sidebar h3{
+  margin: 0;
+}
+
+.m-sidebar div{
+  padding: 2%;
+  margin: 4%;
+  background-color: #fff;
+}
+
+.m-footer{
+    background: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+@media screen and (min-width: 1281px){
+  div.m-services ul li{
+    left: 31%;
+  }
+
+  div.m-services ul li{
+    padding: 0 4.5%;
+  }
+}

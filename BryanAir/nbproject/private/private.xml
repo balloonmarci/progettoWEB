@@ -3,14 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/mo/User.java</file>
             <file>file:/C:/Progetti/BryanAir/src/java/model/dao/UserDAO.java</file>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/mySQLJDBCImpl/AirportDAOMySQLJDBCImpl.java</file>
+            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/VirtualFlightDAO.java</file>
+            <file>file:/C:/Progetti/BryanAir/web/jsp/flightManager/view.jsp</file>
             <file>file:/C:/Progetti/BryanAir/src/java/controller/HomeManager.java</file>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/AirportDAO.java</file>
             <file>file:/C:/Progetti/BryanAir/src/java/model/mo/Airport.java</file>
+            <file>file:/C:/Progetti/BryanAir/src/java/controller/FlightManager.java</file>
             <file>file:/C:/Progetti/BryanAir/web/jsp/homeManager/view.jsp</file>
-            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/mySQLJDBCImpl/UserDAOMySQLJDBCImpl.java</file>
+            <file>file:/C:/Progetti/BryanAir/src/java/model/mo/VirtualFlight.java</file>
+            <file>file:/C:/Progetti/BryanAir/src/java/model/dao/mySQLJDBCImpl/VirtualFlightDAOMySQLJDBCImpl.java</file>
         </group>
     </open-files>
 </project-private>

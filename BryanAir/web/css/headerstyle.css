@@ -1,0 +1,112 @@
+header{
+  padding: inherit;
+  margin: 0 auto;
+}
+
+header li{
+  display: inline-block;
+}
+
+.m-topbar{
+  background-color: #fff;
+  padding: 1% 0 1% 4%;
+}
+
+.m-topbar-position{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+div.m-utente{
+  text-align: right;
+  padding: 0 0 1% 0;
+  font-size: 85%;
+}
+
+.m-list-ul{
+  margin: auto;
+  padding: 0 0 0.5% 0;
+}
+
+div.m-utente ul{
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+div.m-utente ul li{
+  margin-right: 3%;
+  float: left;
+}
+
+.m-dropdown {
+    position: relative;
+    display: block;
+}
+
+
+.m-dropdown-content {
+    display: block;
+    background-color: #f9f9f9;
+    visibility: hidden;
+    width: 1100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0;
+    margin: 0;
+}
+
+.m-dropdown-content-position{
+  position: absolute;
+  left: 5%;
+  top: 95%;
+  z-index: 2000;
+}
+
+div.m-logo{
+  font-size: 120%;
+  float: left;
+}
+
+div.m-services{
+  float: right;
+  width: 70%;
+}
+
+div.m-services ul li{
+  padding: 0 4.5%;
+  position:relative;
+  left: 20%;
+}
+
+@media screen and (min-width: 1281px){
+  div.m-services ul li{
+    left: 31%;
+  }
+
+  div.m-services ul li{
+    padding: 0 4.5%;
+  }
+}
+
+div.m-utente ul li.error {
+    color : #ff0021;
+}
+
+div.m-utente ul li.loggedIn {
+    color : #63b752;
+}
+
+.logout {
+    padding: 0px;
+    border: 0px;
+    font-size: 90%;
+    font-family: 'Open Sans', sans-serif;
+    background: #ffffff;
+}
+
+.logout:hover {
+    color:#ff0021;
+    cursor: pointer;
+}

@@ -1,0 +1,22 @@
+html,body{
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #fff;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body{
+  background-color: #FBC79F;
+}
+
+li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}

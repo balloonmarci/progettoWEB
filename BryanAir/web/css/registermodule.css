@@ -1,0 +1,33 @@
+body{
+  /*background-color: #9b9898;*/
+  /*ébackground-color: #fff;*/
+  background-color: #f7f4f4;
+  /*background-color: #e0dede;*/
+}
+
+.m-section{
+  padding: 2.5%;
+}
+
+.m-section-color{
+  color: #000;
+}
+
+.m-section-font{
+  font-size: 180%;
+}
+
+.m-main{
+  padding-top: 7%;
+  text-align: center;
+}
+
+.m-reg-form{
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 5%;
+}
+
+.m-reg-form-color{
+    /*background-color: #f7f4f4;*/
+}

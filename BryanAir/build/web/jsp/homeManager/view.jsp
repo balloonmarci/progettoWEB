@@ -1,9 +1,3 @@
-<%-- 
-    Document   : view
-    Created on : 3-ago-2018, 15.20.36
-    Author     : Marcello
---%>
-
 <%@page import="model.session.mo.LoggedUser"%>
 
 <%
@@ -17,67 +11,173 @@
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>TEST</title>
+        <title>Bryanair</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/base.css">
+        <link rel="stylesheet" type="text/css" href="css/headerstyle.css">
+        <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
+        <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
+        <link rel="stylesheet" type="text/css" href="css/form.css">
+        <link rel="stylesheet" type="text/css" href="css/state.css">
+        <script src="script/effetti.js" type="application/javascript"></script>
     </head>
     <body>
-        <section>
-        <% if(loggedOn) { %>
-        
-        
-        
-        Bentornato <%=loggedUser.getFirstname()%> <%=loggedUser.getLastname()%> ! <br>
-        ID <%=loggedUser.getUserId()%> <br><br>
-        
-        Ricerca Aeroporto <br>
-        <form name="airportForm" action="Dispatcher" method="post">
-            <label for="iata"> IATA CODE </label>
-            <input type="text" id="iata" name="iata" maxlenght="3" required>
-            <input type="hidden" name="controllerAction" value="HomeManager.findAirport"/>
-            <input type="submit" value="OK">
-        </form>
-        
-        <br>
-        <% if (applicationMessage != null) { %>
-        <%=applicationMessage%> <br>
-        <% } %>
-        
-        <% if(airportIata != null){ %>
-            
-        
-        <%=airportIata%> <%=airportName%> <%=airportCity%>
-        
-        
-        
-        <% } %>
-        
-        <br><br>
-        
-        Fai click qui per effettuare il logout: <br>
-        <form name="logoutForm" action="Dispatcher" method="post">
-            <input type="hidden" name="controllerAction" value="HomeManager.logout"/>
-            <input type="submit" value="LOGOUT">
-        </form>
-        
-        
-        <%} else {%>
-            <% if(applicationMessage != null) {%>
-            
-                <%=applicationMessage%>
-            
-            <%}%>
-            <form name="loginForm" action="Dispatcher" method="post">
-                <label for="username"> Utente </label>
-                <input type="text" id="username" name="username" maxlength="40" required>
-                <label for="password"> Password </label>
-                <input type="text" id="password" name="password" maxlength="40" required>
-                <input type="hidden" name="controllerAction" value="HomeManager.login"/>
-                <input type="submit" value="OK">                
-            </form>        
-        <%}%>            
-        </section>        
+      <header class="clearfix">
+        <div class="m-topbar m-topbar-position clearfix">
+          <div class="m-utente">              
+            <ul class="m-list-ul clearfix">
+                
+            <% if (!loggedOn) { %>
+                
+              <li><a href="registrazione.html">Iscriviti</a></li>
+              <li class="m-dropdown">
+                <span>Accedi</span>
+                <div class="m-form-login m-dropdown-content
+                m-dropdown-content-position">
+                  <form name="loginForm" action="Dispatcher" method="post" class="loginform-dimensioni">
+                    <input type="text" id="username" name="username" maxlength="40" placeholder="Username" required>
+                    <input type="password" id="password" name="password" maxlength="40" placeholder="Password" required>
+                    </br></br>
+                    <input type="hidden" name="controllerAction" value="HomeManager.login"/>
+                    <input type="submit" value="Login" class="submit-dimensioni submit-color">
+                  </form>
+                </div>
+                </li>
+                
+                <% if(applicationMessage != null) { %>
+                <li class="error">
+                    <%= applicationMessage %> !
+                </li>
+                <% } %>
+                
+                <% } else { %>
+                
+                <li class="loggedIn">
+                    Bentornato <%=loggedUser.getFirstname()%> <%=loggedUser.getLastname()%> !
+                </li>
+                
+                <li>
+                    
+                    <form name="logoutForm" id="logoutForm" action="Dispatcher" method="post">
+                    <input type="hidden" name="controllerAction" value="HomeManager.logout"/>
+                    <input class="logout" type="submit" value="LOGOUT">
+                    </form>
+                    
+                                     
+                    
+                    
+                </li>
+                
+                
+                <% } %>
+                
+                </ul>
+              </div>           
+          <div class="m-logo">
+            <a href="home.html">BryanAir</a>
+          </div>
+          <div class="m-services">
+            <ul class="m-list-ul">
+              <li><a href="">Home</a></li>
+              <li><a href="">Prenota</a></li>
+              <li><a href="">Servizi</a></li>
+              <li><a href="">Viaggi</a></li>
+              <li><a href="">Profilo</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <section class="m-centrale">
+        <div class="m-aereoimg">
+        </div>
+        <div class="main-form">
+          <form class="form-color">
+            <input type="radio" id="Andata" name="viaggio">
+            <label for="Andata"> Sola andata </label>
+            <input type="radio" id="AndataRitorno" name="viaggio">
+            <label for="AndataRitorno"> Andata e ritorno </label> </br></br>
+
+            <input type="text" placeholder="Aeroporto di partenza" required>
+            <input type="text" placeholder="Aeroporto di destinazione" required></br></br>
+            <input type="date" name="DataAndata" required>
+            <input type="date" name="DataRitorno" required></br></br>
+
+            <!--<label for="number"> Numero passeggeri</label>
+            <input id="number" type="number" value="1"></br></br>-->
+
+            <input type="submit" value="Cerca" class="submit-dimensioni submit-color">
+
+          </form>
+        </div>
+      </section>
+      <div>
+      </div>
+      <main class = "m-main clearfix">
+        <div class="m-content clearfix">
+          <div>
+            <article>
+              <h1>Caraibi</h1>
+              <img src="images/Caraibi.png" alt="Caraibi">
+            </article>
+            <article>
+              <h1>Maldive</h1>
+              <img src="images/maldive.png" alt="Maldive">
+            </article>
+            <article>
+              <h1>New York</h1>
+              <img src="images/nycity.png" alt="New York">
+            </article>
+          </div>
+          <div>
+            <article>
+              <h1>Roma</h1>
+              <img src="images/roma.png" alt="Roma">
+            </article>
+            <article>
+              <h1>Toronto</h1>
+              <img src="images/toronto.png" alt="Toronto">
+            </article>
+            <article>
+              <h1>Caraibi</h1>
+              <img src="images/Caraibi.png" alt="Caraibi">
+            </article>
+          </div>
+          <div>
+            <article>
+              <h1>Mosca</h1>
+              <img src="images/cremlino.png" alt="Cremlino">
+            </article>
+            <article>
+              <h1>Luogo 8</h1>
+              <img src="images/Caraibi.png" alt="Caraibi">
+            </article>
+            <article>
+              <h1>Luogo 9</h1>
+              <img src="images/Caraibi.png" alt="Caraibi">
+            </article>
+          </div>
+        </div>
+        <aside class="m-sidebar">
+            <div>
+                <h3>See your Wishlist!</h3>
+                <article></article>
+                <article></article>
+                <article></article>
+            </div>
+        </aside>
+      </main>
+      <footer class="m-footer">
+          &copy; copyright 2018
+          <form name="flights" action="Dispatcher" method="post">
+                <input type="hidden" name="controllerAction" value="FlightManager.view"/>
+                <input class="logout" type="submit" value="VOLI">
+          </form>
+      </footer>
     </body>
 </html>

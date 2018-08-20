@@ -1,0 +1,61 @@
+/*.m-form form, .m-form-login form{
+  background-color: #fff;
+  border: 2px solid #288fba;
+  opacity: 0.83;
+  padding: 2%;
+}
+
+.m-form form{
+  display: inline-block;
+  width: 80%;
+}
+
+.m-form-login form{
+  display: block;
+  width: 95%;
+}
+
+.main-form input[type="radio"]{
+  opacity: 0;
+  width: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+label[for="Andata"], label[for="AndataRitorno"]{
+  margin-right: 2%;
+}
+
+label[for="Andata"]:hover, label[for="AndataRitorno"]:hover{
+  cursor: pointer;
+}
+
+input:checked + label[for="Andata"],
+input:checked + label[for="AndataRitorno"]{
+  color: #288fba;
+}
+
+.m-form input[type="text"], input[type="date"]{
+  display: inline-block;
+  width: 45%;
+  border: 1px solid #eee;
+  padding: 2%;
+  font-size: 100%;
+}
+
+.m-form-login input[type="text"], .m-form-login input[type="password"]{
+  display: block;
+  width: 95%;
+  border: 1px solid #eee;
+  padding: 3%;
+  font-size: 90%;
+}
+
+.m-form input[type="submit"], .m-form-login input[type="submit"]{
+  display: inline-block;
+  width: 20%;
+  padding: 2%;
+  background-color: #288fba;
+  color: #fff;
+  border: 0;
+}*/

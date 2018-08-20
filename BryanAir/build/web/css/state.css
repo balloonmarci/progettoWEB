@@ -1,0 +1,11 @@
+.m-dropdown span:hover, a:hover{
+  color: #63b752;
+  cursor: pointer;
+}
+
+.clearfix:after{
+  content: " ";
+  clear: both;
+  visibility: hidden;
+  display: block;
+}

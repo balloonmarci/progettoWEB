@@ -1,21 +1,12 @@
-<%@page import="model.session.mo.LoggedUser"%>
-
-<%
-    boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
-    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
-    String applicationMessage = (String) request.getAttribute("applicationMessage");
-    
-    String airportIata = (String) request.getAttribute("iata");
-    String airportName = (String) request.getAttribute("airportName");
-    String airportCity = (String) request.getAttribute("city");
-%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <title>Bryanair</title>
+        <title>Sito</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -30,11 +21,8 @@
     <body>
       <header class="clearfix">
         <div class="m-topbar m-topbar-position clearfix">
-          <div class="m-utente">              
+          <div class="m-utente">
             <ul class="m-list-ul clearfix">
-                
-            <% if (!loggedOn) { %>
-                
               <li><a href="registrazione.html">Iscriviti</a></li>
               <li class="m-dropdown">
                 <span>Accedi</span>
@@ -48,37 +36,9 @@
                     <input type="submit" value="Login" class="submit-dimensioni submit-color">
                   </form>
                 </div>
-                </li>
-                
-                <% if(applicationMessage != null) { %>
-                <li class="error">
-                    <%= applicationMessage %> !
-                </li>
-                <% } %>
-                
-                <% } else { %>
-                
-                <li class="loggedIn">
-                    Bentornato <%=loggedUser.getFirstname()%> <%=loggedUser.getLastname()%> !
-                </li>
-                
-                <li>
-                    
-                    <form name="logoutForm" id="logoutForm" action="Dispatcher" method="post">
-                    <input type="hidden" name="controllerAction" value="HomeManager.logout"/>
-                    <input class="logout" type="submit" value="LOGOUT">
-                    </form>
-                    
-                                     
-                    
-                    
-                </li>
-                
-                
-                <% } %>
-                
-                </ul>
-              </div>           
+              </div>
+              </li>
+            </ul>
           <div class="m-logo">
             <a href="home.html">BryanAir</a>
           </div>
@@ -174,10 +134,6 @@
       </main>
       <footer class="m-footer">
           &copy; copyright 2018
-          <form name="flights" action="Dispatcher" method="post">
-                <input type="hidden" name="controllerAction" value="FlightManager.view"/>
-                <input class="logout" type="submit" value="VOLI">
-          </form>
       </footer>
     </body>
 </html>
