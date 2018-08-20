@@ -6,6 +6,7 @@ package model.dao;
  */
 
 import model.mo.User;
+import model.dao.exception.DuplicatedObjectException;
 public interface UserDAO {
     
     public User insert(
@@ -13,9 +14,9 @@ public interface UserDAO {
         String email,
         String password,
         String firstname,
-        String lastname);
+        String lastname) throws DuplicatedObjectException;
     
-    public void update(User user);
+    public void update(User user) throws DuplicatedObjectException;
     public void delete(User user);
     public User findByUserId(Long userId);
     public User findByUsername(String username);

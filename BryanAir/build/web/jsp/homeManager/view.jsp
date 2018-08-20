@@ -26,6 +26,11 @@
         <link rel="stylesheet" type="text/css" href="css/form.css">
         <link rel="stylesheet" type="text/css" href="css/state.css">
         <script src="script/effetti.js" type="application/javascript"></script>
+        <script language="javascript">
+            function regUser(){
+                document.regForm.submit();
+            }
+        </script>
     </head>
     <body>
       <header class="clearfix">
@@ -35,7 +40,7 @@
                 
             <% if (!loggedOn) { %>
                 
-              <li><a href="registrazione.html">Iscriviti</a></li>
+              <li><a href="javascript:regUser();">Iscriviti</a></li>
               <li class="m-dropdown">
                 <span>Accedi</span>
                 <div class="m-form-login m-dropdown-content
@@ -46,6 +51,9 @@
                     </br></br>
                     <input type="hidden" name="controllerAction" value="HomeManager.login"/>
                     <input type="submit" value="Login" class="submit-dimensioni submit-color">
+                  </form>
+                  <form name="regForm" method="post" action="Dispatcher">
+                      <input type="hidden" name="controllerAction" value="UserManager.viewReg"/>
                   </form>
                 </div>
                 </li>

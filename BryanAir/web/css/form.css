@@ -35,7 +35,6 @@ input:checked + label[for="AndataRitorno"]{
 
 .form-color{
   background-color: #fff;
-  opacity: 0.83;
   border: 2px solid #288fba;
 }
 
