@@ -8,11 +8,13 @@
         
         
         <section class="m-centrale">
+                       
 
-            
 
-
-        </section>    
+        </section>
+        
+        
+        
     <%@include file="/include/footer.jspf"%>
     </body>
 </html>

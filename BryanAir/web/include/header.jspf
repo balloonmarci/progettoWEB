@@ -2,8 +2,7 @@
 <%
     boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
     LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
-    String applicationMessage = (String) request.getAttribute("applicationMessage");
-    
+    String applicationMessage = (String) request.getAttribute("applicationMessage");    
 %>
 
 <header class="clearfix">
@@ -15,7 +14,11 @@
                 document.homeForm.submit();
             }
             function goSupport(){
-                document.supportForm.submit();
+                if(<%=loggedOn%>){
+                    document.supportForm.submit();
+                } else {
+                    alert("Devi effettuare il login per richiedere supporto tecnico");
+                }
             }
             
         </script>
