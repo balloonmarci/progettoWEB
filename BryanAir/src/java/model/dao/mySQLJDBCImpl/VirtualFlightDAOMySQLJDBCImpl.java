@@ -90,13 +90,38 @@ public class VirtualFlightDAOMySQLJDBCImpl implements VirtualFlightDAO{
 
     @Override
     public VirtualFlight findByFlightCode(String flightCode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       PreparedStatement ps;
+       VirtualFlight virtualFlight = new VirtualFlight();
+       
+       try {
+            String sq1
+                    = "SELECT flightcode, pricefirst, pricesecond, dep.iata AS departureiata, dep.airportname AS departureairportname, dep.city AS departurecity, dep.country AS departurecountry, "
+                    + " arr.iata AS arrivaliata, arr.airportname AS arrivalairportname, arr.city AS arrivalcity, arr.country AS arrivalcountry, v.deleted "
+                    + " FROM virtualflight AS v JOIN airport as dep ON v.departureairport = dep.iata "
+                    + " JOIN airport as arr ON v.arrivalairport = arr.iata "
+                    + " WHERE flightcode = ?";
+            
+            ps = conn.prepareStatement(sq1);
+            ps.setString(1, flightCode);
+            
+            ResultSet resultSet = ps.executeQuery();
+            
+            if(resultSet.next())
+                virtualFlight = read(resultSet);
+            
+            resultSet.close();
+            ps.close();
+            
+       }catch(SQLException e){
+            throw new RuntimeException(e);
+       }
+       
+       return virtualFlight;
     }
     
     public List<VirtualFlight> findAllVirtualFlights() {
         PreparedStatement ps;
         ArrayList<VirtualFlight> virtualFlights = new ArrayList<VirtualFlight>();
-        VirtualFlight virtualFlight = new VirtualFlight();
         
         try {
             String sq1
