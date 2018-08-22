@@ -9,6 +9,8 @@ import model.dao.DAOFactory;
 import model.dao.UserDAO;
 import model.dao.AirportDAO;
 import model.dao.VirtualFlightDAO;
+import model.dao.ConcreteFlightDAO;
+import model.dao.AdminDAO;
 import services.config.Configuration;
 
 import java.sql.DriverManager;
@@ -72,4 +74,13 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
         return new VirtualFlightDAOMySQLJDBCImpl(connection);
     }
     
+    @Override
+    public ConcreteFlightDAO getConcreteFlightDAO(){
+        return new ConcreteFlightDAOMySQLJDBCImpl(connection);
+    }
+    
+    @Override
+    public AdminDAO getAdminDAO(){
+        return new AdminDAOMySQLJDBCImpl(connection);
+    }
 }

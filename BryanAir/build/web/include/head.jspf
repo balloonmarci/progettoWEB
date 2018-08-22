@@ -1,0 +1,13 @@
+<head>
+        <title>Bryanair</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/base.css">
+        <link rel="stylesheet" type="text/css" href="css/headerstyle.css">
+        <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
+        <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
+        <link rel="stylesheet" type="text/css" href="css/form.css">
+        <link rel="stylesheet" type="text/css" href="css/state.css">
+        <script src="script/effetti.js" type="application/javascript"></script>
+    </head>

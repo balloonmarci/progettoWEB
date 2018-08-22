@@ -1,106 +1,10 @@
-<%@page import="model.session.mo.LoggedUser"%>
-
-<%
-    boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
-    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
-    String applicationMessage = (String) request.getAttribute("applicationMessage");
-    
-    String airportIata = (String) request.getAttribute("iata");
-    String airportName = (String) request.getAttribute("airportName");
-    String airportCity = (String) request.getAttribute("city");
-%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bryanair</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/base.css">
-        <link rel="stylesheet" type="text/css" href="css/headerstyle.css">
-        <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
-        <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
-        <link rel="stylesheet" type="text/css" href="css/form.css">
-        <link rel="stylesheet" type="text/css" href="css/state.css">
-        <script src="script/effetti.js" type="application/javascript"></script>
-        <script language="javascript">
-            function regUser(){
-                document.regForm.submit();
-            }
-        </script>
-    </head>
+    <%@include file="/include/head.jspf"%>
     <body>
-      <header class="clearfix">
-        <div class="m-topbar m-topbar-position clearfix">
-          <div class="m-utente">              
-            <ul class="m-list-ul clearfix">
-                
-            <% if (!loggedOn) { %>
-                
-              <li><a href="javascript:regUser();">Iscriviti</a></li>
-              <li class="m-dropdown">
-                <span>Accedi</span>
-                <div class="m-form-login m-dropdown-content
-                m-dropdown-content-position">
-                  <form name="loginForm" action="Dispatcher" method="post" class="loginform-dimensioni">
-                    <input type="text" id="username" name="username" maxlength="40" placeholder="Username" required>
-                    <input type="password" id="password" name="password" maxlength="40" placeholder="Password" required>
-                    </br></br>
-                    <input type="hidden" name="controllerAction" value="HomeManager.login"/>
-                    <input type="submit" value="Login" class="submit-dimensioni submit-color">
-                  </form>
-                  <form name="regForm" method="post" action="Dispatcher">
-                      <input type="hidden" name="controllerAction" value="UserManager.viewReg"/>
-                  </form>
-                </div>
-                </li>
-                
-                <% if(applicationMessage != null) { %>
-                <li class="error">
-                    <%= applicationMessage %> !
-                </li>
-                <% } %>
-                
-                <% } else { %>
-                
-                <li class="loggedIn">
-                    Bentornato <%=loggedUser.getFirstname()%> <%=loggedUser.getLastname()%> !
-                </li>
-                
-                <li>
-                    
-                    <form name="logoutForm" id="logoutForm" action="Dispatcher" method="post">
-                    <input type="hidden" name="controllerAction" value="HomeManager.logout"/>
-                    <input class="logout" type="submit" value="LOGOUT">
-                    </form>
-                    
-                                     
-                    
-                    
-                </li>
-                
-                
-                <% } %>
-                
-                </ul>
-              </div>           
-          <div class="m-logo">
-            <a href="home.html">BryanAir</a>
-          </div>
-          <div class="m-services">
-            <ul class="m-list-ul">
-              <li><a href="">Home</a></li>
-              <li><a href="">Prenota</a></li>
-              <li><a href="">Servizi</a></li>
-              <li><a href="">Viaggi</a></li>
-              <li><a href="">Profilo</a></li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <%@include file="/include/header.jspf"%>
       <section class="m-centrale">
         <div class="m-aereoimg">
         </div>
@@ -180,12 +84,6 @@
             </div>
         </aside>
       </main>
-      <footer class="m-footer">
-          &copy; copyright 2018
-          <form name="flights" action="Dispatcher" method="post">
-                <input type="hidden" name="controllerAction" value="FlightManager.view"/>
-                <input class="logout" type="submit" value="VOLI">
-          </form>
-      </footer>
+      <%@include file="/include/footer.jspf"%>
     </body>
 </html>
