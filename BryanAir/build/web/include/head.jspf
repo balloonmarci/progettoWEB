@@ -1,3 +1,10 @@
+<%@page import="model.session.mo.LoggedUser"%>
+<%
+    boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
+    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
+    String applicationMessage = (String) request.getAttribute("applicationMessage");    
+%>
+
 <head>
         <title>Bryanair</title>
         <meta charset="UTF-8">
@@ -10,4 +17,20 @@
         <link rel="stylesheet" type="text/css" href="css/form.css">
         <link rel="stylesheet" type="text/css" href="css/state.css">
         <script src="script/effetti.js" type="application/javascript"></script>
+        <script language="javascript">
+            function regUser(){
+                document.regForm.submit();
+            }
+            function goHome(){
+                document.homeForm.submit();
+            }
+            function goSupport(){
+                if(<%=loggedOn%>){
+                    document.supportForm.submit();
+                } else {
+                    alert("Devi effettuare il login per richiedere supporto tecnico");
+                }
+            }
+            
+        </script>
     </head>
