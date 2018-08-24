@@ -77,10 +77,14 @@
         </div>
         <aside class="m-sidebar">
             <div>
+                <%if(loggedOn){%>
                 <h3>See your Wishlist!</h3>
                 <article></article>
                 <article></article>
                 <article></article>
+                <%} else {%>
+                <h3> Login to see your wishlist! </h3>
+                <%}%>
             </div>
         </aside>
       </main>

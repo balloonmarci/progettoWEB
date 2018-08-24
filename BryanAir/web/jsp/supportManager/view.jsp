@@ -5,16 +5,20 @@
     <%@include file="/include/head.jspf"%>
     <body>
         <%@include file="/include/header.jspf"%>
-        
-        
-        <section class="m-centrale">
-                       
-
-
-        </section>
-        
-        
-        
-    <%@include file="/include/footer.jspf"%>
+        <main class="support-main">
+            <section class="m-section m-section-color m-section-font">
+                Supporto Tecnico
+            </section>
+            <div class="wrapper">
+                <div class="left support-div">
+                    Inizia una nuova chat !
+                </div>
+                <div class="right support-div">
+                    Apri una chat esistente:
+                </div>    
+            </div>
+        </main>
+           
+        <%@include file="/include/footer.jspf"%>
     </body>
 </html>

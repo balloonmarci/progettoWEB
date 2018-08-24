@@ -16,6 +16,8 @@
         <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
         <link rel="stylesheet" type="text/css" href="css/form.css">
         <link rel="stylesheet" type="text/css" href="css/state.css">
+        <link rel="stylesheet" type="text/css" href="css/registermodule.css">
+        <link rel="stylesheet" type="text/css" href="css/supportmodule.css">
         <script src="script/effetti.js" type="application/javascript"></script>
         <script language="javascript">
             function regUser(){
