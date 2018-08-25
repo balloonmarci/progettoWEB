@@ -5,15 +5,15 @@ body{
   /*background-color: #e0dede;*/
 }
 
-.m-section{
+.support-section{
   padding: 2.5%;
 }
 
-.m-section-color{
+.support-section-color{
   color: #000;
 }
 
-.m-section-font{
+.support-section-font{
   font-size: 180%;
 }
 
@@ -23,6 +23,7 @@ body{
 }
 .support-div{
     text-align: left;
+    font-size: 130%;
     padding-left: 2.5%;
     padding-bottom: 2.5%;
     border: #000;
@@ -30,12 +31,69 @@ body{
 
 .m-support-form{
   width: 70%;
-  margin: 0 auto;
+  margin: 0;
   margin-bottom: 5%;
+  margin-top: 4%;
+}
+
+.support-textarea{
+    width: 120%;
+    height: 300px;
+    font: inherit;
+    resize: none;
+}
+
+.support-text{
+    width: 120%;
+    font: inherit;
+    font-size:120%;
+    padding: 2px;
+    border: 1px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(169, 169, 169);
+}
+
+.support-article-chat{
+    background-color: white;
+    border: 1px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(169, 169, 169);
+    box-shadow: 4px 6px 10px #303030;
+    margin-left: 0px;
+}
+
+.support-img-chat{
+    height: 13%;
+    width: 13%;
+    float: left;
+    padding-right: 3%;
 }
 
 .m-support-form-color{
     /*background-color: #f7f4f4;*/
+}
+.support-article-centraldiv{
+    width: 70%;
+    float: left;
+    
+}
+
+.support-article-rightdiv{
+    width: auto;
+}
+
+.support-h2{
+    font-size: 100%;
+    text-align: left;
+    font-weight: normal;
+}
+
+.support-h3{
+    font-size: 80%;
+    text-align: left;
+    font-weight: normal;
 }
 
 .wrapper{
