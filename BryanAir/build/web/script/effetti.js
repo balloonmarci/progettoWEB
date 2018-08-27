@@ -20,9 +20,11 @@ function hide(event){
     log.style.visibility = "hidden";
 }
 
-function onLoadHandler(){ 
+function onLoadHandler(){
   var b1 = document.querySelector('span');
-  var dlog = document.querySelector('.m-dropdown-content form, input');
-  b1.addEventListener("click", viewLoginForm); 
+  
+  b1.addEventListener("click", viewLoginForm);
+  document.addEventListener("click", hide);
 }
+
 window.addEventListener("load", onLoadHandler);

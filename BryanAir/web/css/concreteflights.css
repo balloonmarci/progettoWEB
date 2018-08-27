@@ -1,0 +1,95 @@
+html,body{
+  background-color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+  line-height: 1.5;
+}
+
+
+.m-maincf{
+  margin-top: 7%;
+  overflow: hidden;
+}
+
+.flightday{
+  display: inline-block;
+  position: relative;
+  padding: 1%;
+  left: 8em;
+  font-size: 1.5em;
+}
+
+.flightdepday{
+  top: 1em;
+}
+
+.flight{
+  margin: 4% auto;
+  padding: 3%;
+  width: 65%;
+}
+
+.flightinfo{
+  padding: 5%;
+  width: 65%;
+  float: left;
+  border-right: 2px solid #eee;
+}
+
+.flightinfo-font{
+  font-size: 110%;
+  font-weight: bolder;
+}
+
+.flightinfo div:nth-child(1){
+  width: 45%;
+  float: left;
+}
+
+.flightinfo div:nth-child(2){
+  display: inline-block;
+  width: 10%;
+}
+
+.flightinfo div:nth-child(3){
+  width: 45%;
+  text-align:right;
+  float: right;
+}
+
+.flightselect{
+  float: right;
+  width: 24%;
+  text-align: center;
+}
+
+.flightselect input[type="radio"]{
+  visibility: hidden;
+}
+
+.flightselect .radiodeparture,
+.flightselect .radioreturn{
+  background-color: #e3efdc;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 100%;
+  margin: 16% auto;
+}
+
+.flightselect .price{
+  font-size: 150%;
+  margin-top: 15%;
+}
+
+.f-color{
+  background-color: #fff;
+  color: #000;
+}

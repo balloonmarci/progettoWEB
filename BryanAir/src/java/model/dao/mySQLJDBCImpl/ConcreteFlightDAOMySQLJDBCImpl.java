@@ -9,10 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
-import java.sql.Timestamp;
+import org.joda.time.DateTime;
 
 import model.dao.ConcreteFlightDAO;
 import model.mo.VirtualFlight;
@@ -38,7 +38,7 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
         concreteFlight.setAdmin(admin);
         
         try {
-            concreteFlight.setDate(rs.getTimestamp("date"));
+            concreteFlight.setDate(new DateTime(rs.getTimestamp("date")));
         } catch (SQLException sqle) {
         }
         
@@ -81,7 +81,7 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
     }
     
     @Override
-    public ConcreteFlight insert (Timestamp date, float multiplier, VirtualFlight virtualflight, boolean push, int seatFirst, int seatSecond){
+    public ConcreteFlight insert (DateTime date, float multiplier, VirtualFlight virtualflight, boolean push, int seatFirst, int seatSecond){
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -96,8 +96,8 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
     }
     
     @Override
-    public List<ConcreteFlight> findByDate(String departureCity, String arrivalCity,
-            Timestamp departuredate, Timestamp returndate){
+    public List<ConcreteFlight> findByDate(String departureAirport, String arrivalAirport,
+            DateTime flightDate){
         PreparedStatement ps;
         ArrayList<ConcreteFlight> concreteFlights = new ArrayList<ConcreteFlight>();
         
@@ -106,41 +106,19 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
                     = "SELECT cf.* "
                     + "FROM virtualflight as vf join concreteflight as cf "
                     + "ON vf.flightcode = cf.flightcode "
-                    + "WHERE vf.departureairport = (SELECT iata from airport where city = ?) "
-                    + "AND vf.arrivalairport = (SELECT iata from airport where city = ?) "
+                    + "WHERE vf.departureairport = (SELECT iata from airport where airportname = ?) "
+                    + "AND vf.arrivalairport = (SELECT iata from airport where airportname = ?) "
                     + "AND cf.date BETWEEN ? AND (SELECT DATE_ADD( ?, INTERVAL 1 DAY)) "
                     + "AND cf.deleted = FALSE "
                     + "AND vf.deleted = FALSE";
             
             ps = conn.prepareStatement(sql);
-            ps.setString(1, departureCity);
-            ps.setString(2, arrivalCity);
-            ps.setTimestamp(3, departuredate);
-            ps.setTimestamp(4, departuredate);
+            ps.setString(1, departureAirport);
+            ps.setString(2, arrivalAirport);
+            ps.setTimestamp(3, new Timestamp(flightDate.getMillis()));
+            ps.setTimestamp(4, new Timestamp(flightDate.getMillis()));
             
             ResultSet resultSet = ps.executeQuery();
-            
-            while(resultSet.next()){
-                concreteFlights.add(read(resultSet));
-            }
-            
-            sql
-             = "SELECT cf.* "
-             + "FROM virtualflight as vf join concreteflight as cf "
-             + "ON vf.flightcode = cf.flightcode "
-             + "WHERE vf.departureairport = (SELECT iata from airport where city = ?) "
-             + "AND vf.arrivalairport = (SELECT iata from airport where city = ?) "
-             + "AND cf.date BETWEEN ? AND (SELECT DATE_ADD( ?, INTERVAL 1 DAY)) "
-             + "AND cf.deleted = FALSE "
-             + "AND vf.deleted = FALSE";
-                    
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, arrivalCity);
-            ps.setString(2, departureCity);
-            ps.setTimestamp(3, returndate);
-            ps.setTimestamp(4, returndate);
-            
-            resultSet = ps.executeQuery();
             
             while(resultSet.next()){
                 concreteFlights.add(read(resultSet));

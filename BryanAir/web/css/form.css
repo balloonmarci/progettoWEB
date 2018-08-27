@@ -80,6 +80,13 @@ input:checked + label[for="AndataRitorno"]{
   border: 0;
 }
 
+.submit-dimensioni2{
+  display: block;
+  width: 15%;
+  padding: 1.5%;
+  border: 0;
+}
+
 .submit-color{
   background-color: #288fba;
   color: #fff;
@@ -94,6 +101,12 @@ input:checked + label[for="AndataRitorno"]{
   position: absolute;
   left: 78%;
   top: 90%;
+}
+
+.submit-position2{
+  position: relative;
+  left: 78%;
+  bottom: 1.5em;
 }
 
 input:-webkit-autofill {
