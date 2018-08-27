@@ -24,6 +24,9 @@ import model.session.dao.SessionDAOFactory;
 import model.dao.AirportDAO;
 import model.mo.Airport;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class HomeManager {
     
     private HomeManager(){
@@ -32,6 +35,7 @@ public class HomeManager {
     public static void view(HttpServletRequest request, HttpServletResponse response) {
         
         SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
         LoggedUser loggedUser;
         
         Logger logger = LogService.getApplicationLogger();
@@ -43,6 +47,13 @@ public class HomeManager {
             
             LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
             loggedUser = loggedUserDAO.find();
+            
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            daoFactory.beginTransaction();
+            
+            commonView(daoFactory, request);
+            
+            daoFactory.commitTransaction();
             
             request.setAttribute("loggedOn", loggedUser != null);
             request.setAttribute("loggedUser", loggedUser);
@@ -82,6 +93,8 @@ public class HomeManager {
             
             UserDAO userDAO = daoFactory.getUserDAO();
             User user = userDAO.findByUsername(username);
+            
+            commonView(daoFactory, request);
             
             daoFactory.commitTransaction();
             
@@ -125,6 +138,7 @@ public class HomeManager {
     public static void logout(HttpServletRequest request, HttpServletResponse response){
         SessionDAOFactory sessionDAOFactory;
         Logger logger = LogService.getApplicationLogger();
+        DAOFactory daoFactory;
         
         try{
             
@@ -133,6 +147,11 @@ public class HomeManager {
             
             LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
             loggedUserDAO.destroy();
+            
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            daoFactory.beginTransaction();
+            commonView(daoFactory, request);
+            daoFactory.commitTransaction();
             
         }catch(Exception e){
             logger.log(Level.SEVERE,"Controller Error", e);
@@ -213,5 +232,15 @@ public class HomeManager {
             }catch(Throwable t){
             }
         }
+    }
+    
+    private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+        
+        List<Airport> airports = new ArrayList();
+        
+        AirportDAO airportDAO = daoFactory.getAirportDAO();
+        airports = airportDAO.findAllAirport();
+        
+        request.setAttribute("airports", airports);
     }
 }

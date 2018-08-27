@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 package model.mo;
-import java.util.Date;
-import java.sql.Timestamp;
+
+import org.joda.time.DateTime;
+
 /**
  *
  * @author Filippo
  */
 public class ConcreteFlight {
-    private Timestamp date;
+    private DateTime date;
     private float multiplier;
     private boolean push;
     private VirtualFlight vFlight;
@@ -20,7 +21,7 @@ public class ConcreteFlight {
     private int seatSecond;
     private boolean deleted;
     
-    public Timestamp getDate(){
+    public DateTime getDate(){
         return date;
     }
     
@@ -52,7 +53,7 @@ public class ConcreteFlight {
         return deleted;
     }
     
-    public void setDate(Timestamp date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
 

@@ -9,21 +9,36 @@
         <div class="m-aereoimg">
         </div>
         <div class="main-form">
-          <form class="form-color">
+            <form name="concreteFlightsForm" action="Dispatcher" method="post" class="form-color">
             <input type="radio" id="Andata" name="viaggio">
             <label for="Andata"> Sola andata </label>
             <input type="radio" id="AndataRitorno" name="viaggio">
             <label for="AndataRitorno"> Andata e ritorno </label> </br></br>
 
-            <input type="text" placeholder="Aeroporto di partenza" required>
-            <input type="text" placeholder="Aeroporto di destinazione" required></br></br>
-            <input type="date" name="DataAndata" required>
-            <input type="date" name="DataRitorno" required></br></br>
+            <input type="text" name="departureAirportName" list="departureAirports" placeholder="Aeroporto di partenza" autocomplete="off" required>
+            <datalist id="departureAirports">
+                <select name="departureAirports">
+             <%for(int i=0; i<airports.size(); i++) {%>
+                    <option value= "<%=(airports != null)? airports.get(i).getAirportname() : ""%>">
+             <%}%>
+                </select>
+            </datalist>
+            <input type="text" name="arrivalAirportName" list="arrivalAirports" placeholder="Aeroporto di destinazione" autocomplete="off" required></br></br>
+            <datalist id="arrivalAirports">
+                <select name="arrivalAirports">
+             <%for(int i=0; i<airports.size(); i++) {%>
+                    <option value= "<%=(airports != null)? airports.get(i).getAirportname() : ""%>">
+             <%}%>
+                </select>
+            </datalist>
+            <input type="date" name="departuredate" required>
+            <input type="date" name="returndate" required></br></br>
 
             <!--<label for="number"> Numero passeggeri</label>
             <input id="number" type="number" value="1"></br></br>-->
 
             <input type="submit" value="Cerca" class="submit-dimensioni submit-color">
+            <input type="hidden" name="controllerAction" value="ConcreteFlightManager.viewConcreteFlightPerDate">
 
           </form>
         </div>
