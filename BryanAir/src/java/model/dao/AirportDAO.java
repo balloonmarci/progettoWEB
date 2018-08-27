@@ -4,6 +4,7 @@ package model.dao;
  *
  * @author Marcello
  */
+import java.util.List;
 import model.mo.Airport;
 public interface AirportDAO {
     public Airport insert(
@@ -16,5 +17,5 @@ public interface AirportDAO {
     public void delete(Airport airport);
     public Airport findByIata(String iata);
     public Airport[] findByCity(String city);
-        
+    public List<Airport> findAllAirport();    
 }

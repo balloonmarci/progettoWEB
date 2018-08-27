@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.mo.Airport;
 import model.dao.AirportDAO;
@@ -70,6 +72,35 @@ public class AirportDAOMySQLJDBCImpl implements AirportDAO{
         }
         
         return airport;
+    }
+    
+    @Override
+    public List<Airport> findAllAirport()
+    {
+       PreparedStatement ps;
+       List<Airport> airports = new ArrayList();
+        
+        try {
+            
+            String sq1
+                    = " SELECT * "
+                    + " FROM airport ";
+            
+            ps = conn.prepareStatement(sq1);
+            
+            ResultSet resultSet = ps.executeQuery();
+            
+            while(resultSet.next()){
+                airports.add(read(resultSet));
+            }
+            resultSet.close();
+            ps.close();
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        
+        return airports;
     }
 
     @Override
