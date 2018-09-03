@@ -2,7 +2,7 @@
 
     &copy; copyright 2018
     <form name="flights" action="Dispatcher" method="post">
-        <input type="hidden" name="controllerAction" value="FlightManager.view"/>
-        <input class="logout" type="submit" value="VOLI">
+        <input type="hidden" name="controllerAction" value="AdminManager.view" />
+        <input class="logout" type="submit" value="VOLI" <%=(loggedOn)? "hidden":""%>>
     </form>
 </footer>

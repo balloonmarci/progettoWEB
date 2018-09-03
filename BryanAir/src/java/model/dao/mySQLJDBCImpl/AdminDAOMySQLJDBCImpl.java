@@ -65,8 +65,36 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
     }
     
     @Override
-    public Admin findByAdminId(Long adminId){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Admin findByAdminFirstnameAndLastname(String firstname, String lastname) {
+        PreparedStatement ps;
+        Admin admin = null;
+
+        try {
+
+            String sql
+                    = "SELECT * "
+                    + "FROM admin "
+                    + "WHERE "
+                    + "firstname = ? AND "
+                    + "lastname = ? AND "
+                    + "deleted = '0' ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, firstname);
+            ps.setString(2, lastname);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                admin = read(resultSet);
+            }
+            resultSet.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return admin;
     }
 }
 

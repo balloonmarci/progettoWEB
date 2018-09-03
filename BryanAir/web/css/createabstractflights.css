@@ -1,0 +1,28 @@
+html,body{
+  background-color: #eee;
+}
+
+.dimensioni{
+  padding: 2%;
+  width: 90%;
+  margin: 6% auto;
+}
+
+.insertFlightData{
+  border: 1px solid #919191;
+}
+
+.error{
+    position: relative;
+    left: 40%;
+    color: red;
+}
+
+.insertflightTitle{
+  display: inline-block;
+  position: relative;
+  padding: 1%;
+  left: 1em;
+  top: 1.5em;
+  font-size: 2em;
+}

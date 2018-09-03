@@ -5,10 +5,13 @@
  */
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import model.dao.AirportDAO;
 
 import services.config.Configuration;
 import services.logservice.LogService;
@@ -16,6 +19,7 @@ import services.logservice.LogService;
 import model.dao.exception.DuplicatedObjectException;
 import model.dao.DAOFactory;
 import model.dao.UserDAO;
+import model.mo.Airport;
 import model.mo.User;
 
 import model.session.mo.LoggedUser;
@@ -87,6 +91,8 @@ public class UserManager {
                 //utilizza find come costruttore a null
                 loggedUser = loggedUserDAO.find();
                 loggedUser = loggedUserDAO.create(user.getUserId(), user.getUsername(), user.getFirstname(), user.getLastname());
+                
+                commonView(daoFactory, request);
 
                 request.setAttribute("loggedOn", loggedUser != null);
                 request.setAttribute("loggedUser", loggedUser);
@@ -192,6 +198,16 @@ public class UserManager {
             } catch (Throwable t) {
             }
         }
+    }
+    
+        private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+        
+        List<Airport> airports = new ArrayList();
+        
+        AirportDAO airportDAO = daoFactory.getAirportDAO();
+        airports = airportDAO.findAllAirport();
+        
+        request.setAttribute("airports", airports);
     }
 }
 

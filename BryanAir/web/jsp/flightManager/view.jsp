@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="org.joda.time.DateTime"%>
 
@@ -19,7 +20,9 @@
     boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
     LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
     
-    String applicationMessage = request.getParameter("applicationMessage");
+    String applicationMessage = (String)request.getAttribute("applicationMessage");
+    String message = (String)request.getAttribute("noflights");
+    String action = (concreteReturn == null)? "onlydeparture":null; 
 %>
 <!DOCTYPE html>
 <!--
@@ -30,61 +33,17 @@ and open the template in the editor.
 <html>
     <head>
         <title>Sito</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/base.css">
-        <link rel="stylesheet" type="text/css" href="css/headerstyle.css">
-        <link rel="stylesheet" tyoe="text/css" href="css/concreteflights.css">
-        <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
-        <link rel="stylesheet" type="text/css" href="css/form.css">
-        <link rel="stylesheet" type="text/css" href="css/state.css">
-        <script src="script/effetti.js" type="application/javascript"></script>
-        <script src="script/effettivoli.js" type="application/javascript"></script>
+        <%@include file="/include/head.jspf"%>
+        <link rel="stylesheet" type="text/css" href="css/concreteflights.css">
         <script language="javascript">
-            function regUser(){
-                document.regForm.submit();
-            }
             
-            function goHome(){
-                document.homeForm.submit();
-            }
-            
-            function goSupport(){
-                if(<%=loggedOn%>){
-                    document.supportForm.submit();
-                } else {
-                    alert("Devi effettuare il login per richiedere supporto tecnico");
-                }
-            }
-            
-            function getDay(data){
-                var daysOfTheWeek = ["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
-                var d = new Date(data);
-                var n = d.getDay();
+            function mainConcreteFlightsLoadHandler(){
                 
-                return daysOfTheWeek[n];
-            }
-            
-            function dayMonth(data){
-                var d = new Date(data);
-                return d.getDate();
-            }
-            
-            function getMonth(data){
-                var daysOfTheMonth = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giunio","Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-                var d = new Date(data);
-                var n =  d.getMonth();
-                
-                return daysOfTheMonth[n];
-            }
-            
-            function mainLoadHandler(){
                 var flightdays = document.getElementsByClassName("flightday");
-                <%if(concreteDeparture.size() != 0 && concreteReturn.size() != 0) {%>
-                var departuredate = "<%=new Timestamp(concreteDeparture.get(0).getDate().getMillis())%>";
-                var returndate = "<%=new Timestamp(concreteReturn.get(0).getDate().getMillis())%>";
+                var departuredate = "<%=(message == null)? new Timestamp(concreteDeparture.get(0).getDate().getMillis()):""%>";
+                var returndate = "<%=(message == null) && (action == null)? new Timestamp(concreteReturn.get(0).getDate().getMillis()):""%>";
                 
+                <%if(message == null){%>
                 flightdays[0].innerHTML = "Partenza: " + getDay(departuredate) + ", " 
                                                        + dayMonth(departuredate) + " "
                                                        + getMonth(departuredate);
@@ -92,100 +51,25 @@ and open the template in the editor.
                 flightdays[1].innerHTML = "Ritorno: " + getDay(returndate) + ", " 
                                                        + dayMonth(returndate) + " "
                                                        + getMonth(returndate);
-                <%} else{%>
-                    flightdays[0].innerHTML = "No flights found";
-                    flightdays[1].innerHTML = "";
                 <%}%>
+                
             }
-            
-            window.addEventListener("load", mainLoadHandler);
         </script>
     </head>
     <body>
-        <header class="clearfix">
-        <div class="m-topbar m-topbar-position clearfix">
-          <div class="m-utente">              
-            <ul class="m-list-ul clearfix">
-                
-            <% if (!loggedOn) { %>
-                
-              <li><a href="javascript:regUser();">Iscriviti</a></li>
-              <li class="m-dropdown">
-                <span>Accedi</span>
-                <div class="m-form-login m-dropdown-content
-                m-dropdown-content-position">
-                  <form name="loginForm" action="Dispatcher" method="post" class="loginform-dimensioni">
-                    <input type="text" id="username" name="username" maxlength="40" placeholder="Username" required>
-                    <input type="password" id="password" name="password" maxlength="40" placeholder="Password" required>
-                    </br></br>
-                    <input type="hidden" name="controllerAction" value="HomeManager.login"/>
-                    <input type="submit" value="Login" class="submit-dimensioni submit-color">
-                  </form>
-                   
-                </div>
-                </li>
-                
-                <% if(applicationMessage != null) { %>
-                <li class="error">
-                    <%= applicationMessage %> !
-                </li>
-                <% } %>
-                
-                <% } else { %>
-                
-                <li class="loggedIn">
-                    Bentornato <%=loggedUser.getFirstname()%> <%=loggedUser.getLastname()%> !
-                </li>
-                
-                <li>
-                    
-                    <form name="logoutForm" id="logoutForm" action="Dispatcher" method="post">
-                    <input type="hidden" name="controllerAction" value="HomeManager.logout"/>
-                    <input class="logout" type="submit" value="LOGOUT">
-                    </form>
-                    
-                                     
-                    
-                    
-                </li>
-                
-                
-                <% } %>
-                
-                </ul>
-              </div>           
-          <div class="m-logo">
-            <a href="javascript:goHome();">BryanAir</a>
-          </div>
-          <div class="m-services">
-            <ul class="m-list-ul">
-              <li><a href="javascript:goHome();">Home</a></li>
-              <li><a href="">Prenota</a></li>
-              <li><a href="javascript:goSupport();">Supporto</a></li>
-              <li><a href="">Viaggi</a></li>
-              <li><a href="">Profilo</a></li>
-            </ul>
-          </div>
-        </div>
-        <form name="regForm" method="post" action="Dispatcher">
-            <input type="hidden" name="controllerAction" value="UserManager.viewReg"/>
-        </form>
-        <form name="homeForm" method="post" action="Dispatcher">
-            <input type="hidden" name="controllerAction" value="HomeManager.view"/>
-        </form>
-        <form name="supportForm" method="post" action="Dispatcher">
-            <input type="hidden" name="controllerAction" value="SupportManager.view"/>
-        </form>
-      </header>
+       <%@include file="/include/header.jspf"%>
         <main class="m-maincf">
-            <span class="flightday flightdepday">Partenza: </span>
+            <span class="flightday flightdepday"><%=(message == null)? "": "No flights found."%> </span>
+            <%if(message == null) {%>
             <section class="flights">
                 <%for(int i=0; i < concreteDeparture.size(); i++) {%>
                 <div class= "flight f-color clearfix">
                     <div class="flightinfo flightinfo-font clearfix">
                         <div>
                             <%String hour = concreteDeparture.get(i).getDate().getHourOfDay() + ":" 
-                                          + concreteDeparture.get(i).getDate().getMinuteOfHour();%>
+                                          + concreteDeparture.get(i).getDate().getMinuteOfHour();
+                            if(concreteDeparture.get(i).getArrivalDate().getMinuteOfHour() < 10)
+                                hour = hour + "0";%>
                             <span><%=hour%></span></br>
                             <span><%=concreteDeparture.get(i).getVirtualFlight().getDepartureAirport().getAirportname()%></span>
                         </div>
@@ -193,8 +77,13 @@ and open the template in the editor.
                             <img src="images/aereostil.png" width="100%">
                             <span><%=concreteDeparture.get(i).getVirtualFlight().getFlightCode()%></span>
                         </div>
-                        <div>              
-                            <span>12:45</span></br>
+                        <div>
+                            <%hour = concreteDeparture.get(i).getArrivalDate().getHourOfDay() + ":" 
+                                          + concreteDeparture.get(i).getArrivalDate().getMinuteOfHour();
+                              if(concreteDeparture.get(i).getArrivalDate().getMinuteOfHour() < 10)
+                                hour = hour + "0";%>
+                                
+                            <span><%=hour%></span></br>
                             <span><%=concreteDeparture.get(i).getVirtualFlight().getArrivalAirport().getAirportname()%></span>
                         </div>
                     </div>
@@ -205,6 +94,7 @@ and open the template in the editor.
                 </div>
                     <%}%>
             </section>
+            <%if(action == null) {%>
             <span class="flightday flightretday">Ritorno: Lunedì, 3 Settembre</span>
             <section class="flights">
                 <%for(int i=0; i < concreteReturn.size(); i++) {%>
@@ -212,7 +102,9 @@ and open the template in the editor.
                     <div class="flightinfo flightinfo-font clearfix">
                         <div>
                             <%String hour = concreteReturn.get(i).getDate().getHourOfDay() + ":" 
-                                          + concreteReturn.get(i).getDate().getMinuteOfHour();%>
+                                          + concreteReturn.get(i).getDate().getMinuteOfHour();
+                            if(concreteDeparture.get(i).getArrivalDate().getMinuteOfHour() < 10)
+                                hour = hour + "0";%>
                             <span><%=hour%></span></br>
                             <span><%=concreteReturn.get(i).getVirtualFlight().getDepartureAirport().getAirportname()%></span>
                         </div>
@@ -221,7 +113,11 @@ and open the template in the editor.
                             <span><%=concreteReturn.get(i).getVirtualFlight().getFlightCode()%></span>
                         </div>
                         <div>
-                            <span>12:15</span></br>
+                            <%hour = concreteReturn.get(i).getArrivalDate().getHourOfDay() + ":" 
+                                          + concreteReturn.get(i).getArrivalDate().getMinuteOfHour();
+                            if(concreteDeparture.get(i).getArrivalDate().getMinuteOfHour() < 10)
+                                hour = hour + "0";%>
+                            <span><%=hour%></span></br>
                             <span><%=concreteReturn.get(i).getVirtualFlight().getArrivalAirport().getAirportname()%></span>
                         </div>
                     </div>
@@ -232,9 +128,15 @@ and open the template in the editor.
                 </div>
                     <%}%>
             </section>
+            <%}%>
             <form>
                 <input type="submit" value = "continua" class ="submit-dimensioni2 submit-position2">
             </form>
+            <%} else {%>
+                <form>
+                   <input type="submit" value = "Ritorna alla home" class ="submit-dimensioni2 submit-position2">
+                </form>
+            <%}%>
         </main>
     </body>
 </html>

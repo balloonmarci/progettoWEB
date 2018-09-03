@@ -10,18 +10,19 @@ package model.dao;
  * @author Marcello
  */
 import java.util.List;
+import model.dao.exception.DuplicatedObjectException;
 import model.mo.VirtualFlight;
 import model.mo.Airport;
 public interface VirtualFlightDAO {
     
     public VirtualFlight insert (
         String flightCode,
-        float priceFirst,
-        float priceSecond,
+        Float priceFirst,
+        Float priceSecond,
         Airport departureAirport,
-        Airport arrivalAirport);
+        Airport arrivalAirport) throws DuplicatedObjectException;
     
-    public void update(VirtualFlight virtualFlight);
+    public void update(VirtualFlight virtualFlight) throws DuplicatedObjectException;
     public void delete(VirtualFlight virtualFlight);
     public VirtualFlight findByFlightCode(String flightCode); 
     public List<VirtualFlight> findAllVirtualFlights();

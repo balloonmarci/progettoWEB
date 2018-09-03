@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/src/java/model/dao/ConcreteFlightDAO.java</file>
-            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/web/css/concreteflights.css</file>
-            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/web/jsp/flightManager/viewObsolete.jsp</file>
-            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/web/include/header.jspf</file>
-            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/src/java/model/mo/ConcreteFlight.java</file>
-            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/src/java/model/dao/mySQLJDBCImpl/ConcreteFlightDAOMySQLJDBCImpl.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/src/java/controller/FlightManager.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/src/java/controller/AdminManager.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/web/jsp/adminManager/home.jsp</file>
+            <file>file:/C:/Users/Filippo/Desktop/Compagnia%20aerea/BryanAir/web/jsp/flightManager/abstractFlightsFactory.jsp</file>
         </group>
     </open-files>
 </project-private>

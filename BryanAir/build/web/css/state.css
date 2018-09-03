@@ -1,6 +1,10 @@
-.m-dropdown span:hover, a:hover{
-  color: #63b752;
+.m-dropdown span:hover, a:hover, .utilities div:hover, .submit:hover,
+.flightform input[type="submit"]:hover{
   cursor: pointer;
+}
+
+.m-dropdown span:hover, a:hover, .utilities div:hover{
+  color: #63b752;
 }
 
 .clearfix:after{

@@ -42,6 +42,11 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
         } catch (SQLException sqle) {
         }
         
+        try{
+            concreteFlight.setArrivalDate(new DateTime(rs.getTimestamp("arrivaldate")));
+        }catch(SQLException sqle){
+        }
+        
         try {
             concreteFlight.setMultiplier(rs.getFloat("multiplier"));
         } catch (SQLException sqle) {

@@ -1,0 +1,80 @@
+html,body{
+  background-color: #eee;
+}
+
+.bkColor{
+  background-color: #fff;
+}
+
+.ontop{
+  padding: 2%;
+}
+
+.title{
+  float: left;
+}
+
+.logoutclass{
+  float: right;
+}
+
+.action{
+  width: 60%;
+  margin: 2% auto;
+  line-height: 1.5;
+}
+
+.actionimage{
+  float: left;
+  border-radius: 100%;
+  width: 25%;
+}
+
+.actionimage img{
+  display: block;
+  margin: 21% auto;
+}
+
+.actioninfo{
+  float: right;
+  padding: 2%;
+  width: 70%;
+}
+
+.actiondescription{
+  float: left;
+  text-align: justify;
+  width: 50%;
+  height: 7em;
+  border-right: 2px solid #eee;
+  padding-right: 15%;
+}
+
+.actiondescription span{
+  display: inline-block;
+  margin-top: 2%;
+}
+
+.actionlink{
+  display: block;
+  float: right;
+  width: 10em;
+  height: 8em;
+  line-height: 9;
+  text-align: center;
+}
+
+@media screen and (min-width: 1281px){
+  .actiondescription{
+    height: 8em;
+  }
+
+  .actiondescription span{
+    margin-top: 12%;
+  }
+
+  .actionlink{
+    width: 16em;
+    line-height: 10;
+  }
+}
