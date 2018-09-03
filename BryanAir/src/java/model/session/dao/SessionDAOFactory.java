@@ -17,6 +17,7 @@ public abstract class SessionDAOFactory {
     
     public abstract void initSession(HttpServletRequest request, HttpServletResponse response);
     public abstract LoggedUserDAO getLoggedUserDAO();
+    public abstract LoggedAdminDAO getLoggedAdminDAO();
     
     public static SessionDAOFactory getSessionDAOFactory(String whichFactory){
         if(whichFactory.equals(COOKIEIMPL)){

@@ -1,0 +1,20 @@
+.bkColor{
+  background-color: #fff;
+}
+
+.ontop{
+  padding: 2%;
+}
+
+.title{
+  float: left;
+}
+
+.logoutclass{
+  float: right;
+}
+
+.homeclass{
+  float: right;
+  margin: 0 1%;
+}

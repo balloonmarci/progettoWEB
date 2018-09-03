@@ -1,8 +1,41 @@
+<%@page session="false"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@page import="model.session.mo.LoggedUser"%>
+<%@page import="java.util.List" %>
+<%@page import="model.mo.Airport"%>
+<%
+    boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
+    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
+    
+    List<Airport> airports = (List<Airport>) request.getAttribute("airports");
+    
+    String applicationMessage = (String) request.getAttribute("applicationMessage");   
+%>
 <!DOCTYPE html>
 <html>
+    <head>
     <%@include file="/include/head.jspf"%>
+    <script>
+        
+        function searchFlights(){
+            var f;
+            var c;
+            f = document.concreteFlightsForm;
+            c = f.viaggio;
+            
+            if(c[1].checked)
+                f.controllerAction.value = "ConcreteFlightManager.viewConcreteFlightPerReturnDate";
+            else
+                f.controllerAction.value = "ConcreteFlightManager.viewConcreteFlightPerDepartureDate";
+            f.submit();
+        }
+        
+        function mainHomeOnLoadHandler(){
+            document.concreteFlightsForm.addEventListener("submit", searchFlights);
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
+    </head>
     <body>
       <%@include file="/include/header.jspf"%>
       <section class="m-centrale">
@@ -12,7 +45,7 @@
             <form name="concreteFlightsForm" action="Dispatcher" method="post" class="form-color">
             <input type="radio" id="Andata" name="viaggio">
             <label for="Andata"> Sola andata </label>
-            <input type="radio" id="AndataRitorno" name="viaggio">
+            <input type="radio" id="AndataRitorno" name="viaggio" checked>
             <label for="AndataRitorno"> Andata e ritorno </label> </br></br>
 
             <input type="text" name="departureAirportName" list="departureAirports" placeholder="Aeroporto di partenza" autocomplete="off" required>
@@ -34,11 +67,8 @@
             <input type="date" name="departuredate" required>
             <input type="date" name="returndate" required></br></br>
 
-            <!--<label for="number"> Numero passeggeri</label>
-            <input id="number" type="number" value="1"></br></br>-->
-
             <input type="submit" value="Cerca" class="submit-dimensioni submit-color">
-            <input type="hidden" name="controllerAction" value="ConcreteFlightManager.viewConcreteFlightPerDate">
+            <input type="hidden" name="controllerAction"> <!--value="ConcreteFlightManager.viewConcreteFlightPerDate"-->
 
           </form>
         </div>

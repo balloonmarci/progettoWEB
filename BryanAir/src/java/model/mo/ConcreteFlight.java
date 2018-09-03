@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
  */
 public class ConcreteFlight {
     private DateTime date;
+    private DateTime arrivaldate;
     private float multiplier;
     private boolean push;
     private VirtualFlight vFlight;
@@ -25,6 +26,10 @@ public class ConcreteFlight {
         return date;
     }
     
+    public DateTime getArrivalDate() {
+        return arrivaldate;
+    }
+
     public float getMultiplier(){
         return multiplier;
     }
@@ -55,6 +60,10 @@ public class ConcreteFlight {
     
     public void setDate(DateTime date) {
         this.date = date;
+    }
+    
+    public void setArrivalDate(DateTime arrivaldate) {
+        this.arrivaldate = arrivaldate;
     }
 
     public void setMultiplier(float multiplier) {

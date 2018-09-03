@@ -17,7 +17,29 @@ function getCheck(radioBoxes, elements){
   whichChecked(radioBoxes, elements);
 }
 
-function onLoadHandler(){
+function getDay(data) {
+  var daysOfTheWeek = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+  var d = new Date(data);
+  var n = d.getDay();
+
+  return daysOfTheWeek[n];
+}
+
+function dayMonth(data) {
+  var d = new Date(data);
+  return d.getDate();
+}
+
+function getMonth(data) {
+  var daysOfTheMonth = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giunio", "Luglio",
+      "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+  var d = new Date(data);
+  var n = d.getMonth();
+
+  return daysOfTheMonth[n];
+}
+
+function onConcreteFlightsLoadHandler(){
   var radiodep = document.getElementsByClassName("radiodeparture");
   var radioret = document.getElementsByClassName("radioreturn");
   var radioBoxesdep = document.getElementsByClassName("radiojsdep");
@@ -35,5 +57,4 @@ function onLoadHandler(){
   radioret[0].style.backgroundSize = "cover";
 }
 
-window.addEventListener("load", onLoadHandler);
 

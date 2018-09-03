@@ -1,13 +1,37 @@
-<head>
         <title>Bryanair</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/base.css">
         <link rel="stylesheet" type="text/css" href="css/headerstyle.css">
-        <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
         <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
         <link rel="stylesheet" type="text/css" href="css/form.css">
         <link rel="stylesheet" type="text/css" href="css/state.css">
         <script src="script/effetti.js" type="application/javascript"></script>
-    </head>
+        <script src="script/homeeffects.js" type="application/javascript"></script>
+        <script src="script/effettivoli.js" type="application/javascript"></script>
+        <script language="javascript">
+            function regUser(){
+                document.regForm.submit();
+            }
+            function goHome(){
+                document.homeForm.submit();
+            }
+            function goSupport(){
+                if(<%=loggedOn%>){
+                    document.supportForm.submit();
+                } else {
+                    alert("Devi effettuare il login per richiedere supporto tecnico");
+                }
+            }
+            
+            function onLoadHandler(){
+                try{ firstOnLoadHandler(); } catch(e){}
+                try{ onHomeLoadHandler();  } catch(e){}
+                try{ mainHomeOnLoadHandler(); } catch(e){}
+                try{ onConcreteFlightsLoadHandler(); } catch(e){}
+                try{ mainConcreteFlightsLoadHandler(); } catch(e){}
+            }
+            
+            window.addEventListener("load", onLoadHandler);
+        </script>

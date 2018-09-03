@@ -13,18 +13,17 @@ function hide(event){
   var accedi = document.querySelector('.m-dropdown span');
   var tName = event.target;
 
-  if(tName == accedi)
+  if(tName === accedi)
     return;
 
-  if(tName != logForm && tName.parentNode != logForm)
+  if(tName !== logForm && tName.parentNode !== logForm)
     log.style.visibility = "hidden";
 }
 
-function onLoadHandler(){
+function firstOnLoadHandler(){
   var b1 = document.querySelector('span');
   
   b1.addEventListener("click", viewLoginForm);
   document.addEventListener("click", hide);
 }
 
-window.addEventListener("load", onLoadHandler);

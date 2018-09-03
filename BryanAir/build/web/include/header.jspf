@@ -1,38 +1,14 @@
-<%@page import="model.session.mo.LoggedUser"%>
-<%@page import="java.util.List" %>
-<%@page import="model.mo.Airport"%>
-
-<%
-    boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
-    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
-    
-    List<Airport> airports = (List<Airport>) request.getAttribute("airports");
-    
-    String applicationMessage = (String) request.getAttribute("applicationMessage");   
-%>
 
 <header class="clearfix">
-          <script language="javascript">
-            function regUser(){
-                document.regForm.submit();
-            }
-            function goHome(){
-                document.homeForm.submit();
-            }
-            function goSupport(){
-                if(<%=loggedOn%>){
-                    document.supportForm.submit();
-                } else {
-                    alert("Devi effettuare il login per richiedere supporto tecnico");
-                }
-            }
-            
-        </script>
+          
         <div class="m-topbar m-topbar-position clearfix">
           <div class="m-utente">              
             <ul class="m-list-ul clearfix">
                 
-            <% if (!loggedOn) { %>
+            <% 
+                try{
+                
+                  if (!loggedOn) { %>
                 
               <li><a href="javascript:regUser();">Iscriviti</a></li>
               <li class="m-dropdown">
@@ -75,7 +51,8 @@
                 </li>
                 
                 
-                <% } %>
+                <%    }
+                  }catch(Exception e){}%>
                 
                 </ul>
               </div>           

@@ -87,7 +87,7 @@ public class ConcreteFlightManager {
         }
     }
     
-    public static void viewConcreteFlightPerDate (HttpServletRequest request, HttpServletResponse response){
+    public static void viewConcreteFlightPerReturnDate (HttpServletRequest request, HttpServletResponse response){
         
         Logger logger = LogService.getApplicationLogger();
         SessionDAOFactory sessionDAOFactory;
@@ -139,8 +139,82 @@ public class ConcreteFlightManager {
             
             daoFactory.commitTransaction();
             
+            if(concreteDepartureFlights.isEmpty() || concreteReturnFlights.isEmpty())
+                request.setAttribute("noflights", "No flights found");
+            
             request.setAttribute("departureflights", concreteDepartureFlights);
             request.setAttribute("returnflights", concreteReturnFlights);
+            request.setAttribute("loggedOn", loggedUser != null);
+            request.setAttribute("loggedUser", loggedUser);
+            request.setAttribute("viewUrl", "flightManager/view");
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE, "Controller Error", e);
+            
+            
+            try {
+                if(daoFactory != null){
+                    daoFactory.rollbackTransaction();
+                }
+            }catch (Throwable t){
+        }
+        throw new RuntimeException(e);
+        } finally {
+            try {
+                if(daoFactory != null) {
+                    daoFactory.closeTransaction();
+                }
+            }catch(Throwable t){
+            }
+        }
+    }
+    
+    public static void viewConcreteFlightPerDepartureDate (HttpServletRequest request, HttpServletResponse response){
+        
+        Logger logger = LogService.getApplicationLogger();
+        SessionDAOFactory sessionDAOFactory;
+        LoggedUser loggedUser = null;
+        
+        List<ConcreteFlight> concreteDepartureFlights;
+        
+        VirtualFlight virtualFlight;
+        DAOFactory daoFactory = null;
+        
+        
+        try{
+            sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+            sessionDAOFactory.initSession(request, response);
+            
+            LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+            loggedUser = loggedUserDAO.find();
+            
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            daoFactory.beginTransaction();
+            
+            ConcreteFlightDAO concreteFlightDAO = daoFactory.getConcreteFlightDAO();
+            VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
+            
+            String departureairportname = (String)request.getParameter("departureAirportName");
+            String arrivalairportname = (String)request.getParameter("arrivalAirportName");
+            
+            String date = request.getParameter("departuredate");
+            DateTime departuredate = new DateTime(date);
+            
+            concreteDepartureFlights = concreteFlightDAO.findByDate(departureairportname, arrivalairportname, departuredate);
+            
+            for(int i = 0; i < concreteDepartureFlights.size(); i++){
+                virtualFlight = concreteDepartureFlights.get(i).getVirtualFlight();
+                String flightcode = virtualFlight.getFlightCode();
+                concreteDepartureFlights.get(i).setVirtualFlight(virtualFlightDAO.findByFlightCode(flightcode));
+            }
+            
+            
+            daoFactory.commitTransaction();
+            
+            if(concreteDepartureFlights.isEmpty())
+                request.setAttribute("noflights", "No flights found");
+            
+            request.setAttribute("departureflights", concreteDepartureFlights);
             request.setAttribute("loggedOn", loggedUser != null);
             request.setAttribute("loggedUser", loggedUser);
             request.setAttribute("viewUrl", "flightManager/view");

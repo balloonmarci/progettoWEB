@@ -9,8 +9,8 @@ import model.mo.Airport;
 
 public class VirtualFlight {
     private String flightCode;
-    private float priceFirst;
-    private float priceSecond;
+    private Float priceFirst;
+    private Float priceSecond;
     private Airport departureAirport;
     private Airport arrivalAirport;
     private boolean deleted;
@@ -23,7 +23,7 @@ public class VirtualFlight {
         this.flightCode = flightCode;
     }
 
-    public float getPriceFirst() {
+    public Float getPriceFirst() {
         return priceFirst;
     }
 
@@ -31,7 +31,7 @@ public class VirtualFlight {
         this.priceFirst = priceFirst;
     }
 
-    public float getPriceSecond() {
+    public Float getPriceSecond() {
         return priceSecond;
     }
 
