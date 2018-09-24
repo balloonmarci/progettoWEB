@@ -39,10 +39,24 @@
                                     11/11/11
                                 </h2>
                             </div>
+                        </article>
+                        
+                        <article class="support-article-chat clearfix">
+                            <img src="images/Chat.png" alt="Chat" class="support-img-chat">
+                            <div class='support-article-centraldiv'>
+                                <h2 class='support-h2'>
+                                Problemi nell'effettuare il checkin online
+                                </h2>
+                                <h3 class='support-h3'>
+                                    L'admin ha risposto!
+                                </h3>
+                            </div>
                             
-                            
-                            
-                            
+                            <div class='support-article-rightdiv'>
+                                <h2 class='support-h2'>
+                                    11/11/11
+                                </h2>
+                            </div>
                         </article>
                     </div>
                 </div>    
