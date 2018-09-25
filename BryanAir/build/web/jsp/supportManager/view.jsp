@@ -2,19 +2,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.session.mo.LoggedUser"%>
 <%@page import="java.util.List" %>
-<%@page import="model.mo.Airport"%>
 <%
     boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
-    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
-    
-    List<Airport> airports = (List<Airport>) request.getAttribute("airports");
-    
+    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");    
     String applicationMessage = (String) request.getAttribute("applicationMessage");   
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <%@include file="/include/head.jspf"%>
+        <link rel="stylesheet" type="text/css" href="css/supportmodule.css">
     </head>
     <body>
         <%@include file="/include/header.jspf"%>
@@ -74,6 +71,10 @@
                     </div>
                 </div>    
             </div>
+            <form name="supportForm" method="post" action="Dispatcher">
+                <input type="submit" name="controllerAction" value="SupportManager.chat"/>
+            </form>
+            
         </main>
            
         <%@include file="/include/footer.jspf"%>

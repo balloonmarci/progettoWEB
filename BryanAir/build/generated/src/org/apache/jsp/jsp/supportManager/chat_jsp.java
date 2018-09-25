@@ -6,7 +6,7 @@ import javax.servlet.jsp.*;
 import model.session.mo.LoggedUser;
 import java.util.List;
 
-public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class chat_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -48,19 +48,19 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
 
     boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
     LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");    
     String applicationMessage = (String) request.getAttribute("applicationMessage");   
 
-      out.write("\r\n");
-      out.write("<!DOCTYPE html>\r\n");
-      out.write("<html>\r\n");
-      out.write("    <head>\r\n");
+      out.write("\n");
+      out.write("<!DOCTYPE html>\n");
+      out.write("<html>\n");
+      out.write("    <head>\n");
       out.write("        ");
       out.write("        <title>Bryanair</title>\r\n");
       out.write("        <meta charset=\"UTF-8\">\r\n");
@@ -101,10 +101,10 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            \r\n");
       out.write("            window.addEventListener(\"load\", onLoadHandler);\r\n");
       out.write("        </script>");
-      out.write("\r\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/supportmodule.css\">\r\n");
-      out.write("    </head>\r\n");
-      out.write("    <body>\r\n");
+      out.write("\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/supportmodule.css\">\n");
+      out.write("    </head>\n");
+      out.write("    <body>\n");
       out.write("        ");
       out.write("\r\n");
       out.write("<header class=\"clearfix\">\r\n");
@@ -203,65 +203,13 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <input type=\"hidden\" name=\"controllerAction\" value=\"SupportManager.view\"/>\r\n");
       out.write("        </form>\r\n");
       out.write("      </header>");
-      out.write("\r\n");
-      out.write("        <main class=\"support-main\">\r\n");
-      out.write("            <section class=\"support-section support-section-color support-section-font\">\r\n");
-      out.write("                Supporto Tecnico\r\n");
-      out.write("            </section>\r\n");
-      out.write("            <div class=\"wrapper\">\r\n");
-      out.write("                <div class=\"left support-div\">\r\n");
-      out.write("                    Inizia una nuova chat !\r\n");
-      out.write("                    <div>\r\n");
-      out.write("                        <form name=\"registerForm\" action=\"Dispatcher\" method=\"post\" class=\"m-support-form\">\r\n");
-      out.write("                            <input type=\"text\" name=\"title\" id=\"title\" placeholder=\"Titolo\" class=\"support-text\">\r\n");
-      out.write("                            <textarea name=\"question\" id=\"question\" placeholder=\"Scrivi qui la tua domanda . . .\" class=\"support-textarea\"></textarea>\r\n");
-      out.write("                            <input type=\"button\" value=\"SUBMIT\">                            \r\n");
-      out.write("                        </form>\r\n");
-      out.write("                    </div>\r\n");
-      out.write("                </div>\r\n");
-      out.write("                <div class=\"right support-div\">\r\n");
-      out.write("                    Apri una chat esistente:\r\n");
-      out.write("                    <div>\r\n");
-      out.write("                        <article class=\"support-article-chat clearfix\">\r\n");
-      out.write("                            <img src=\"images/Chat.png\" alt=\"Chat\" class=\"support-img-chat\">\r\n");
-      out.write("                            <div class='support-article-centraldiv'>\r\n");
-      out.write("                                <h2 class='support-h2'>\r\n");
-      out.write("                                Problemi nell'effettuare il checkin online\r\n");
-      out.write("                                </h2>\r\n");
-      out.write("                                <h3 class='support-h3'>\r\n");
-      out.write("                                    L'admin ha risposto!\r\n");
-      out.write("                                </h3>\r\n");
-      out.write("                            </div>\r\n");
-      out.write("                            \r\n");
-      out.write("                            <div class='support-article-rightdiv'>\r\n");
-      out.write("                                <h2 class='support-h2'>\r\n");
-      out.write("                                    11/11/11\r\n");
-      out.write("                                </h2>\r\n");
-      out.write("                            </div>\r\n");
-      out.write("                        </article>\r\n");
-      out.write("                        \r\n");
-      out.write("                        <article class=\"support-article-chat clearfix\">\r\n");
-      out.write("                            <img src=\"images/Chat.png\" alt=\"Chat\" class=\"support-img-chat\">\r\n");
-      out.write("                            <div class='support-article-centraldiv'>\r\n");
-      out.write("                                <h2 class='support-h2'>\r\n");
-      out.write("                                Problemi nell'effettuare il checkin online\r\n");
-      out.write("                                </h2>\r\n");
-      out.write("                                <h3 class='support-h3'>\r\n");
-      out.write("                                    L'admin ha risposto!\r\n");
-      out.write("                                </h3>\r\n");
-      out.write("                            </div>\r\n");
-      out.write("                            \r\n");
-      out.write("                            <div class='support-article-rightdiv'>\r\n");
-      out.write("                                <h2 class='support-h2'>\r\n");
-      out.write("                                    11/11/11\r\n");
-      out.write("                                </h2>\r\n");
-      out.write("                            </div>\r\n");
-      out.write("                        </article>\r\n");
-      out.write("                    </div>\r\n");
-      out.write("                </div>    \r\n");
-      out.write("            </div>\r\n");
-      out.write("        </main>\r\n");
-      out.write("           \r\n");
+      out.write("\n");
+      out.write("        <main>\n");
+      out.write("        \n");
+      out.write("            \n");
+      out.write("        \n");
+      out.write("        </main>\n");
+      out.write("           \n");
       out.write("        ");
       out.write("<footer class=\"m-footer\">\r\n");
       out.write("\r\n");
@@ -273,9 +221,9 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write(">\r\n");
       out.write("    </form>\r\n");
       out.write("</footer>\r\n");
-      out.write("\r\n");
-      out.write("    </body>\r\n");
-      out.write("</html>\r\n");
+      out.write("\n");
+      out.write("    </body>\n");
+      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

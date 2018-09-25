@@ -50,4 +50,29 @@ public class SupportManager {
         }
     }
     
+    public static void chat(HttpServletRequest request, HttpServletResponse response) {
+        
+        SessionDAOFactory sessionDAOFactory;
+        LoggedUser loggedUser;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+            
+            sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+            sessionDAOFactory.initSession(request, response);
+            
+            LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+            loggedUser = loggedUserDAO.find();
+            
+            request.setAttribute("loggedOn", loggedUser != null);
+            request.setAttribute("loggedUser", loggedUser);
+            
+            request.setAttribute("viewUrl", "supportManager/chat");         
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE, "Controller Error", e);
+            throw new RuntimeException(e);
+        }
+    }
 }

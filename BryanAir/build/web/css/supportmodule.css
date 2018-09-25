@@ -5,9 +5,14 @@ body{
   /*background-color: #e0dede;*/
 }
 
+.support-section-chat{
+    padding-bottom: 1%;
+}
+
 .support-section{
     padding: 2.5%;
     padding-left: 4%;
+    padding-bottom: 1%;
 }
 
 .support-section-color{
@@ -21,12 +26,13 @@ body{
 .support-main{
   padding-top: 5%;
   text-align: left;
+  overflow: auto;
 }
 .support-div{
     text-align: left;
     font-size: 130%;
     padding-left: 2.5%;
-    padding-bottom: 2.5%;
+    padding-bottom: 0%;
     border: #000;
 }
 
@@ -34,7 +40,7 @@ body{
   width: 70%;
   margin: 0;
   margin-bottom: 5%;
-  margin-top: 4%;
+  margin-top: 0%;
 }
 
 .support-textarea{
@@ -97,6 +103,30 @@ body{
     font-weight: normal;
 }
 
+.support-chat-name{
+    font-weight: bold;
+    margin-top: 0%;
+}
+
+.chatblock{
+    border: 1px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(169, 169, 169);
+    box-shadow: 4px 6px 10px #303030;
+    border-radius: 25px;
+    padding: 1.5%;
+    
+}
+
+.chatblock-admin{
+    background:#ffffff
+    
+}
+
+.chatblock-user{
+    background: #66ff66
+}
 .wrapper{
     display: flex;
 }
@@ -104,6 +134,36 @@ body{
     flex: 0 0 50%;
     padding-left: 4%;
 }
+
+.div-chat{
+    max-width: 45%;
+}
+
+.left-chat {
+    flex: 0 0 45%;
+    padding-left: 4%;
+}
+
 .right{
     flex: 1;
+    padding-right: 4%;
+}
+
+.right-chat{
+    flex: 1;
+    padding-right: 4%;
+    float: right
+}
+
+.answer{
+    padding-left: 4%;
+    padding-top: 2%;
+    padding-right: 4%;
+    padding-bottom: 4%;
+}
+
+.c-support-form{
+  width: 83%;
+  margin-bottom: 5%;
+  margin-top: 0%;
 }
