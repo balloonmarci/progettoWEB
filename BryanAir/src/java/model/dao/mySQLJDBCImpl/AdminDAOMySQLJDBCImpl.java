@@ -43,6 +43,10 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
         } catch (SQLException sqle) {
         }
         try {
+            admin.setPassword(rs.getString("password"));
+        } catch (SQLException sqle) {
+        }
+        try {
             admin.setDeleted(rs.getBoolean("deleted"));
         } catch (SQLException sqle) {
         }
@@ -65,7 +69,7 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
     }
     
     @Override
-    public Admin findByAdminFirstnameAndLastname(String firstname, String lastname) {
+    public Admin findAdminByIdAndName(String firstname, String lastname, Long id) {
         PreparedStatement ps;
         Admin admin = null;
 
@@ -75,14 +79,16 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
                     = "SELECT * "
                     + "FROM admin "
                     + "WHERE "
+                    + "id = ? AND "
                     + "firstname = ? AND "
                     + "lastname = ? AND "
                     + "deleted = '0' ";
 
             ps = conn.prepareStatement(sql);
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-
+            ps.setLong(1, id);
+            ps.setString(2, firstname);
+            ps.setString(3, lastname);
+           
             ResultSet resultSet = ps.executeQuery();
 
             if (resultSet.next()) {
