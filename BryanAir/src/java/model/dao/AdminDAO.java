@@ -18,5 +18,5 @@ public interface AdminDAO {
     
     public void update(Admin admin) throws DuplicatedObjectException;
     public void delete(Admin admin);
-    public Admin findByAdminFirstnameAndLastname(String firstname, String lastname);
+    public Admin findAdminByIdAndName(String firstname, String lastname, Long id);
 }

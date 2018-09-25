@@ -13,6 +13,7 @@ public class Admin {
     private Long id;
     private String firstname;
     private String lastname;
+    private String password;
     private boolean deleted;
 
     public Long getId() {
@@ -37,6 +38,14 @@ public class Admin {
 
     public void setLastname(String lastName) {
         this.lastname = lastName;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isDeleted() {

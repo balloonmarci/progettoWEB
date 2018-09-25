@@ -38,7 +38,10 @@
             <input type="text" id="adminLastName" name="lastname" maxlength="40" required>
             </br></br>
             <label for="adminId"> AdminId </label>
-            <input type="password" id="adminId" name="adminId" maxlength="40" required>
+            <input type="text" id="adminId" name="adminId" maxlength="40" required>
+            </br></br>
+            <label for="password"> Password </label>
+            <input type="password" id="password" name="password" maxlength="40" required>
             <input type="hidden" name="controllerAction" value="AdminManager.login"/>
             <input type="submit" value="Login" class="submit submit-dimensioni submit-position submit-color2">
           </form>

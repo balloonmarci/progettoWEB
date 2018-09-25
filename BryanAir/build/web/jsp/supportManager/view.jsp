@@ -2,7 +2,9 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
     <%@include file="/include/head.jspf"%>
+    </head>
     <body>
         <%@include file="/include/header.jspf"%>
         
