@@ -16,7 +16,7 @@
     <body>
         <%@include file="/include/header.jspf"%>
         <main class="support-main">
-            <section class="support-section support-section-color support-section-font">
+            <section class="support-section support-section-color support-section-font">                  
                 Supporto Tecnico
             </section>
             <div class="wrapper">
@@ -26,7 +26,7 @@
                         <form name="registerForm" action="Dispatcher" method="post" class="m-support-form">
                             <input type="text" name="title" id="title" placeholder="Titolo" class="support-text">
                             <textarea name="question" id="question" placeholder="Scrivi qui la tua domanda . . ." class="support-textarea"></textarea>
-                            <input type="button" value="SUBMIT">                            
+                            <input type="button" value="INVIA" class="sendbutton2">                            
                         </form>
                     </div>
                 </div>

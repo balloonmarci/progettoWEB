@@ -17,6 +17,9 @@
         <%@include file="/include/header.jspf"%>
         <main class="support-main">
             <section class="support-section support-section-color support-section-font support-section-chat ">
+                <a href="" class="displayblockchat">
+                    <img src="images/leftarrow.png" class="chatimage" alt="left">
+                </a>
                 NomeChat
             </section>
         <div class="clearfix">

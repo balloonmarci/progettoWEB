@@ -123,9 +123,18 @@
         <aside class="m-sidebar">
             <div>
                 <h3>See your Wishlist!</h3>
-                <article></article>
-                <article></article>
-                <article></article>
+                <article>
+              <h1>Caraibi</h1>
+              <img src="images/Caraibi.png" alt="Caraibi">
+            </article>
+            <article>
+              <h1>Maldive</h1>
+              <img src="images/maldive.png" alt="Maldive">
+            </article>
+            <article>
+              <h1>New York</h1>
+              <img src="images/nycity.png" alt="New York">
+            </article>
             </div>
         </aside>
       </main>
