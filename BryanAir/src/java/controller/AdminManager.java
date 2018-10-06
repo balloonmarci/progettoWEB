@@ -111,21 +111,21 @@ public class AdminManager {
             
             String firstname = request.getParameter("firstname");
             String lastname = request.getParameter("lastname");
-            Long id = new Long(request.getParameter("adminId"));
+            Long adminId = new Long(request.getParameter("adminId"));
+            String password = request.getParameter("password");
             
-            Admin admin = adminDAO.findByAdminFirstnameAndLastname(firstname, lastname);
+            Admin admin = adminDAO.findAdminByIdAndName(firstname, lastname, adminId);
             
             daoFactory.commitTransaction();
             
-            if(admin == null || !admin.getId().equals(id)){
+            if(admin == null || !admin.getPassword().equals(password)){
                 loggedAdminDAO.destroy();
-                applicationMessage = "Nome, cognome o id errati";
+                applicationMessage = "Nome, cognome o password errati";
                 loggedAdmin=null;
                 
-                request.setAttribute("admin", admin);
                 request.setAttribute("viewUrl", "adminManager/login");
             } else {
-                applicationMessage = "Username e password corretti";
+                applicationMessage = "Corretti";
                 loggedAdmin = loggedAdminDAO.create(admin.getFirstname(), admin.getLastname());
                 
                 request.setAttribute("loggedadmin", loggedAdmin);

@@ -14,7 +14,8 @@ public interface LoggedAdminDAO{
     
     public LoggedAdmin create(
             String firstname,
-            String lastname);
+            String lastname,
+            Long id);
     
     public void update(LoggedAdmin loggedAdmin);
     public void destroy();

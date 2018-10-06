@@ -31,8 +31,13 @@ and open the template in the editor.
                 b.submit();
             }
             
-            function goOnAbsFlightsPage(){
+            function goOnCreateAbsFlightsPage(){
                 c = document.createAbsFlightForm;
+                c.submit();
+            }
+            
+            function goOnAbsFlightsPage(){
+                c = document.absFlightsForm;
                 c.submit();
             }
             
@@ -49,7 +54,7 @@ and open the template in the editor.
         <span class="title">I was waiting for you admin <%=loggedAdmin.getFirstname()%>!</span>
         <a href="javascript:logout()" class="logoutclass">Logout</a>
       </header>
-      <main>
+      <main class="main">
         <section class="action bkColor clearfix">
           <div class="actionimage">
             <img src="images/notes.png" alt="" width="40%">
@@ -60,7 +65,7 @@ and open the template in the editor.
               that can be updated into real flights
               later. No flight date request.</span>
             </p>
-            <a class="actionlink" href="javascript:goOnAbsFlightsPage()">Go on!</a>
+            <a class="actionlink" href="javascript:goOnCreateAbsFlightsPage()">Go on!</a>
           </div>
         </section>
         <section class="action bkColor clearfix">
@@ -83,7 +88,7 @@ and open the template in the editor.
             <p class="actiondescription">
               <span>Here you can modify existing main flight.</span>
             </p>
-            <a class="actionlink" href="javascript:">Go on!</a>
+            <a class="actionlink" href="javascript:goOnAbsFlightsPage()">Go on!</a>
           </div>
         </section>
         <section class="action bkColor clearfix">
@@ -106,6 +111,9 @@ and open the template in the editor.
         <input type="hidden" name="controllerAction" value="FlightManager.viewCreatePage">
       </form> 
       
+      <form name="absFlightsForm" action="Dispatcher" method="post">
+        <input type="hidden" name="controllerAction" value="FlightManager.view">
+      </form>
         
     </body>
 </html>

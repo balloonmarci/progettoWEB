@@ -43,6 +43,10 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
         } catch (SQLException sqle) {
         }
         try {
+            admin.setPassword(rs.getString("password"));
+        } catch (SQLException sqle) {
+        }
+        try {
             admin.setDeleted(rs.getBoolean("deleted"));
         } catch (SQLException sqle) {
         }
@@ -64,8 +68,7 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public Admin findByAdminFirstnameAndLastname(String firstname, String lastname) {
+    public Admin findAdminById(Long id){
         PreparedStatement ps;
         Admin admin = null;
 
@@ -75,14 +78,47 @@ public class AdminDAOMySQLJDBCImpl implements AdminDAO{
                     = "SELECT * "
                     + "FROM admin "
                     + "WHERE "
+                    + "id = ? AND "
+                    + "deleted = '0' ";
+            
+            ps = conn.prepareStatement(sql);
+            ps.setLong(1, id);
+            
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                admin = read(resultSet);
+            }
+            resultSet.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return admin;
+    }
+    
+    @Override
+    public Admin findAdminByIdAndName(String firstname, String lastname, Long id) {
+        PreparedStatement ps;
+        Admin admin = null;
+
+        try {
+
+            String sql
+                    = "SELECT * "
+                    + "FROM admin "
+                    + "WHERE "
+                    + "id = ? AND "
                     + "firstname = ? AND "
                     + "lastname = ? AND "
                     + "deleted = '0' ";
 
             ps = conn.prepareStatement(sql);
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-
+            ps.setLong(1, id);
+            ps.setString(2, firstname);
+            ps.setString(3, lastname);
+           
             ResultSet resultSet = ps.executeQuery();
 
             if (resultSet.next()) {
