@@ -25,10 +25,11 @@ public class LoggedAdminDAOCookieImpl implements LoggedAdminDAO{
     }
     
     @Override
-    public LoggedAdmin create(String firstname, String lastname) {
+    public LoggedAdmin create(String firstname, String lastname, Long id) {
         LoggedAdmin loggedAdmin = new LoggedAdmin();
         loggedAdmin.setFirstname(firstname);
         loggedAdmin.setLastname(lastname);
+        loggedAdmin.setId(id);
         
         Cookie cookie;
         cookie = new Cookie("loggedAdmin", encode(loggedAdmin));
@@ -74,7 +75,7 @@ public class LoggedAdminDAOCookieImpl implements LoggedAdminDAO{
     
     private String encode(LoggedAdmin loggedAdmin){
         String encodedAdmin;
-        encodedAdmin = loggedAdmin.getFirstname() +"#"+ loggedAdmin.getLastname();
+        encodedAdmin = loggedAdmin.getFirstname() +"#"+ loggedAdmin.getLastname() +"#"+ loggedAdmin.getId();
         return encodedAdmin;
     }
     
@@ -84,6 +85,7 @@ public class LoggedAdminDAOCookieImpl implements LoggedAdminDAO{
         String[] values = encodedAdmin.split("#");
         loggedAdmin.setFirstname(values[0]);
         loggedAdmin.setLastname(values[1]);
+        loggedAdmin.setId(new Long(values[2]));
         
         return loggedAdmin;        
     }
