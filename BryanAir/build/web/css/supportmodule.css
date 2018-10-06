@@ -79,6 +79,7 @@ body{
     width: 13%;
     float: left;
     padding-right: 3%;
+    padding: 1%;
 }
 
 .m-support-form-color{
@@ -146,6 +147,7 @@ body{
     flex: 0 0 45%;
     padding-left: 4%;
     margin-top: 1%;
+    float: left;
 }
 
 .right{
