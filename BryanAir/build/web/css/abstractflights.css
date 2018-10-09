@@ -1,0 +1,63 @@
+
+.virtualFlight{
+  background-color: #fff;
+  display: inline-block;
+  margin: 2%;
+  box-shadow: 5px 10px 8px #999;
+  text-align: center;
+  height: 11em;
+}
+
+.virtualFlight *{
+  display: block;
+}
+
+.virtualFlight img:nth-child(1){
+  margin: 0 auto;
+}
+
+.delete{
+  padding: 1%;
+}
+
+.sidebar{
+  float: left;
+  width: 30%;
+  position: fixed;
+  top: 8%;
+  box-shadow: 5px 10px 12px #999;
+}
+
+select{
+    border: 0;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.sidebar input[type="text"], input[type="submit"], label{
+    display: block;
+    margin: 4% 0;
+    padding: 2% 0;
+    width: 75%;
+    border: none;
+}
+
+form{
+  padding: 7% 7% 0 7%;
+  display: inline-block;
+  width: 85%;
+}
+
+.abstractFlightsList{
+  float: right;
+  width: 60%;
+  position: relative;
+  margin-top: 6%;
+}
+
+@media screen and (min-width: 1281px) {
+  .sidebar{
+    height: 56em;
+  }
+}

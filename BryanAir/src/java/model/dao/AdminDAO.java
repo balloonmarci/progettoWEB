@@ -4,21 +4,20 @@
  * and open the template in the editor.
  */
 package model.dao;
-
 import model.mo.Admin;
+import model.dao.exception.DuplicatedObjectException;
 
 /**
  *
- * @author Marcello
+ * @author Filippo
  */
 public interface AdminDAO {
-    public Admin insert(String firstname, String lastname);
-    public void update(Admin admin);
+    public Admin insert(
+        String firstname,
+        String lastname) throws DuplicatedObjectException;
+    
+    public void update(Admin admin) throws DuplicatedObjectException;
     public void delete(Admin admin);
-    public Admin findAdminById(Long id);
     public Admin findAdminByIdAndName(String firstname, String lastname, Long id);
-    
-    
-    
-    
+    public Admin findAdminById(Long id);
 }

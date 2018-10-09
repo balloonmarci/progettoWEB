@@ -26,6 +26,8 @@ import model.mo.Airport;
 
 import java.util.List;
 import java.util.ArrayList;
+import model.session.dao.LoggedAdminDAO;
+import model.session.mo.LoggedAdmin;
 
 public class HomeManager {
     
@@ -37,6 +39,7 @@ public class HomeManager {
         SessionDAOFactory sessionDAOFactory;
         DAOFactory daoFactory = null;
         LoggedUser loggedUser;
+        LoggedAdmin loggedAdmin;
         
         Logger logger = LogService.getApplicationLogger();
         
@@ -47,6 +50,14 @@ public class HomeManager {
             
             LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
             loggedUser = loggedUserDAO.find();
+            
+            LoggedAdminDAO loggedAdminDAO = sessionDAOFactory.getLoggedAdminDAO();
+            loggedAdmin = loggedAdminDAO.find();
+            
+            if(loggedAdmin != null){
+                loggedAdminDAO.destroy();
+                loggedAdmin = null;
+            }
             
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
             daoFactory.beginTransaction();

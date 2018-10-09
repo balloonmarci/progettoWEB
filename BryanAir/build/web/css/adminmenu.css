@@ -18,6 +18,10 @@ html,body{
   float: right;
 }
 
+.main{
+    margin-top: 8%;
+}
+
 .action{
   width: 60%;
   margin: 2% auto;

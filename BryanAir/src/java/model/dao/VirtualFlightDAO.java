@@ -26,5 +26,5 @@ public interface VirtualFlightDAO {
     public void delete(VirtualFlight virtualFlight);
     public VirtualFlight findByFlightCode(String flightCode); 
     public List<VirtualFlight> findAllVirtualFlights();
-    
+    public List<VirtualFlight> findSelectedVirtualFlights(String flightCode, Airport depAirport, Airport arrAirport, String orderBy, String direction);
 }

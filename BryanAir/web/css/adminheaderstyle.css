@@ -4,6 +4,11 @@
 
 .ontop{
   padding: 2%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .title{
@@ -17,4 +22,14 @@
 .homeclass{
   float: right;
   margin: 0 1%;
+}
+
+.leftarrow{
+    width: 3%;
+}
+
+.error{
+    position: relative;
+    left: 38%;
+    color: red;
 }

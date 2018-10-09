@@ -10,12 +10,7 @@ html,body{
 
 .insertFlightData{
   border: 1px solid #919191;
-}
-
-.error{
-    position: relative;
-    left: 40%;
-    color: red;
+  margin-top: 8%;
 }
 
 .insertflightTitle{
@@ -23,6 +18,12 @@ html,body{
   position: relative;
   padding: 1%;
   left: 1em;
-  top: 1.5em;
+  top: 1.8em;
   font-size: 2em;
+}
+
+@media screen and (min-width: 1281px){
+    .insertflightTitle{
+        top: 3em;
+    }
 }
