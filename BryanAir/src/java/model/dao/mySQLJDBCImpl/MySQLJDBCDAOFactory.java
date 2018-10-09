@@ -11,11 +11,13 @@ import model.dao.AirportDAO;
 import model.dao.VirtualFlightDAO;
 import model.dao.ConcreteFlightDAO;
 import model.dao.AdminDAO;
+import model.dao.ConversationDAO;
 import services.config.Configuration;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import model.dao.MessageDAO;
 
 public class MySQLJDBCDAOFactory extends DAOFactory {
     
@@ -83,4 +85,16 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
     public AdminDAO getAdminDAO(){
         return new AdminDAOMySQLJDBCImpl(connection);
     }
+    
+    @Override
+    public ConversationDAO getConversationDAO(){
+        return new ConversationDAOMySQLJDBCImpl(connection);
+    }
+    
+    @Override
+    public MessageDAO getMessageDAO(){
+        return new MessageDAOMySQLJDBCImpl(connection);
+    }
+    
+    
 }
