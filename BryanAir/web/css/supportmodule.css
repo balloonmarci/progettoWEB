@@ -30,6 +30,13 @@ body{
   text-align: left;
   overflow: auto;
 }
+
+.support-main-admin{
+  padding-top: 0%;
+  text-align: left;
+  overflow: auto;
+}
+
 .support-div{
     text-align: left;
     font-size: 130%;
@@ -119,8 +126,12 @@ body{
     border-color:rgb(169, 169, 169);
     box-shadow: 4px 6px 10px #303030;
     border-radius: 25px;
-    padding: 1.5%;
+    padding: 3.5%;
     
+}
+
+.delete{
+    float: right;
 }
 
 .chatblock-admin{
@@ -139,6 +150,11 @@ body{
     padding-left: 4%;
 }
 
+.left-admin {
+    flex: 0 0 44.8%;
+    padding-left: 4%;
+}
+
 .div-chat{
     max-width: 45%;
 }
@@ -147,7 +163,7 @@ body{
     flex: 0 0 45%;
     padding-left: 4%;
     margin-top: 1%;
-    float: left;
+    width: max-content;
 }
 
 .right{
@@ -161,6 +177,7 @@ body{
     float: right;
     padding-left: 50%;
     margin-top: 1%;
+    width: max-content
 }
 
 .answer{
@@ -206,4 +223,8 @@ body{
 .displayblockchat{
     display: inline-block;
     width: 1.5%;
+}
+
+.adminviewbody{
+    padding-bottom: 4%;
 }

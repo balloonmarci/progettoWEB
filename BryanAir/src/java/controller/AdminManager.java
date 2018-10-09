@@ -126,7 +126,7 @@ public class AdminManager {
                 request.setAttribute("viewUrl", "adminManager/login");
             } else {
                 applicationMessage = "Corretti";
-                loggedAdmin = loggedAdminDAO.create(admin.getFirstname(), admin.getLastname());
+                loggedAdmin = loggedAdminDAO.create(admin.getFirstname(), admin.getLastname(), admin.getId());
                 
                 request.setAttribute("loggedadmin", loggedAdmin);
                 request.setAttribute("loggedAdminOn",loggedAdmin!=null);

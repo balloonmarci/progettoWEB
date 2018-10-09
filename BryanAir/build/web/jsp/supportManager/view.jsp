@@ -17,7 +17,7 @@
         <script>
             function openChat(id){
                 document.getElementById("convid").value=id;
-                alert(document.getElementById("convid").value);
+                //alert(document.getElementById("convid").value);
                 document.supportFormChat.submit();
             }        
         </script>
@@ -52,7 +52,11 @@
                                         <%=conversations.get(i).getTitle()%>
                                     </h2>
                                     <h3 class='support-h3'>
-                                        <%=conversations.get(i).getIdconv()%>
+                                        <%if(conversations.get(i).getAdmin().getFirstname() == null) {%>
+                                            L'admin non ha ancora preso in consegna la richiesta di supporto.
+                                        <%} else {%>
+                                        L'admin <%=conversations.get(i).getAdmin().getFirstname()%> ha preso in consegna la richiesta e risponderà a breve.
+                                        <%}%>
                                     </h3>
                                 </div>
                                 <div class='support-article-rightdiv'>

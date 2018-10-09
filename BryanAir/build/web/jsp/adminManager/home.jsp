@@ -41,9 +41,13 @@ and open the template in the editor.
                 c.submit();
             }
             
+            function goSupport(){
+                document.supportForm.submit();
+            }
+            
             function onLoadHandler(){
                 
-            }
+            }            
             
             window.addEventListener("load", onLoadHandler);
             
@@ -102,6 +106,17 @@ and open the template in the editor.
             <a class="actionlink" href="javascript:">Go on!</a>
           </div>
         </section>
+        <section class="action bkColor clearfix">
+          <div class="actionimage">
+            <img src="images/notes.png" alt="" width="40%">
+          </div>
+          <div class="actioninfo">
+            <p class="actiondescription">
+              <span>Gestione Supporto Tecnico</span>
+            </p>
+            <a class="actionlink" href="javascript:goSupport()">Go on!</a>
+          </div>
+        </section>
       </main>
       <form name="logoutForm" action="Dispatcher" method="post">
         <input type="hidden" name="controllerAction" value="AdminManager.view">
@@ -113,6 +128,10 @@ and open the template in the editor.
       
       <form name="absFlightsForm" action="Dispatcher" method="post">
         <input type="hidden" name="controllerAction" value="FlightManager.view">
+      </form>
+        
+      <form name="supportForm" action="Dispatcher" method="post">
+        <input type="hidden" name="controllerAction" value="SupportManager.adminView">
       </form>
         
     </body>

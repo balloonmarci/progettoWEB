@@ -44,7 +44,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
             do{
                 sq1 = " SELECT idconv "
                     + " FROM conversation "
-                    + " WHERE idconv = ?;";
+                    + " WHERE idconv = ? ";                    
                 
                 l = new Long(rand.nextInt(2147483647));
                 
@@ -82,8 +82,20 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
     }
 
     @Override
-    public void end() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void end(Long convid) {
+        PreparedStatement ps;
+        
+        try{
+            String sq1
+                    ="UPDATE conversation SET end=NOW() "
+                    +"WHERE idconv = ? ";
+            ps = conn.prepareStatement(sq1);
+            ps.setLong(1, convid);
+            ps.executeUpdate();
+            
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -146,7 +158,8 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"FROM conversation AS C "
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE A.id IS NULL;";
+                    +"WHERE A.id IS NULL "
+                    +"AND end IS NULL;";
             
             ps = conn.prepareStatement(sq1);
             ResultSet resultSet = ps.executeQuery();
@@ -172,7 +185,9 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"FROM conversation AS C "
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE C.iduser = ? ORDER BY C.start;";
+                    +"WHERE C.iduser = ? "
+                    +"AND end IS NULL "
+                    +"ORDER BY C.start;";
             
             ps = conn.prepareStatement(sq1);
             ps.setLong(1, user.getUserId());
@@ -217,7 +232,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"FROM conversation AS C "
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE C.idconv = ?;";
+                    +"WHERE C.idconv = ?";
             
             ps = conn.prepareStatement(sq1);
             ps.setLong(1, id);
@@ -242,10 +257,12 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"FROM conversation AS C "
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE C.idadmin = ? ORDER BY C.start;";
+                    +"WHERE C.idadmin = ? "
+                    + "AND end IS NULL "
+                    + "ORDER BY C.start;";
             
             ps = conn.prepareStatement(sq1);
-            //ps.setLong(1, admin.get);
+            ps.setLong(1, admin.getId());
             ResultSet resultSet = ps.executeQuery();
             
             while(resultSet.next()){
@@ -256,5 +273,23 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
             throw new RuntimeException(e);
         }
         return conversations;
+    }
+    
+    @Override
+    public void adminJoinConversation(Long id, LoggedAdmin admin){
+        PreparedStatement ps;
+        
+        try{
+            String sq1
+                    ="UPDATE conversation SET idadmin = ? "
+                    +"WHERE idconv = ? ";
+            ps = conn.prepareStatement(sq1);
+            ps.setLong(1, admin.getId());
+            ps.setLong(2, id);
+            ps.executeUpdate();
+            
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 }

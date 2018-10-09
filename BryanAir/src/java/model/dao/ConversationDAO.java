@@ -21,11 +21,12 @@ public interface ConversationDAO {
     
     public long start (LoggedUser user, String title) throws DuplicatedObjectException;
     public void setAdmin(Admin admin);
-    public void end();
+    public void end(Long convid);
     public void delete();
     public List<Conversation> findNewConversations();
     public List<Conversation> findUserConversations(LoggedUser user);
     public Conversation findById(long id);
     public List<Conversation> findAdminConversations(LoggedAdmin admin);
+    public void adminJoinConversation(Long id, LoggedAdmin admin); 
     
 }

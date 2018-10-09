@@ -27,19 +27,37 @@
                 document.getElementById("convid").value=<%=conversation.getIdconv()%>;
                 document.chatForm.submit();
             }
+            
+            function endConv(){
+                
+                document.getElementById("convidend").value=<%=conversation.getIdconv()%>;
+                document.endconv.submit();
+                alert("CIOSDIADIOSA");
+            }
         </script>
     </head>
     <body>
         <%@include file="/include/header.jspf"%>
         <main class="support-main">
-            <section class="support-section support-section-color support-section-font support-section-chat ">
+            <section class="support-section support-section-color support-section-font support-section-chat">
                 <form name="goback" method="post" action="Dispatcher">
                     <input type="hidden" name="controllerAction" value="SupportManager.view">
                 </form>
                 <a href="javascript:goBack()" class="displayblockchat">
                     <img src="images/leftarrow.png" class="chatimage" alt="left">
+                    
                 </a>
-                <%=conversation.getTitle()%>              
+                <%=conversation.getTitle()%>
+                <form name="endconv" method="post" action="Dispatcher">
+                    <input type="hidden" name="controllerAction" value="SupportManager.endConv">
+                    <input type="hidden" name="convidend" id="convidend">
+                </form>
+                <a href="javascript:endConv()" class="displayblockchat">
+                    <img src="images/delete.png" class="chatimage" alt="left">
+                    
+                </a>
+                Termina Chat
+                
             </section>
             
             <div class="clearfix">
