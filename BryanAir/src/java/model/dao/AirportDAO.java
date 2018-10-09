@@ -17,5 +17,5 @@ public interface AirportDAO {
     public void delete(Airport airport);
     public Airport findByIata(String iata);
     public Airport[] findByCity(String city);
-    public List<Airport> findAllAirport();    
+    public List<Airport> findAllAirport();  
 }

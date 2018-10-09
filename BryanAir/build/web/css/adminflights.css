@@ -1,0 +1,142 @@
+html, body{
+  background-color: #eee;
+}
+
+.virtualFlight{
+  background-color: #fff;
+  display: inline-block;
+  margin: 2%;
+  box-shadow: 5px 10px 8px #999;
+  text-align: center;
+  height: 11em;
+  width: 20%;
+}
+
+.selectedFlight{
+  background-color: #ace5ef;
+}
+
+.concreteflight{
+  height: 14em;
+}
+
+.virtualFlight *{
+  display: block;
+}
+
+.virtualFlight img:nth-child(1){
+  margin: 0 auto;
+}
+
+.settings{
+  margin: 0 auto;
+  width: 66%;
+}
+
+.settings a{
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+}
+
+.settings a:nth-child(1){
+  float: left;
+}
+
+.settings a:nth-child(2){
+  float: right;
+}
+
+#trashcan, #lightbulb{
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar{
+  float: left;
+  width: 30%;
+  position: fixed;
+  top: 8%;
+  box-shadow: 5px 10px 12px #999;
+}
+
+.newFlightForm{
+  padding: 7% 7% 0 7%;
+  display: inline-block;
+  width: 85%;
+}
+
+select{
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+
+.sidebar input[type="text"],
+.sidebar input[type="button"],
+.sidebar input[type="submit"],
+.sidebar label,
+.sidebar input[type="date"]{
+    display: block;
+    margin: 4% 0;
+    padding: 2% 0;
+    width: 95%;
+    border: none;
+}
+
+.sidebar input[type="date"]{
+    padding: 1% 0;
+    margin: 1.5% 0;
+}
+
+.sidebar input[type="time"]{
+    border: none;
+    padding: 1% 0;
+    margin: 1.2% 0;
+}
+
+.sidebar input[type="number"]{
+  display: inline-block;
+  width: 60%;
+  padding: 2%;
+  border: none;
+}
+
+.setInfo{
+  margin: 2% 0;
+}
+
+.setInfo label{
+  display: block;
+  width: 100%;
+  margin: 5% 0;
+  padding: 0;
+}
+
+.setInfo div{
+  display: inline-block;
+  width: 50%;
+}
+
+.setInfo div:nth-child(1){
+  float: left;
+}
+
+.setInfo div:nth-child(2){
+  float: right;
+}
+
+.abstractFlightsList{
+  float: right;
+  width: 60%;
+  position: relative;
+  margin-top: 6%;
+}
+
+@media screen and (min-width: 1281px) {
+  .sidebar{
+    height: 56em;
+  }
+}

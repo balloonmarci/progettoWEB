@@ -67,7 +67,7 @@ and open the template in the editor.
                    placeholder="Enter flight code" <%=(action.equals("modify"))? "readOnly": ""%>/>
             <input type="text" name="departureAirportIata" list="departureAirport"
                                value="<%=action.equals("modify")? virtualFlight.getDepartureAirport().getIata(): ""%>"
-                               placeholder="Enter departure airport" autocomplete="off" required/>
+                               placeholder="Enter departure airport" <%=(action.equals("modify"))? "readOnly": ""%> autocomplete="off" required/>
             <datalist id="departureAirport">
               <select name="departureAirport">
               <%for(int i = 0; i < airports.size(); i++){%>
@@ -78,7 +78,7 @@ and open the template in the editor.
 
             <input type="text" name="arrivalAirportIata" list="arrivalAirport"
                                value="<%=action.equals("modify")? virtualFlight.getArrivalAirport().getIata(): ""%>" 
-                               placeholder="Enter arrival airport" autocomplete="off" required/>
+                               placeholder="Enter arrival airport" <%=(action.equals("modify"))? "readOnly": ""%> autocomplete="off" required/>
             <datalist id="arrivalAirport">
               <select name="arrivalAirport">
                 <%for(int i = 0; i < airports.size(); i++){%>
