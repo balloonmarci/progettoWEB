@@ -30,9 +30,10 @@
             
             function endConv(){
                 
-                document.getElementById("convidend").value=<%=conversation.getIdconv()%>;
-                document.endconv.submit();
-                alert("CIOSDIADIOSA");
+                if(confirm("Sei sicuro di terminare la conversazione?")){
+                    document.getElementById("convidend").value=<%=conversation.getIdconv()%>;
+                    document.endconv.submit();
+                }
             }
         </script>
     </head>
