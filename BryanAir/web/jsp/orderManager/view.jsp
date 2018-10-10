@@ -46,6 +46,7 @@
                 </div>
                 <div class="right support-div">
                     Effettua il check in online: 
+                    Yolo
                     <div>
                         <a href="javascript:">
                             <article class="support-article-chat clearfix">
