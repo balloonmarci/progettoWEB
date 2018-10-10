@@ -14,17 +14,17 @@ import model.dao.exception.DuplicatedObjectException;
 import model.mo.VirtualFlight;
 import model.mo.Airport;
 public interface VirtualFlightDAO {
-    
+
     public VirtualFlight insert (
         String flightCode,
         Float priceFirst,
         Float priceSecond,
         Airport departureAirport,
         Airport arrivalAirport) throws DuplicatedObjectException;
-    
+
     public void update(VirtualFlight virtualFlight) throws DuplicatedObjectException;
     public void delete(VirtualFlight virtualFlight);
-    public VirtualFlight findByFlightCode(String flightCode); 
+    public VirtualFlight findByFlightCode(String flightCode);
     public List<VirtualFlight> findAllVirtualFlights();
-    
+    public List<VirtualFlight> findSelectedVirtualFlights(String flightCode, Airport depAirport, Airport arrAirport, String orderBy, String direction);
 }

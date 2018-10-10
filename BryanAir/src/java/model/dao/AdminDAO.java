@@ -9,7 +9,7 @@ import model.mo.Admin;
 
 /**
  *
- * @author Marcello
+ * @author Filippo
  */
 public interface AdminDAO {
     public Admin insert(String firstname, String lastname);
@@ -17,8 +17,8 @@ public interface AdminDAO {
     public void delete(Admin admin);
     public Admin findAdminById(Long id);
     public Admin findAdminByIdAndName(String firstname, String lastname, Long id);
+
+
     
-    
-    
-    
+
 }

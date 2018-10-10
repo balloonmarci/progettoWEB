@@ -18,7 +18,9 @@ import model.dao.UserDAO;
 import model.mo.User;
 
 import model.session.mo.LoggedUser;
+import model.session.mo.LoggedAdmin;
 import model.session.dao.LoggedUserDAO;
+import model.session.dao.LoggedAdminDAO;
 import model.session.dao.SessionDAOFactory;
 
 import model.dao.AirportDAO;
@@ -28,76 +30,85 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class HomeManager {
-    
+
     private HomeManager(){
     }
-    
+
     public static void view(HttpServletRequest request, HttpServletResponse response) {
-        
-        SessionDAOFactory sessionDAOFactory;
-        DAOFactory daoFactory = null;
-        LoggedUser loggedUser;
-        
-        Logger logger = LogService.getApplicationLogger();
-        
-        try{
-            
-            sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
-            sessionDAOFactory.initSession(request, response);
-            
-            LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
-            loggedUser = loggedUserDAO.find();
-            
-            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
-            daoFactory.beginTransaction();
-            
-            commonView(daoFactory, request);
-            
-            daoFactory.commitTransaction();
-            
-            request.setAttribute("loggedOn", loggedUser != null);
-            request.setAttribute("loggedUser", loggedUser);
-            
-            request.setAttribute("viewUrl", "homeManager/view");         
-            
-        }catch(Exception e){
-            logger.log(Level.SEVERE, "Controller Error", e);
-            throw new RuntimeException(e);
-        }
+
+      SessionDAOFactory sessionDAOFactory;
+      DAOFactory daoFactory = null;
+      LoggedUser loggedUser;
+      LoggedAdmin loggedAdmin;
+
+      Logger logger = LogService.getApplicationLogger();
+
+      try{
+
+          sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+          sessionDAOFactory.initSession(request, response);
+
+          LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+          loggedUser = loggedUserDAO.find();
+
+          LoggedAdminDAO loggedAdminDAO = sessionDAOFactory.getLoggedAdminDAO();
+          loggedAdmin = loggedAdminDAO.find();
+
+          if(loggedAdmin != null){
+              loggedAdminDAO.destroy();
+              loggedAdmin = null;
+          }
+
+          daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+          daoFactory.beginTransaction();
+
+          commonView(daoFactory, request);
+
+          daoFactory.commitTransaction();
+
+          request.setAttribute("loggedOn", loggedUser != null);
+          request.setAttribute("loggedUser", loggedUser);
+
+          request.setAttribute("viewUrl", "homeManager/view");
+
+      }catch(Exception e){
+          logger.log(Level.SEVERE, "Controller Error", e);
+          throw new RuntimeException(e);
+      }
     }
-    
-    
+
+
     public static void login(HttpServletRequest request, HttpServletResponse response) {
-        
+
         Logger logger = LogService.getApplicationLogger();
-        
+
         SessionDAOFactory sessionDAOFactory;
         LoggedUser loggedUser;
         DAOFactory daoFactory = null;
         String applicationMessage = null;
-        
+
         try{
-            
+
             sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
             sessionDAOFactory.initSession(request, response);
-            
+
             LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
             //utilizza find come costruttore a null
             loggedUser = loggedUserDAO.find();
-            
+
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
             daoFactory.beginTransaction();
-            
+
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            
+
             UserDAO userDAO = daoFactory.getUserDAO();
             User user = userDAO.findByUsername(username);
-            
+
             commonView(daoFactory, request);
-            
+
             daoFactory.commitTransaction();
-            
+
             if(user == null || !user.getPassword().equals(password)){
                 loggedUserDAO.destroy();
                 applicationMessage = "Username e password errati";
@@ -106,18 +117,18 @@ public class HomeManager {
                 applicationMessage = "Username e password corretti";
                 loggedUser = loggedUserDAO.create(user.getUserId(), user.getUsername(), user.getFirstname(), user.getLastname());
             }
-            
-            
-            
+
+
+
             request.setAttribute("applicationMessage", applicationMessage);
             request.setAttribute("loggedOn",loggedUser!=null);
             request.setAttribute("loggedUser", loggedUser);
             request.setAttribute("viewUrl", "homeManager/view");
-            
+
         }catch(Exception e){
             logger.log(Level.SEVERE, "Controller Error", e);
-            
-            
+
+
             try {
                 if(daoFactory != null){
                     daoFactory.rollbackTransaction();
@@ -133,26 +144,26 @@ public class HomeManager {
             }catch(Throwable t){
             }
         }
-    }  
+    }
 
     public static void logout(HttpServletRequest request, HttpServletResponse response){
         SessionDAOFactory sessionDAOFactory;
         Logger logger = LogService.getApplicationLogger();
         DAOFactory daoFactory;
-        
+
         try{
-            
+
             sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
             sessionDAOFactory.initSession(request, response);
-            
+
             LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
             loggedUserDAO.destroy();
-            
+
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
             daoFactory.beginTransaction();
             commonView(daoFactory, request);
             daoFactory.commitTransaction();
-            
+
         }catch(Exception e){
             logger.log(Level.SEVERE,"Controller Error", e);
             throw new RuntimeException(e);
@@ -161,60 +172,60 @@ public class HomeManager {
         request.setAttribute("loggedUser", null);
         request.setAttribute("viewUrl", "homeManager/view");
     }
-    
+
     public static void findAirport(HttpServletRequest request, HttpServletResponse response){
-        
+
         SessionDAOFactory sessionDAOFactory;
-        LoggedUser loggedUser;        
+        LoggedUser loggedUser;
         DAOFactory daoFactory = null;
         String applicationMessage = null;
-        
+
         Logger logger = LogService.getApplicationLogger();
-        
+
         try{
-            
+
             sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
             sessionDAOFactory.initSession(request, response);
-            
-            
-            
+
+
+
             LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
             loggedUser = loggedUserDAO.find();
-            
+
             String iata = request.getParameter("iata");
-            
+
             if(loggedUser != null && iata != null) {
-                
+
                 request.setAttribute("loggedOn", loggedUser != null);
                 request.setAttribute("loggedUser", loggedUser);
-                
+
                 daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
                 daoFactory.beginTransaction();
-                
+
                 AirportDAO airportDAO = daoFactory.getAirportDAO();
-                
+
                 Airport airport = airportDAO.findByIata(iata);
-                
-                
-                
+
+
+
                 daoFactory.commitTransaction();
-                
+
                 if(airport == null){
-                    applicationMessage = "Aeroporto non esistente";                    
+                    applicationMessage = "Aeroporto non esistente";
                 } else {
                     applicationMessage = "Aeroporto trovato";
                     request.setAttribute("iata", airport.getIata());
                     request.setAttribute("airportName", airport.getAirportname());
                     request.setAttribute("city", airport.getCity());
                 }
-                
-                
+
+
                 request.setAttribute("applicationMessage", applicationMessage);
                 request.setAttribute("loggedOn",loggedUser!=null);
                 request.setAttribute("loggedUser", loggedUser);
                 request.setAttribute("viewUrl", "homeManager/view");
-                
-            } 
+
+            }
         }catch(Exception e){
             logger.log(Level.SEVERE, "Controller Error", e);
             try {
@@ -233,14 +244,14 @@ public class HomeManager {
             }
         }
     }
-    
+
     private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
-        
+
         List<Airport> airports = new ArrayList();
-        
+
         AirportDAO airportDAO = daoFactory.getAirportDAO();
         airports = airportDAO.findAllAirport();
-        
+
         request.setAttribute("airports", airports);
     }
 }

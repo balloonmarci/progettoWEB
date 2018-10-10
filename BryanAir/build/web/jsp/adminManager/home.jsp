@@ -65,9 +65,8 @@ and open the template in the editor.
           </div>
           <div class="actioninfo">
             <p class="actiondescription">
-              <span>Here you can create new main flights
-              that can be updated into real flights
-              later. No flight date request.</span>
+              <span>Crea voli virtuali
+              aggiornabili successivamente in voli concreti.</span>
             </p>
             <a class="actionlink" href="javascript:goOnCreateAbsFlightsPage()">Go on!</a>
           </div>
@@ -78,32 +77,10 @@ and open the template in the editor.
           </div>
           <div class="actioninfo">
             <p class="actiondescription">
-              <span>Here you can create new real flights
-              from exixting main flights.</span>
-            </p>
-            <a class="actionlink" href="javascript:">Go on!</a>
-          </div>
-        </section>
-        <section class="action bkColor clearfix">
-          <div class="actionimage">
-            <img src="images/notes.png" alt="" width="40%">
-          </div>
-          <div class="actioninfo">
-            <p class="actiondescription">
-              <span>Here you can modify existing main flight.</span>
+              <span>Modifica, ricerca, eliminazione di voli virtuali e
+                    gestione dei voli concreti associati</span>
             </p>
             <a class="actionlink" href="javascript:goOnAbsFlightsPage()">Go on!</a>
-          </div>
-        </section>
-        <section class="action bkColor clearfix">
-          <div class="actionimage">
-            <img src="images/notes.png" alt="" width="40%">
-          </div>
-          <div class="actioninfo">
-            <p class="actiondescription">
-              <span>Here you can modify existing real flight.</span>
-            </p>
-            <a class="actionlink" href="javascript:">Go on!</a>
           </div>
         </section>
         <section class="action bkColor clearfix">
