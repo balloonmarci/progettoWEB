@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/css/supportmodule.css</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/jsp/supportManager/viewAdmin.jsp</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/jsp/supportManager/view.jsp</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/src/java/model/dao/mySQLJDBCImpl/ConversationDAOMySQLJDBCImpl.java</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/jsp/supportManager/chat.jsp</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/jsp/supportManager/adminChat.jsp</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/src/java/model/dao/ConversationDAO.java</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/src/java/controller/SupportManager.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/web/jsp/flightManager/concreteFlightsFactory.jsp</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/web/css/adminflights.css</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/src/java/model/dao/ConcreteFlightDAO.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/web/jsp/adminManager/home.jsp</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/src/java/model/dao/mySQLJDBCImpl/ConcreteFlightDAOMySQLJDBCImpl.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/src/java/model/dao/mySQLJDBCImpl/VirtualFlightDAOMySQLJDBCImpl.java</file>
+            <file>file:/C:/Users/Filippo/Desktop/Nuova%20cartella/AAAAAAAAAA/BryanAir/web/jsp/homeManager/view.jsp</file>
         </group>
     </open-files>
 </project-private>

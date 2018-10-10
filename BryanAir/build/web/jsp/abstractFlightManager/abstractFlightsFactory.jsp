@@ -13,7 +13,8 @@
 <% LoggedAdmin loggedAdmin = (LoggedAdmin)request.getAttribute("loggedadmin");
    List<Airport> airports = (List<Airport>)request.getAttribute("airports");
    VirtualFlight virtualFlight = (VirtualFlight)request.getAttribute("virtualFlight");
-   String applicationMessage = (String)request.getAttribute("applicationMessage");%>
+   String applicationMessage = (String)request.getAttribute("applicationMessage");
+   String action=(virtualFlight != null) ? "modify" : "insert";%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -43,23 +44,30 @@ and open the template in the editor.
                 b = document.goHomeForm;
                 b.submit();
             }
+            
+            function goBack(){
+                b = document.goBackForm;
+                b.submit();
+            }
         </script>
     </head>
     <body>
       <header class="ontop bkColor clearfix">
         <span class="title">I was waiting for you admin <%=loggedAdmin.getFirstname()%>!</span>
+        <a href="javascript:goBack()" class="homeclass leftarrow"><img src="images/leftarrow2.png" width="60%"></a>
         <a href="javascript:logout()" class="logoutclass">Logout</a>
         <a href="javascript:goHome()" class="homeclass">Home</a>
       </header>
       <main>
-        <span class="insertflightTitle">Insert new abstract flights:</span>
+        <span class="insertflightTitle"><%=action.equals("modify")? "Modify":"Insert new"%> abstract flight:</span><br/>
         <section class="bkColor insertFlightData dimensioni">
           <span class="error"><%=(applicationMessage != null)? applicationMessage : ""%></span>
           <form action="Dispatcher" method="post" class="flightform">
-            <input type="text" name="flightCode" value="<%=(virtualFlight != null)? virtualFlight.getFlightCode(): ""%>" placeholder="Enter flight code"/>
+            <input type="text" name="flightCode" value="<%=action.equals("modify")? virtualFlight.getFlightCode(): ""%>"
+                   placeholder="Enter flight code" <%=(action.equals("modify"))? "readOnly": ""%>/>
             <input type="text" name="departureAirportIata" list="departureAirport"
-                               value="<%=(virtualFlight != null)? virtualFlight.getDepartureAirport().getIata(): ""%>"
-                               placeholder="Enter departure airport" autocomplete="off" required/>
+                               value="<%=action.equals("modify")? virtualFlight.getDepartureAirport().getIata(): ""%>"
+                               placeholder="Enter departure airport" <%=(action.equals("modify"))? "readOnly": ""%> autocomplete="off" required/>
             <datalist id="departureAirport">
               <select name="departureAirport">
               <%for(int i = 0; i < airports.size(); i++){%>
@@ -69,8 +77,8 @@ and open the template in the editor.
             </datalist>
 
             <input type="text" name="arrivalAirportIata" list="arrivalAirport"
-                               value="<%=(virtualFlight != null)? virtualFlight.getArrivalAirport().getIata(): ""%>" 
-                               placeholder="Enter arrival airport" autocomplete="off" required/>
+                               value="<%=action.equals("modify")? virtualFlight.getArrivalAirport().getIata(): ""%>" 
+                               placeholder="Enter arrival airport" <%=(action.equals("modify"))? "readOnly": ""%> autocomplete="off" required/>
             <datalist id="arrivalAirport">
               <select name="arrivalAirport">
                 <%for(int i = 0; i < airports.size(); i++){%>
@@ -78,17 +86,21 @@ and open the template in the editor.
               <%}%>
               </select>
             </datalist></br></br>
-            <input type="text" name="priceFirst" value = "<%=(virtualFlight != null)? virtualFlight.getPriceFirst() : ""%>" placeholder="Enter first class price" required/>
-            <input type="text" name="priceSecond" value = "<%=(virtualFlight != null)? virtualFlight.getPriceSecond() : ""%>" placeholder="Enter second class price" required/>
-            <input type="submit" name="insertFlight" value="Insert!"/>
-            <input type="hidden" name="controllerAction" value="FlightManager.createAbstractFlights">
+            <input type="text" name="pricefirst" value = "<%=action.equals("modify")? virtualFlight.getPriceFirst() : ""%>" placeholder="Enter first class price" required/>
+            <input type="text" name="pricesecond" value = "<%=action.equals("modify")? virtualFlight.getPriceSecond() : ""%>" placeholder="Enter second class price" required/>
+            <input type="submit" name="insertFlight" value="<%=action.equals("modify")? "Modify":"Insert"%>!"/>
+            <input type="hidden" name="controllerAction" value="<%=action.equals("modify")? "FlightManager.modifyVirtualFlight" : "FlightManager.createAbstractFlights"%>">
           </form>
+        </section>
       </main>
       <form name="logoutForm" action="Dispatcher" method="post">
         <input type="hidden" name="controllerAction" value="AdminManager.view">
       </form>
       <form name="goHomeForm" action="Dispatcher" method="post">
         <input type="hidden" name="controllerAction" value="AdminManager.viewHome">
+      </form>
+      <form name="goBackForm" action="Dispatcher" method="post">
+        <input type="hidden" name="controllerAction" value="FlightManager.view">
       </form>
     </body>
 </html>
