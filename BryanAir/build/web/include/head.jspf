@@ -24,6 +24,13 @@
                     alert("Devi effettuare il login per richiedere supporto tecnico");
                 }
             }
+            function goProfile(){
+                if(<%=loggedOn%>){
+                    document.profileForm.submit();
+                } else {
+                    alert("Devi effettuare il login per entrare nel profilo");
+                }
+            }
             
             function onLoadHandler(){
                 try{ firstOnLoadHandler(); } catch(e){}

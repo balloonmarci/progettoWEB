@@ -165,7 +165,7 @@ public class UserDAOMySQLJDBCImpl implements UserDAO{
     }
 
     @Override
-    public void update(User user) throws DuplicatedObjectException {
+    public void update(User user) throws DuplicatedObjectException{
         PreparedStatement ps;
         
         try {
@@ -188,6 +188,7 @@ public class UserDAOMySQLJDBCImpl implements UserDAO{
                 ps.setString(4, user.getEmail());
                 ps.setLong(5, user.getUserId());
                 ps.executeUpdate();
+                ps.close();
             }
             catch(SQLIntegrityConstraintViolationException e){
                 throw new DuplicatedObjectException("UserDAOJDBCImpl.create: Tentativo di inserimento di un utente già esistente.");
