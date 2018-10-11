@@ -18,6 +18,8 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import model.dao.MessageDAO;
+import model.dao.PrenotationDAO;
+import model.dao.PushedFlightDAO;
 
 public class MySQLJDBCDAOFactory extends DAOFactory {
     
@@ -94,6 +96,16 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
     @Override
     public MessageDAO getMessageDAO(){
         return new MessageDAOMySQLJDBCImpl(connection);
+    }
+
+    @Override
+    public PrenotationDAO getPrenotationDAO() {
+        return new PrenotationDAOMySQLJDBCImpl(connection);
+    }
+
+    @Override
+    public PushedFlightDAO getPushedFlightDAO() {
+        return new PushedFligthDAOMySQLJDBCImpl(connection);
     }
     
     

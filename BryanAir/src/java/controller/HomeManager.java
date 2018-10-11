@@ -28,6 +28,9 @@ import model.mo.Airport;
 
 import java.util.List;
 import java.util.ArrayList;
+import model.dao.ConcreteFlightDAO;
+import model.dao.PushedFlightDAO;
+import model.mo.PushedFlight;
 
 public class HomeManager {
 
@@ -63,11 +66,14 @@ public class HomeManager {
           daoFactory.beginTransaction();
 
           commonView(daoFactory, request);
+          PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
+          List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
 
           daoFactory.commitTransaction();
 
           request.setAttribute("loggedOn", loggedUser != null);
           request.setAttribute("loggedUser", loggedUser);
+          request.setAttribute("pushedFlights", pushedFlights);
 
           request.setAttribute("viewUrl", "homeManager/view");
 
@@ -106,6 +112,8 @@ public class HomeManager {
             User user = userDAO.findByUsername(username);
 
             commonView(daoFactory, request);
+            PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
+            List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
 
             daoFactory.commitTransaction();
 
@@ -119,7 +127,7 @@ public class HomeManager {
             }
 
 
-
+            request.setAttribute("pushedFlights", pushedFlights);
             request.setAttribute("applicationMessage", applicationMessage);
             request.setAttribute("loggedOn",loggedUser!=null);
             request.setAttribute("loggedUser", loggedUser);
@@ -162,12 +170,19 @@ public class HomeManager {
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
             daoFactory.beginTransaction();
             commonView(daoFactory, request);
+            
+            PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
+            List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
+            
             daoFactory.commitTransaction();
 
+            request.setAttribute("pushedFlights", pushedFlights);
         }catch(Exception e){
             logger.log(Level.SEVERE,"Controller Error", e);
             throw new RuntimeException(e);
         }
+        
+        
         request.setAttribute("loggedOn", false);
         request.setAttribute("loggedUser", null);
         request.setAttribute("viewUrl", "homeManager/view");
