@@ -1,3 +1,4 @@
+<%@page import="model.mo.PushedFlight"%>
 <%@page session="false"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.session.mo.LoggedUser"%>
@@ -8,8 +9,9 @@
     LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
     
     List<Airport> airports = (List<Airport>) request.getAttribute("airports");
+    List<PushedFlight> pushedFlights = (List<PushedFlight>) request.getAttribute("pushedFlights");
     
-    String applicationMessage = (String) request.getAttribute("applicationMessage");   
+    String applicationMessage = (String) request.getAttribute("applicationMessage");
 %>
 <!DOCTYPE html>
 <html>
@@ -35,6 +37,7 @@
         }
     </script>
     <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
     </head>
     <body>
       <%@include file="/include/header.jspf"%>
@@ -78,18 +81,18 @@
       <main class = "m-main clearfix">
         <div class="m-content clearfix">
           <div>
-            <article>
-              <h1>Caraibi</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
-            <article>
-              <h1>Maldive</h1>
-              <img src="images/maldive.png" alt="Maldive">
-            </article>
-            <article>
-              <h1>New York</h1>
-              <img src="images/nycity.png" alt="New York">
-            </article>
+                <%for(int i=0; i<pushedFlights.size(); i++ ) { %>
+                <article>
+                    <h1><%=pushedFlights.get(i).getArrivalcity()%></h1>
+                  <img src="images/Destinations/<%=pushedFlights.get(i).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(i).getArrivalcity()%>">
+                  <h3 class="h3-home">
+                      A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(i).getFinalprice()*100)/100%>€</strong> !!! <br>
+                      <%if(pushedFlights.get(i).getDifference()>0) {%>
+                        Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(i).getDifference()*100)/100%>€ se prenoti subito !
+                      <%}%>
+                  </h3>
+                </article>                
+                <%}%>
           </div>
           <div>
             <article>
