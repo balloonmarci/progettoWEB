@@ -66,10 +66,11 @@ public class UserDAOMySQLJDBCImpl implements UserDAO{
         try{
             
             String sql
-              = " SELECT * "
-              + "   FROM user "
-              + " WHERE "
-              + "   username = ?";
+              = "SELECT * "
+              + "FROM user "
+              + "WHERE "
+              + "username = ? AND "
+              + "deleted = '0'";
             
             ps = conn.prepareStatement(sql);
             ps.setString(1, username );
@@ -165,7 +166,7 @@ public class UserDAOMySQLJDBCImpl implements UserDAO{
     }
 
     @Override
-    public void update(User user) throws DuplicatedObjectException {
+    public void update(User user) throws DuplicatedObjectException{
         PreparedStatement ps;
         
         try {
@@ -188,10 +189,36 @@ public class UserDAOMySQLJDBCImpl implements UserDAO{
                 ps.setString(4, user.getEmail());
                 ps.setLong(5, user.getUserId());
                 ps.executeUpdate();
+                ps.close();
             }
             catch(SQLIntegrityConstraintViolationException e){
                 throw new DuplicatedObjectException("UserDAOJDBCImpl.create: Tentativo di inserimento di un utente già esistente.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Override
+    public void updatePassword(User user){
+        PreparedStatement ps;
+        
+        try {
+            String sql 
+            = "UPDATE user "
+            + "SET "
+            + "password = ? "              
+            + "WHERE "
+            + "id = ? ";
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, user.getPassword());
+            ps.setLong(2, user.getUserId());
+
+            ps.executeUpdate();
+            ps.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

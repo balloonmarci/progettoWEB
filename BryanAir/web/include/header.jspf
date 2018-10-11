@@ -65,7 +65,7 @@
               <li><a href="">Prenota</a></li>
               <li><a href="javascript:goSupport();">Supporto</a></li>
               <li><a href="">Viaggi</a></li>
-              <li><a href="">Profilo</a></li>
+              <li><a href="javascript:goProfile();">Profilo</a></li>
             </ul>
           </div>
         </div>
@@ -77,5 +77,8 @@
         </form>
         <form name="supportForm" method="post" action="Dispatcher">
             <input type="hidden" name="controllerAction" value="SupportManager.view"/>
+        </form>
+        <form name="profileForm" method="post" action="Dispatcher">
+            <input type="hidden" name="controllerAction" value="UserManager.view"/>
         </form>
       </header>

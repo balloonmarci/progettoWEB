@@ -20,3 +20,9 @@ a{
   text-decoration: none;
   color: #000;
 }
+
+.error{
+  display: block;
+  color: red;
+  margin-left: 35%;
+}
