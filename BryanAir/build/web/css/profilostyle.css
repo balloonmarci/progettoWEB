@@ -1,0 +1,88 @@
+html,body{
+  background-color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+}
+
+
+.m-main{
+  padding-top: 7%;
+  overflow: hidden;
+}
+
+.sidebar{
+  float: left;
+  padding: 2%;
+  width: 20%;
+}
+
+.propic{
+  width: 60%;
+  text-align: center;
+}
+
+.propic img{
+  width: 80%;
+}
+
+.utilities{
+  width: 60%;
+}
+
+.utilities div {
+  padding: 6% 0;
+  margin: 1% 0;
+  text-align: center;
+}
+
+.userform{
+  width: 55%;
+  margin-top: 2%;
+  height: 18em;
+  background-color: #fff;
+}
+
+.userform-position{
+  float: right;
+  position: relative;
+  right: 2%;
+}
+
+.userform label{
+  display: inline-block;
+  width: 20%;
+}
+
+.userform input[type="text"],
+.userform input[type="email"],
+.userform input[type="password"]
+{
+  width: 70%;
+}
+
+.passwordform{
+  height: 12em;
+}
+
+.deleteAccountForm{
+  height: 9em;
+}
+
+.uform{
+  padding: 5%;
+}
+
+
+@media screen and (min-width: 1281px){
+  .userform{
+    height: 20em;
+  }
+}

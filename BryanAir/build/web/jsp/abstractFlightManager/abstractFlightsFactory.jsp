@@ -54,7 +54,7 @@ and open the template in the editor.
     <body>
       <header class="ontop bkColor clearfix">
         <span class="title">I was waiting for you admin <%=loggedAdmin.getFirstname()%>!</span>
-        <a href="javascript:goBack()" class="homeclass leftarrow"><img src="images/leftarrow2.png" width="60%"></a>
+        <a href="javascript:goBack()" class="homeclass leftarrow" <%=(action.equals("modify"))? "":"hidden"%>><img src="images/leftarrow2.png" width="60%"></a>
         <a href="javascript:logout()" class="logoutclass">Logout</a>
         <a href="javascript:goHome()" class="homeclass">Home</a>
       </header>

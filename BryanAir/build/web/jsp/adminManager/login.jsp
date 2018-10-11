@@ -30,7 +30,7 @@
         </section>
         <div class="m-reg-form m-reg-form-color">
           <form name="adminLoginForm" action="Dispatcher" method="post" class="regform-dimensioni regform-position">
-            <span style="display: block; color:red; margin-left: 30%; margin-top:1%;"><%=(adminApplicationMessage!=null) ? adminApplicationMessage : ""%></span></br>
+            <span class="error"><%=(adminApplicationMessage!=null) ? adminApplicationMessage : ""%></span></br>
             <label for="adminFirstName"> Name </label>
             <input type="text" id="adminFirstName" name="firstname" maxlength="40" required>
             </br></br>

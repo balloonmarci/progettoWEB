@@ -24,12 +24,20 @@
                     alert("Devi effettuare il login per richiedere supporto tecnico");
                 }
             }
+            function goProfile(){
+                if(<%=loggedOn%>){
+                    document.profileForm.submit();
+                } else {
+                    alert("Devi effettuare il login per entrare nel profilo");
+                }
+            }
             
             function onLoadHandler(){
-                try{ firstOnLoadHandler(); } catch(e){}
-                try{ onHomeLoadHandler();  } catch(e){}
-                try{ mainHomeOnLoadHandler(); } catch(e){}
-                try{ onConcreteFlightsLoadHandler(); } catch(e){}
+                try{ firstOnLoadHandler();             } catch(e){}
+                try{ onHomeLoadHandler();              } catch(e){}
+                try{ mainHomeOnLoadHandler();          } catch(e){}
+                try{ profileLoadHandler();             } catch(e){}
+                try{ onConcreteFlightsLoadHandler();   } catch(e){}
                 try{ mainConcreteFlightsLoadHandler(); } catch(e){}
             }
             

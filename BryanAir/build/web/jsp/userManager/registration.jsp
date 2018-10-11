@@ -67,7 +67,7 @@ and open the template in the editor.
             </section>
             <div class="m-reg-form m-reg-form-color">
                 <form name="registerForm" action="Dispatcher" method="post" class="regform-dimensioni regform-position">
-                    <span style="display: block; color:red; margin-left: 30%; margin-top:1%;"><%=(user!=null) ? applicationMessage : ""%></span></br>
+                    <span class="error"><%=(user!=null) ? applicationMessage : ""%></span></br>
                     <label for="username"> Username </label>
                     <input type="text" id="username" name="username" style="<%=(user!=null) ? "border: 1px solid red;" : ""%>" maxlength="40" required>
                     </br></br>
@@ -84,7 +84,6 @@ and open the template in the editor.
                     <input type="password" id="password" name="password" maxlength="40" required>
                     </br></br>
                     <input type="hidden" name="controllerAction" value="UserManager.register"/>
-                    <!--<input type="hidden" name="userId" value="95356"/>-->
                     <input type="submit" value="Registrati" class="submit-dimensioni submit-position submit-color2">
                 </form>
             </div>
