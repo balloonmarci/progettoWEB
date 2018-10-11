@@ -11,7 +11,13 @@
 <%User user = (User)request.getAttribute("user");
   LoggedUser loggedUser = (LoggedUser)request.getAttribute("loggedUser");
   Boolean loggedOn = (Boolean)request.getAttribute("loggedOn");
-  String applicationMessage = (String)request.getAttribute("applicationMessage");%>
+  String applicationMessage = (String)request.getAttribute("applicationMessage");
+  String actionPage = (String)request.getAttribute("actionPage");
+  
+  String thisform = null;
+  if(actionPage.equals("account")) thisform = "'block','none','none'";
+  if(actionPage.equals("setpassword")) thisform = "'none','block','none'";
+  if(actionPage.equals("delete")) thisform = "'none','none','block'";%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -21,11 +27,33 @@ and open the template in the editor.
 <html>
     <head>
         <%@include file="/include/head.jspf"%>
+        <title>Bryanair</title>
         <link rel="stylesheet" type="text/css" href="css/profilostyle.css">
-        <style>
-        
-        </style>
-        <title>Sito</title>
+        <script language="javascript">
+            function whichForm(accountForm, passwordForm, deleteAccountForm){
+                forms = document.querySelectorAll(".userform");
+                forms[0].style.display = accountForm;
+                forms[1].style.display = passwordForm;
+                forms[2].style.display = deleteAccountForm;
+            }
+            
+            function visualizeAccount(){
+                whichForm("block","none","none");
+            }
+            
+            function changePassword(){
+                whichForm("none","block","none");
+            }
+            
+            function deleteAccount(){
+                whichForm("none","none","block");
+            }
+            
+            function profileLoadHandler(){
+                whichForm(<%=thisform%>);
+            }
+            
+        </script>
     </head>
     <body>
       <%@include file="/include/header.jspf"%>
@@ -36,21 +64,24 @@ and open the template in the editor.
           </div>
           <section class="utilities">
             <div>
-              prenotazioni
+                <a href="javascript:">prenotazioni</a>
             </div>
             <div>
-              wishlist
+                <a href="javascript:">wishlist</a>
             </div>
             <div>
-              Cambia password
+                <a href="javascript:visualizeAccount()">Account</a>
             </div>
             <div>
-              Elimina account
+                <a href="javascript:changePassword()">Cambia password</a>
+            </div>
+            <div>
+                <a href="javascript:deleteAccount()">Elimina account</a>
             </div>
         </section>
         </aside>
         <section class="userform userform-position">
-            <span class="error"><%=(applicationMessage != null)? applicationMessage:""%></span>
+            <span class="error"><%=(applicationMessage != null && actionPage.equals("account"))? applicationMessage:""%></span>
             <form name="uForm" action="Dispatcher" method="post" class="uform uform-position">
               <label for="username"> Username </label>
               <input type="text" id="username" name="username" maxlength="40" value="<%=user.getUsername()%>" required>
@@ -67,6 +98,31 @@ and open the template in the editor.
               <input type="submit" value="Salva" class="submit submit-dimensioni">
               <input type="hidden" name="userId" value="<%=user.getUserId()%>"/>
               <input type="hidden" name="controllerAction" value="UserManager.modify"/>
+            </form>
+        </section>
+        <section class="userform userform-position passwordform">
+            <span class="error"><%=(applicationMessage != null && actionPage.equals("setpassword"))? applicationMessage:""%></span>
+            <form name="passwordForm" action="Dispatcher" method="post" class="uform uform-position">
+              <label for="oldPassword"> Password </label>
+              <input type="password" id="oldPassword" name="oldpassword" maxlength="40" required>
+              </br></br>
+              <label for="newPassword"> New password </label>
+              <input type="password" id="newPassword" name="newpassword" maxlength="40" required>
+              </br></br>
+              <input type="submit" value="Salva" class="submit submit-dimensioni">
+              <input type="hidden" name="userId" value="<%=user.getUserId()%>"/>
+              <input type="hidden" name="controllerAction" value="UserManager.modifyPassword"/>
+            </form>
+        </section>
+        <section class="userform userform-position deleteAccountForm">
+            <span class="error"><%=(applicationMessage != null && actionPage.equals("delete"))? applicationMessage:""%></span>
+            <form name="deleteAccountForm" action="Dispatcher" method="post" class="uform uform-position">
+              <label for="Password"> Password </label>
+              <input type="password" id="Password" name="password" maxlength="40" required>
+              </br></br>
+              <input type="submit" value="Elimina" class="submit submit-dimensioni">
+              <input type="hidden" name="userId" value="<%=user.getUserId()%>"/>
+              <input type="hidden" name="controllerAction" value="UserManager.deleteAccount"/>
             </form>
         </section>
       </main>

@@ -62,8 +62,18 @@ body{
 }
 
 .userform input[type="text"],
-.userform input[type="email"]{
+.userform input[type="email"],
+.userform input[type="password"]
+{
   width: 70%;
+}
+
+.passwordform{
+  height: 12em;
+}
+
+.deleteAccountForm{
+  height: 9em;
 }
 
 .uform{

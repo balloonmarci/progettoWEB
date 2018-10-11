@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/include/footer.jspf</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/jsp/userManager/registration.jsp</file>
             <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/jsp/adminManager/home.jsp</file>
             <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/controller/UserManager.java</file>
-            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/css/base.css</file>
             <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/model/dao/mySQLJDBCImpl/UserDAOMySQLJDBCImpl.java</file>
             <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/jsp/userManager/profile.jsp</file>
             <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/jsp/adminManager/login.jsp</file>
-            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/include/header.jspf</file>
-            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/css/footerstyle.css</file>
-            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/include/head.jspf</file>
         </group>
     </open-files>
 </project-private>

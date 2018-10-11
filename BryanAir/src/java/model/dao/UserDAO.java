@@ -17,8 +17,8 @@ public interface UserDAO {
         String lastname) throws DuplicatedObjectException;
     
     public void update(User user) throws DuplicatedObjectException;
+    public void updatePassword(User user);
     public void delete(User user);
     public User findByUserId(Long userId);
     public User findByUsername(String username);
-            
 }

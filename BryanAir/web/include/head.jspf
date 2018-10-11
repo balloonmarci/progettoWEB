@@ -33,10 +33,11 @@
             }
             
             function onLoadHandler(){
-                try{ firstOnLoadHandler(); } catch(e){}
-                try{ onHomeLoadHandler();  } catch(e){}
-                try{ mainHomeOnLoadHandler(); } catch(e){}
-                try{ onConcreteFlightsLoadHandler(); } catch(e){}
+                try{ firstOnLoadHandler();             } catch(e){}
+                try{ onHomeLoadHandler();              } catch(e){}
+                try{ mainHomeOnLoadHandler();          } catch(e){}
+                try{ profileLoadHandler();             } catch(e){}
+                try{ onConcreteFlightsLoadHandler();   } catch(e){}
                 try{ mainConcreteFlightsLoadHandler(); } catch(e){}
             }
             

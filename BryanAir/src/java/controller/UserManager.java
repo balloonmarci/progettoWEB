@@ -61,6 +61,7 @@ public class UserManager {
                 request.setAttribute("user", user);
                 request.setAttribute("loggedOn", loggedUser != null);
                 request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("actionPage", "account");
                 request.setAttribute("viewUrl", "userManager/profile");
             }
         catch (Exception e) {
@@ -230,6 +231,7 @@ public class UserManager {
             request.setAttribute("user",user);
             request.setAttribute("loggedOn", loggedUser != null);
             request.setAttribute("loggedUser", loggedUser);
+            request.setAttribute("actionPage", "account");
             request.setAttribute("applicationMessage", applicationMessage);
             
 
@@ -253,14 +255,141 @@ public class UserManager {
         }
     }
     
-        private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+    public static void modifyPassword(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
         
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+            sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+            sessionDAOFactory.initSession(request, response);
+            
+            LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+            loggedUser = loggedUserDAO.find();
+            
+            String oldPassword = request.getParameter("oldpassword");
+            String newPassword = request.getParameter("newpassword");
+      
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            daoFactory.beginTransaction();
+            
+            UserDAO userDAO = daoFactory.getUserDAO();
+            User user = userDAO.findByUserId(loggedUser.getUserId());
+            
+            if(user.getPassword().equals(oldPassword)){
+                user.setPassword(newPassword);
+                userDAO.updatePassword(user);
+            } else {
+                applicationMessage = "Password errata";
+                request.setAttribute("applicationMessage", applicationMessage);
+            }
+            
+            daoFactory.commitTransaction();
+            
+            user.setPassword(null);
+            
+            request.setAttribute("user",user);
+            request.setAttribute("loggedOn", loggedUser != null);
+            request.setAttribute("loggedUser", loggedUser);
+            request.setAttribute("actionPage", "setpassword");
+            request.setAttribute("viewUrl", "userManager/profile");
+            
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+
+        } finally {
+            try {
+                if (daoFactory != null) {
+                    daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    public static void deleteAccount(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+            sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+            sessionDAOFactory.initSession(request, response);
+            
+            LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+            loggedUser = loggedUserDAO.find();
+            
+            String password = request.getParameter("password");
+      
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            daoFactory.beginTransaction();
+            
+            UserDAO userDAO = daoFactory.getUserDAO();
+            User user = userDAO.findByUserId(loggedUser.getUserId());
+            
+            if(user.getPassword().equals(password)){
+                
+                userDAO.delete(user);
+                loggedUserDAO.destroy();
+                loggedUser = null;
+                
+            } else {
+                user.setPassword(null);
+                applicationMessage = "Password errata";
+                request.setAttribute("applicationMessage", applicationMessage);
+                request.setAttribute("user",user);
+                request.setAttribute("actionPage", "deleted");
+                request.setAttribute("viewUrl", "userManager/profile");
+            }
+            
+            commonView(daoFactory, request);
+            daoFactory.commitTransaction();
+            
+            request.setAttribute("loggedOn", loggedUser != null);
+            request.setAttribute("loggedUser", loggedUser);
+            request.setAttribute("viewUrl", "homeManager/view");
+            
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+
+        } finally {
+            try {
+                if (daoFactory != null) {
+                    daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+
         List<Airport> airports = new ArrayList();
-        
+
         AirportDAO airportDAO = daoFactory.getAirportDAO();
         airports = airportDAO.findAllAirport();
-        
+
         request.setAttribute("airports", airports);
-    }
+   }
 }
 
