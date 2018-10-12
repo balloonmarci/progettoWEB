@@ -12,6 +12,8 @@
     List<PushedFlight> pushedFlights = (List<PushedFlight>) request.getAttribute("pushedFlights");
     
     String applicationMessage = (String) request.getAttribute("applicationMessage");
+    
+    int c;
 %>
 <!DOCTYPE html>
 <html>
@@ -81,46 +83,46 @@
       <main class = "m-main clearfix">
         <div class="m-content clearfix">
           <div>
-                <%for(int i=0; i<pushedFlights.size(); i++ ) { %>
+                <%for(c=0; c<4; c++ ) { %>
                 <article>
-                    <h1><%=pushedFlights.get(i).getArrivalcity()%></h1>
-                  <img src="images/Destinations/<%=pushedFlights.get(i).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(i).getArrivalcity()%>">
+                    <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                  <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                   <h3 class="h3-home">
-                      A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(i).getFinalprice()*100)/100%>€</strong> !!! <br>
-                      <%if(pushedFlights.get(i).getDifference()>0) {%>
-                        Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(i).getDifference()*100)/100%>€ se prenoti subito !
+                      A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                      <%if(pushedFlights.get(c).getDifference()>0) {%>
+                        Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
                       <%}%>
                   </h3>
                 </article>                
                 <%}%>
           </div>
           <div>
-            <article>
-              <h1>Roma</h1>
-              <img src="images/roma.png" alt="Roma">
-            </article>
-            <article>
-              <h1>Toronto</h1>
-              <img src="images/toronto.png" alt="Toronto">
-            </article>
-            <article>
-              <h1>Caraibi</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
+                <%for(c=4; c<8; c++ ) { %>
+                <article>
+                    <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                  <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                  <h3 class="h3-home">
+                      A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                      <%if(pushedFlights.get(c).getDifference()>0) {%>
+                        Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                      <%}%>
+                  </h3>
+                </article>                
+                <%}%>
           </div>
           <div>
-            <article>
-              <h1>Mosca</h1>
-              <img src="images/cremlino.png" alt="Cremlino">
-            </article>
-            <article>
-              <h1>Luogo 8</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
-            <article>
-              <h1>Luogo 9</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
+                <%for(c=8; c<12; c++ ) { %>
+                <article>
+                    <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                  <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                  <h3 class="h3-home">
+                      A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                      <%if(pushedFlights.get(c).getDifference()>0) {%>
+                        Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                      <%}%>
+                  </h3>
+                </article>                
+                <%}%>
           </div>
         </div>
         <aside class="m-sidebar">

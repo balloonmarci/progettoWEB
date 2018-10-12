@@ -44,9 +44,9 @@ public class PushedFligthDAOMySQLJDBCImpl implements PushedFlightDAO {
                   + " ON A1.iata = V.departureairport "
                   + " JOIN airport AS A2 "
                   + " ON A2.iata = V.arrivalairport "
-                  + " WHERE C.PUSH = 1 "
+                  + " WHERE C.PUSH = 1 AND A1.iata ='MXP' "
                   + " AND C.deleted = 0 "
-                  + " ORDER BY (V.pricesecond*C.multiplier); ";
+                  + " ORDER BY RAND() LIMIT 12; ";
 
           ps = conn.prepareStatement(sq1);
 
