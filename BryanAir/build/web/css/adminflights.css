@@ -108,30 +108,6 @@ select{
   border: none;
 }
 
-.setInfo{
-  margin: 2% 0;
-}
-
-.setInfo label{
-  display: block;
-  width: 100%;
-  margin: 5% 0;
-  padding: 0;
-}
-
-.setInfo div{
-  display: inline-block;
-  width: 50%;
-}
-
-.setInfo div:nth-child(1){
-  float: left;
-}
-
-.setInfo div:nth-child(2){
-  float: right;
-}
-
 .abstractFlightsList{
   float: right;
   width: 60%;

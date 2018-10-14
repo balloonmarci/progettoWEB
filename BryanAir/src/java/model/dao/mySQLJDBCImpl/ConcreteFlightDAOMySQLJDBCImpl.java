@@ -329,4 +329,80 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
 
         return concreteFlight;
     }
+    
+    @Override
+    public List<ConcreteFlight> findByMonth(String flightcode, String month){
+      PreparedStatement ps;
+      ArrayList<ConcreteFlight> concreteFlights = new ArrayList<ConcreteFlight>();
+
+      try {
+          String sq1
+                  = "SELECT * "
+                  + "FROM concreteflight "
+                  + "WHERE "
+                  + "flightcode = ? AND "
+                  + "departuredate LIKE ? AND "
+                  + "departuredate >= NOW() AND "
+                  + "deleted = '0' "
+                  + "ORDER BY departuredate ASC";
+
+          ps = conn.prepareStatement(sq1);
+          ps.setString(1, flightcode);
+          ps.setString(2, "%-"+month+"-%");
+
+          ResultSet resultSet = ps.executeQuery();
+
+          while(resultSet.next()){
+
+              concreteFlights.add(read(resultSet));
+          }
+
+          resultSet.close();
+          ps.close();
+
+
+      }catch(SQLException e){
+          throw new RuntimeException(e);
+      }
+
+      return concreteFlights;
+    }
+    
+     @Override
+    public List<ConcreteFlight> findByAirportsName(String departureAirportName, String arrivalAirportName){
+         PreparedStatement ps;
+         ArrayList<ConcreteFlight> concreteFlights = new ArrayList<ConcreteFlight>();
+
+      try {
+          String sql
+                    = "SELECT cf.* "
+                    + "FROM virtualflight as vf join concreteflight as cf "
+                    + "ON vf.flightcode = cf.flightcode "
+                    + "WHERE vf.departureairport = (SELECT iata from airport where airportname = ?) "
+                    + "AND vf.arrivalairport = (SELECT iata from airport where airportname = ?) "
+                    + "AND cf.departuredate >= NOW() "
+                    + "AND cf.deleted = FALSE "
+                    + "AND vf.deleted = FALSE";
+
+          ps = conn.prepareStatement(sql);
+          ps.setString(1, departureAirportName);
+          ps.setString(2, arrivalAirportName);
+
+          ResultSet resultSet = ps.executeQuery();
+
+          while(resultSet.next()){
+
+              concreteFlights.add(read(resultSet));
+          }
+
+          resultSet.close();
+          ps.close();
+
+
+      }catch(SQLException e){
+          throw new RuntimeException(e);
+      }
+
+      return concreteFlights;
+    }
 }

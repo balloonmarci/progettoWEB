@@ -18,8 +18,10 @@ import services.logservice.LogService;
 
 import model.dao.exception.DuplicatedObjectException;
 import model.dao.DAOFactory;
+import model.dao.PushedFlightDAO;
 import model.dao.UserDAO;
 import model.mo.Airport;
+import model.mo.PushedFlight;
 import model.mo.User;
 
 import model.session.mo.LoggedUser;
@@ -345,22 +347,23 @@ public class UserManager {
                 userDAO.delete(user);
                 loggedUserDAO.destroy();
                 loggedUser = null;
+                commonView(daoFactory, request);
+                
+                request.setAttribute("viewUrl", "homeManager/view");
                 
             } else {
                 user.setPassword(null);
                 applicationMessage = "Password errata";
                 request.setAttribute("applicationMessage", applicationMessage);
                 request.setAttribute("user",user);
-                request.setAttribute("actionPage", "deleted");
+                request.setAttribute("actionPage", "delete");
                 request.setAttribute("viewUrl", "userManager/profile");
             }
             
-            commonView(daoFactory, request);
             daoFactory.commitTransaction();
             
             request.setAttribute("loggedOn", loggedUser != null);
             request.setAttribute("loggedUser", loggedUser);
-            request.setAttribute("viewUrl", "homeManager/view");
             
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Controller Error", e);
@@ -385,9 +388,12 @@ public class UserManager {
     private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
 
         List<Airport> airports = new ArrayList();
-
+        
         AirportDAO airportDAO = daoFactory.getAirportDAO();
         airports = airportDAO.findAllAirport();
+        
+        PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
+        List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
 
         request.setAttribute("airports", airports);
    }

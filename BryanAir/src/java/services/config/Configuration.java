@@ -30,6 +30,6 @@ public class Configuration {
     public static final String DAO_IMPL=DAOFactory.MYSQLJDBCIMPL;
     public static final String DATABASE_DRIVER="com.mysql.jdbc.Driver";
     //public static final String DATABASE_URL="jdbc:mysql://localhost/brianairdb?user=root&password=";
-    public static final String DATABASE_URL="jdbc:mysql://localhost/bryanairdb2?user=root&password=&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Berlin";
+    public static final String DATABASE_URL="jdbc:mysql://localhost/bryanairdb?user=root&password=&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Berlin";
     //jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 }

@@ -3,6 +3,7 @@
     Created on : 23-ago-2018, 14.28.11
     Author     : Filippo
 --%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -48,7 +49,7 @@ and open the template in the editor.
                                                        + dayMonth(departuredate) + " "
                                                        + getMonth(departuredate);
                                                
-                flightdays[1].innerHTML = "Ritorno: " + getDay(returndate) + ", " 
+                flightdays[1].innerHTML = "Ritorno: "  + getDay(returndate) + ", " 
                                                        + dayMonth(returndate) + " "
                                                        + getMonth(returndate);
                 <%}%>
@@ -89,7 +90,8 @@ and open the template in the editor.
                     </div>
                     <div class="flightselect">
                         <div class="radiodeparture"><input class="radiojsdep" type="radio" name="departure" <%=(i==0)? "checked":""%>></div>
-                        <div class="price">Da <%=concreteDeparture.get(i).getVirtualFlight().getPriceSecond()%>€</div>
+                        <div class="price">Da <%=new DecimalFormat("#.##").format(
+                        concreteDeparture.get(i).getVirtualFlight().getPriceSecond() * concreteDeparture.get(i).getMultiplier())%>€</div>
                     </div>
                 </div>
                     <%}%>
@@ -123,7 +125,8 @@ and open the template in the editor.
                     </div>
                     <div class="flightselect">
                         <div class="radioreturn"><input class="radiojsret" type="radio" name="return" <%=(i==0)? "checked":""%>></div>
-                        <div class="price">Da <%=concreteReturn.get(i).getVirtualFlight().getPriceSecond()%>€</div>
+                        <div class="price">Da <%=new DecimalFormat("#.##").format(
+                                concreteReturn.get(i).getVirtualFlight().getPriceSecond()* concreteReturn.get(i).getMultiplier())%>€</div>
                     </div>
                 </div>
                     <%}%>

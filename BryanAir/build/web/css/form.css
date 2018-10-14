@@ -52,10 +52,14 @@ input:checked + label[for="AndataRitorno"]{
 .main-form input[type="text"],
 .main-form input[type="date"]{
   display: inline-block;
-  width: 45%;
+  width: 42.85%;
   border: 1px solid #eee;
   padding: 2%;
   font-size: 100%;
+}
+
+.main-form input[type="text"]{
+    width: 44%;
 }
 
 .loginform-dimensioni input[type="text"],

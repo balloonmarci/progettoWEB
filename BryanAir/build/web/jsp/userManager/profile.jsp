@@ -64,10 +64,10 @@ and open the template in the editor.
           </div>
           <section class="utilities">
             <div>
-                <a href="javascript:">prenotazioni</a>
+                <a href="javascript:">Prenotazioni</a>
             </div>
             <div>
-                <a href="javascript:">wishlist</a>
+                <a href="javascript:">Wishlist</a>
             </div>
             <div>
                 <a href="javascript:visualizeAccount()">Account</a>

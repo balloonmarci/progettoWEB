@@ -11,13 +11,13 @@
 .main-form{
   position: absolute;
   width: 100%;
-  bottom: -11%;
+  bottom: -3.5%;
   left: 6%;
 }
 
 /*corpo pagina html*/
 .m-main{
-  margin-top: 6%;
+  margin-top: 3%;
 }
 
 div.m-content{
