@@ -17,6 +17,7 @@ public class Prenotation {
     private float pricetotal;
     private String passengerfirstname;
     private String passengerlastname;
+    private String sesso;
     private ConcreteFlight concreteFligth;
     private DateTime prenotationdate;
     private User user;

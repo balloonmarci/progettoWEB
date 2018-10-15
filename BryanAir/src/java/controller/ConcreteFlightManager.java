@@ -184,7 +184,7 @@ public class ConcreteFlightManager {
         }
     }*/
     
-   /* public static void viewConcreteFlightPerDepartureDate (HttpServletRequest request, HttpServletResponse response){
+    public static void viewConcreteFlightPerDepartureDate (HttpServletRequest request, HttpServletResponse response){
         
         Logger logger = LogService.getApplicationLogger();
         SessionDAOFactory sessionDAOFactory;
@@ -258,7 +258,7 @@ public class ConcreteFlightManager {
             }catch(Throwable t){
             }
         }
-    }*/
+    }
     
     public static void viewConcreteFlightsPerAirportsName(HttpServletRequest request, HttpServletResponse response){
         Logger logger = LogService.getApplicationLogger();
