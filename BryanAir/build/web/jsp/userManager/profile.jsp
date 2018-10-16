@@ -67,7 +67,7 @@ and open the template in the editor.
                 <a href="javascript:">prenotazioni</a>
             </div>
             <div>
-                <a href="javascript:">wishlist</a>
+                <a href="javascript:gotoWishlist()">wishlist</a>
             </div>
             <div>
                 <a href="javascript:visualizeAccount()">Account</a>

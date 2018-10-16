@@ -88,4 +88,65 @@ public class PushedFlight {
     }
     
     
+    public String getHtmlDate(){
+        String date, year, month, day;
+        
+        year=Integer.toString(this.getDeparturedate().getYear());
+        
+        if(this.getDeparturedate().getMonthOfYear()>=10){
+            month=Integer.toString(this.getDeparturedate().getMonthOfYear());
+        } else {
+            month="0"+Integer.toString(this.getDeparturedate().getMonthOfYear());
+        }
+        
+        if(this.getDeparturedate().getDayOfMonth()>=10){
+            day=Integer.toString(this.getDeparturedate().getDayOfMonth());
+        } else {
+            day="0"+Integer.toString(this.getDeparturedate().getDayOfMonth());
+        }
+        date = year + "-" + month + "-" + day;        
+        
+        return date;
+    }
+    
+    public String getHtmlDateTime(){
+        String date, year, month, day, hour, minute, second;
+        
+        year=Integer.toString(this.getDeparturedate().getYear());
+        
+        if(this.getDeparturedate().getMonthOfYear()>=10){
+            month=Integer.toString(this.getDeparturedate().getMonthOfYear());
+        } else {
+            month="0"+Integer.toString(this.getDeparturedate().getMonthOfYear());
+        }
+        
+        if(this.getDeparturedate().getDayOfMonth()>=10){
+            day=Integer.toString(this.getDeparturedate().getDayOfMonth());
+        } else {
+            day="0"+Integer.toString(this.getDeparturedate().getDayOfMonth());
+        }
+        
+        if(this.getDeparturedate().getHourOfDay()>=10){
+            hour=Integer.toString(this.getDeparturedate().getHourOfDay());
+        } else {
+            hour="0"+Integer.toString(this.getDeparturedate().getHourOfDay());
+        }
+        
+        if(this.getDeparturedate().getMinuteOfHour()>=10){
+            minute=Integer.toString(this.getDeparturedate().getMinuteOfHour());
+        } else {
+            minute="0"+Integer.toString(this.getDeparturedate().getMinuteOfHour());
+        }
+        
+        if(this.getDeparturedate().getSecondOfMinute()>=10){
+            second=Integer.toString(this.getDeparturedate().getSecondOfMinute());
+        } else {
+            second="0"+Integer.toString(this.getDeparturedate().getSecondOfMinute());
+        }
+        date = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;        
+        
+        return date;
+        }
+    
+    
 }
