@@ -1,4 +1,3 @@
-<%@page import="model.mo.Wishlist"%>
 <%@page import="model.mo.PushedFlight"%>
 <%@page session="false"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,16 +24,28 @@
         function searchFlights(){
             var f;
             var c;
+            /*var checkDates = document.concreteFlightsForm.ableFlightsDate;*/
             f = document.concreteFlightsForm;
             c = f.viaggio;
-            
+            f.controllerAction.value = "ConcreteFlightManager.viewConcreteFlightsPerAirportsName";
             if(c[1].checked)
-                f.controllerAction.value = "ConcreteFlightManager.viewConcreteFlightPerReturnDate";
+                f.return.value = true;
             else
-                f.controllerAction.value = "ConcreteFlightManager.viewConcreteFlightPerDepartureDate";
+                f.return.value = false;
+            
             f.submit();
         }
-        
+        /*function checkDates(){
+            var checkdates = document.concreteFlightsForm.ableFlightsDate;
+            
+            if(!checkdates.checked){
+                document.concreteFlightsForm.departuredate.disabled = true;
+                document.concreteFlightsForm.returndate.disabled = true;
+            }else{
+                document.concreteFlightsForm.departuredate.disabled = false;
+                document.concreteFlightsForm.returndate.disabled = false;
+            }
+        }*/
         function goToPrenotation(departureairport, arrivalairport, departuredate){            
             document.getElementById("departureAirportName").value=departureairport;
             document.getElementById("arrivalAirportName").value=arrivalairport;
@@ -60,6 +71,7 @@
         
         function mainHomeOnLoadHandler(){
             document.concreteFlightsForm.addEventListener("submit", searchFlights);
+            /*document.concreteFlightsForm.ableFlightsDate.addEventListener("click", checkDates);*/
         }
     </script>
     <link rel="stylesheet" type="text/css" href="css/modulelogin.css">
@@ -93,12 +105,13 @@
              <%}%>
                 </select>
             </datalist>
+            <!--<input type = "checkbox" name="ableFlightsDate" checked>
             <input type="date" name="departuredate" required>
-            <input type="date" name="returndate" required></br></br>
+            <input type="date" name="returndate" required>-->
 
             <input type="submit" value="Cerca" class="submit-dimensioni submit-color">
             <input type="hidden" name="controllerAction"> <!--value="ConcreteFlightManager.viewConcreteFlightPerDate"-->
-
+            <input type="hidden" name="return">
           </form>
         </div>
       </section>

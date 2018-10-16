@@ -5,6 +5,8 @@
  */
 package model.mo;
 
+import org.joda.time.DateTime;
+
 /**
  *
  * @author Marcello
@@ -13,9 +15,11 @@ public class Prenotation {
     private String id;
     private long clas;
     private float pricetotal;
-    private String passengerfirst;
-    private String passengerlast;
+    private String passengerfirstname;
+    private String passengerlastname;
+    private String sesso;
     private ConcreteFlight concreteFligth;
+    private DateTime prenotationdate;
     private User user;
     private boolean deleted;
 
@@ -42,29 +46,37 @@ public class Prenotation {
     public void setPricetotal(float pricetotal) {
         this.pricetotal = pricetotal;
     }
-
-    public String getPassengerfirst() {
-        return passengerfirst;
+    
+    public String getPassengerfirstname() {
+        return passengerfirstname;
     }
 
-    public void setPassengerfirst(String passengerfirst) {
-        this.passengerfirst = passengerfirst;
+    public void setPassengerfirstname(String passengerfirstname) {
+        this.passengerfirstname = passengerfirstname;
     }
 
-    public String getPassengerlast() {
-        return passengerlast;
+    public String getPassengerlastname() {
+        return passengerlastname;
     }
 
-    public void setPassengerlast(String passengerlast) {
-        this.passengerlast = passengerlast;
+    public void setPassengerlastname(String passengerlastname) {
+        this.passengerlastname = passengerlastname;
     }
-
+    
     public ConcreteFlight getConcreteFligth() {
         return concreteFligth;
     }
 
     public void setConcreteFligth(ConcreteFlight concreteFligth) {
         this.concreteFligth = concreteFligth;
+    }
+    
+    public DateTime getPrenotationdate() {
+        return prenotationdate;
+    }
+
+    public void setPrenotationdate(DateTime prenotationdate) {
+        this.prenotationdate = prenotationdate;
     }
 
     public User getUser() {

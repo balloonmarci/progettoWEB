@@ -31,9 +31,7 @@ import java.util.List;
 import java.util.ArrayList;
 import model.dao.ConcreteFlightDAO;
 import model.dao.PushedFlightDAO;
-import model.dao.WishlistDAO;
 import model.mo.PushedFlight;
-import model.mo.Wishlist;
 import org.joda.time.DateTime;
 
 public class HomeManager {

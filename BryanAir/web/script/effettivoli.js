@@ -39,6 +39,57 @@ function getMonth(data) {
   return daysOfTheMonth[n];
 }
 
+function getMonthNumber(){
+   var month = document.flightDateForm.flightmonth.value;
+   var monthNumber;
+   switch(month){
+        case "Gennaio":
+            monthNumber = "01";
+            break;
+        case "Febbraio":
+            monthNumber = "02";
+            break;
+        case "Marzo":
+            monthNumber = "03";
+            break;
+        case "Aprile":
+            monthNumber = "04";
+            break;
+        case "Maggio":
+            monthNumber = "05";
+            break;
+        case "Giugno":
+            monthNumber = "06";
+            break;
+        case "Luglio":
+            monthNumber = "07";
+            break;
+        case "Agosto":
+            monthNumber = "08";
+            break;
+        case "Settembre":
+            monthNumber = "09";
+            break;
+        case "Ottobre":
+            monthNumber = "10";
+            break;
+        case "Novembre":
+            monthNumber = "11";
+            break;
+        case "Dicembre":
+            monthNumber = "12";
+            break;
+    }
+
+    return monthNumber;
+}
+            
+function setDate(flightday, date){
+    flightday.innerHTML = getDay(date) + ", " 
+                          + dayMonth(date) + " "
+                          + getMonth(date);
+}
+
 function onConcreteFlightsLoadHandler(){
   var radiodep = document.getElementsByClassName("radiodeparture");
   var radioret = document.getElementsByClassName("radioreturn");

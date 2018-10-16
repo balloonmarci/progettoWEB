@@ -10,6 +10,7 @@ import model.mo.VirtualFlight;
 import model.mo.ConcreteFlight;
 import model.mo.Admin;
 import model.dao.exception.DuplicatedObjectException;
+import model.mo.Airport;
 /**
  *
  * @author Filippo
@@ -31,4 +32,6 @@ public interface ConcreteFlightDAO {
     public List<ConcreteFlight> findByDate(String departureAirportName, String arrivalAirportName, DateTime flightdate); 
     public List<ConcreteFlight> findConcreteFlightsByFlightCode(String flightCode);
     public ConcreteFlight findByFlightCodeAndDate(String flightCode, DateTime departureDate, DateTime arrivalDate);
+    public List<ConcreteFlight> findByMonth(String flightcode, String month);
+    public List<ConcreteFlight> findByAirportsName(String departureAirportName, String arrivalAirportName);
 }

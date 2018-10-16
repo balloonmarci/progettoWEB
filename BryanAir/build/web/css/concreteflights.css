@@ -13,6 +13,29 @@ body{
   line-height: 1.5;
 }
 
+.setInfo{
+  margin: 4% 14%;
+  width: 45%;
+}
+
+.setInfo div{
+  width: 45%;
+  font-size: 1.5em;
+}
+
+.setInfo span{
+  display: block;
+  padding: 2%;
+}
+
+.setInfo input[type="text"],
+.setInfo input[type="submit"]
+{
+  padding: 4%;
+  border: none;
+  margin-bottom: 1%;
+  width: 40%;
+}
 
 .m-maincf{
   margin-top: 7%;
@@ -24,7 +47,7 @@ body{
   position: relative;
   padding: 1%;
   left: 8em;
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 
 .flightdepday{
@@ -35,6 +58,12 @@ body{
   margin: 4% auto;
   padding: 3%;
   width: 65%;
+}
+
+.departureflightday{
+    display: block;
+    width: 40%;
+    font-size: 1.4em;
 }
 
 .flightinfo{
@@ -92,4 +121,10 @@ body{
 .f-color{
   background-color: #fff;
   color: #000;
+}
+
+@media screen and (min-width: 1281px){
+    .departureflightday, .flightday{
+       font-size: 2.2em;
+    }
 }
