@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import model.dao.MessageDAO;
 import model.dao.PrenotationDAO;
 import model.dao.PushedFlightDAO;
+import model.dao.WishlistDAO;
 
 public class MySQLJDBCDAOFactory extends DAOFactory {
     
@@ -106,6 +107,10 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
     @Override
     public PushedFlightDAO getPushedFlightDAO() {
         return new PushedFligthDAOMySQLJDBCImpl(connection);
+    }
+    @Override
+    public WishlistDAO getWishlistDAO() {
+        return new WishlistDAOMySQLJDBCImpl(connection);
     }
     
     
