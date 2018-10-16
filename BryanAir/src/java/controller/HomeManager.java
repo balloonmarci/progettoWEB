@@ -5,6 +5,7 @@ package controller;
  * @author Marcello
  */
 
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import model.dao.ConcreteFlightDAO;
 import model.dao.PushedFlightDAO;
 import model.mo.PushedFlight;
+import org.joda.time.DateTime;
 
 public class HomeManager {
 
@@ -65,15 +67,20 @@ public class HomeManager {
           daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
           daoFactory.beginTransaction();
 
-          commonView(daoFactory, request);
+          commonView(daoFactory, request);          
           PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
           List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
-
+          List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+          if(loggedUser != null){
+              wishlist = pushedFlightDAO.getWishlist(loggedUser);
+          }
+          
           daoFactory.commitTransaction();
 
           request.setAttribute("loggedOn", loggedUser != null);
           request.setAttribute("loggedUser", loggedUser);
           request.setAttribute("pushedFlights", pushedFlights);
+          request.setAttribute("wishlist", wishlist);
 
           request.setAttribute("viewUrl", "homeManager/view");
 
@@ -114,9 +121,8 @@ public class HomeManager {
             commonView(daoFactory, request);
             PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
             List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
-
-            daoFactory.commitTransaction();
-
+            List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+            
             if(user == null || !user.getPassword().equals(password)){
                 loggedUserDAO.destroy();
                 applicationMessage = "Username e password errati";
@@ -124,9 +130,11 @@ public class HomeManager {
             } else {
                 applicationMessage = "Username e password corretti";
                 loggedUser = loggedUserDAO.create(user.getUserId(), user.getUsername(), user.getFirstname(), user.getLastname());
-            }
+                wishlist = pushedFlightDAO.getWishlist(loggedUser);
+            }            
 
-
+            daoFactory.commitTransaction();
+            request.setAttribute("wishlist", wishlist);
             request.setAttribute("pushedFlights", pushedFlights);
             request.setAttribute("applicationMessage", applicationMessage);
             request.setAttribute("loggedOn",loggedUser!=null);
@@ -181,8 +189,8 @@ public class HomeManager {
             logger.log(Level.SEVERE,"Controller Error", e);
             throw new RuntimeException(e);
         }
-        
-        
+        List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+        request.setAttribute("wishlist", wishlist);
         request.setAttribute("loggedOn", false);
         request.setAttribute("loggedUser", null);
         request.setAttribute("viewUrl", "homeManager/view");
@@ -258,6 +266,120 @@ public class HomeManager {
             }catch(Throwable t){
             }
         }
+    }
+    
+    public static void deleteFromWishlist(HttpServletRequest request, HttpServletResponse response) {
+
+      SessionDAOFactory sessionDAOFactory;
+      DAOFactory daoFactory = null;
+      LoggedUser loggedUser;
+      LoggedAdmin loggedAdmin;
+
+      Logger logger = LogService.getApplicationLogger();
+
+      try{
+
+          sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+          sessionDAOFactory.initSession(request, response);
+
+          LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+          loggedUser = loggedUserDAO.find();
+
+          LoggedAdminDAO loggedAdminDAO = sessionDAOFactory.getLoggedAdminDAO();
+          loggedAdmin = loggedAdminDAO.find();
+
+          if(loggedAdmin != null){
+              loggedAdminDAO.destroy();
+              loggedAdmin = null;
+          }
+
+          daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+          daoFactory.beginTransaction();
+
+          commonView(daoFactory, request);   
+          
+          PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
+          
+          String flightcode = request.getParameter("flightcodeDelete");
+          DateTime departure = new DateTime (Long.parseLong(request.getParameter("flightdateDelete")));
+          pushedFlightDAO.deleteFromWishlist(loggedUser, flightcode, departure);
+                    
+          List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
+          List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+          if(loggedUser != null){
+              wishlist = pushedFlightDAO.getWishlist(loggedUser);
+          }
+          
+          daoFactory.commitTransaction();
+
+          request.setAttribute("loggedOn", loggedUser != null);
+          request.setAttribute("loggedUser", loggedUser);
+          request.setAttribute("pushedFlights", pushedFlights);
+          request.setAttribute("wishlist", wishlist);
+
+          request.setAttribute("viewUrl", "homeManager/view");
+
+      }catch(Exception e){
+          logger.log(Level.SEVERE, "Controller Error", e);
+          throw new RuntimeException(e);
+      }
+    }
+    
+    public static void addToWishlist(HttpServletRequest request, HttpServletResponse response) {
+
+      SessionDAOFactory sessionDAOFactory;
+      DAOFactory daoFactory = null;
+      LoggedUser loggedUser;
+      LoggedAdmin loggedAdmin;
+
+      Logger logger = LogService.getApplicationLogger();
+
+      try{
+
+          sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+          sessionDAOFactory.initSession(request, response);
+
+          LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+          loggedUser = loggedUserDAO.find();
+
+          LoggedAdminDAO loggedAdminDAO = sessionDAOFactory.getLoggedAdminDAO();
+          loggedAdmin = loggedAdminDAO.find();
+
+          if(loggedAdmin != null){
+              loggedAdminDAO.destroy();
+              loggedAdmin = null;
+          }
+
+          daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+          daoFactory.beginTransaction();
+
+          commonView(daoFactory, request);   
+          
+          PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
+          
+          String flightcode = request.getParameter("flightcodeAdd");
+          DateTime departure = new DateTime (Long.parseLong(request.getParameter("flightdateAdd")));
+          pushedFlightDAO.addToWishlist(loggedUser, flightcode, departure);
+                    
+          List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
+          List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+          if(loggedUser != null){
+              wishlist = pushedFlightDAO.getWishlist(loggedUser);
+          }
+          
+          daoFactory.commitTransaction();
+
+          request.setAttribute("loggedOn", loggedUser != null);
+          request.setAttribute("loggedUser", loggedUser);
+          request.setAttribute("pushedFlights", pushedFlights);
+          request.setAttribute("wishlist", wishlist);
+
+          request.setAttribute("viewUrl", "homeManager/view");
+
+      }catch(Exception e){
+          logger.log(Level.SEVERE, "Controller Error", e);
+          throw new RuntimeException(e);
+      }
     }
 
     private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
