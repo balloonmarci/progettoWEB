@@ -6,12 +6,14 @@
 <%@page import="model.mo.Airport"%>
 <%
     boolean loggedOn = (Boolean) request.getAttribute("loggedOn");
-    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
-    
+    LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");    
     List<Airport> airports = (List<Airport>) request.getAttribute("airports");
     List<PushedFlight> pushedFlights = (List<PushedFlight>) request.getAttribute("pushedFlights");
+    List<PushedFlight> wishlist = (List<PushedFlight>) request.getAttribute("wishlist");
     
     String applicationMessage = (String) request.getAttribute("applicationMessage");
+    
+    int c;
 %>
 <!DOCTYPE html>
 <html>
@@ -32,6 +34,40 @@
                 f.return.value = false;
             
             f.submit();
+        }
+        
+        /*function checkDates(){
+            var checkdates = document.concreteFlightsForm.ableFlightsDate;
+            
+            if(!checkdates.checked){
+                document.concreteFlightsForm.departuredate.disabled = true;
+                document.concreteFlightsForm.returndate.disabled = true;
+            }else{
+                document.concreteFlightsForm.departuredate.disabled = false;
+                document.concreteFlightsForm.returndate.disabled = false;
+            }
+        }*/
+        function goToPrenotation(departureairport, arrivalairport, departuredate){            
+            document.getElementById("departureAirportName").value=departureairport;
+            document.getElementById("arrivalAirportName").value=arrivalairport;
+            document.getElementById("departuredate").value=departuredate;
+            document.searchPushedFlights.submit();
+        }
+        
+        function deleteFromWishlist(flightcode, millis){
+            if(confirm("Sei sicuro di voler eliminare il volo dalla wishlist ?")){
+                document.getElementById("flightcodeDelete").value=flightcode;
+                document.getElementById("flightdateDelete").value=millis;
+                document.deleteWishlistFlight.submit();
+            }
+        }
+        
+        function addToWishlist(flightcode, millis){
+            if(confirm("Sei sicuro di voler aggiungere il volo alla wishlist ?")){
+                document.getElementById("flightcodeAdd").value=flightcode;
+                document.getElementById("flightdateAdd").value=millis;
+                document.addWishlistFlight.submit();
+            }
         }
         
         function mainHomeOnLoadHandler(){
@@ -83,66 +119,200 @@
       <main class = "m-main clearfix">
         <div class="m-content clearfix">
           <div>
-                <%for(int i=0; i<pushedFlights.size(); i++ ) { %>
+                <%for(c=0; c<4; c++ ) { %>
                 <article>
-                    <h1><%=pushedFlights.get(i).getArrivalcity()%></h1>
-                  <img src="images/Destinations/<%=pushedFlights.get(i).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(i).getArrivalcity()%>">
-                  <h3 class="h3-home">
-                      A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(i).getFinalprice()*100)/100%>€</strong> !!! <br>
-                      <%if(pushedFlights.get(i).getDifference()>0) {%>
-                        Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(i).getDifference()*100)/100%>€ se prenoti subito !
-                      <%}%>
-                  </h3>
-                </article>                
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                        <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <h3 class="h3-home">
+                          A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                          <%if(pushedFlights.get(c).getDifference()>0) {%>
+                            Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                          <%}%>
+                      </h3>
+                      
+                      </a>
+                      <% if (loggedOn) {%>
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                            <h3>
+                                Aggiungi alla Wishlist
+                            </h3> 
+                            <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
+                      </a>
+                      <%}%>      
+                    </article>
+              <%}%>
+          </div>
+          <div>
+                <%for(c=4; c<8; c++ ) { %>
+                    <article>
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                        <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <h3 class="h3-home">
+                          A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                          <%if(pushedFlights.get(c).getDifference()>0) {%>
+                            Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                          <%}%>
+                      </h3>
+                      
+                      </a>
+                      <% if (loggedOn) {%>
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                            <h3>
+                                Aggiungi alla Wishlist
+                            </h3> 
+                            <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
+                      </a>
+                      <%}%> 
+                    </article>       
                 <%}%>
           </div>
           <div>
-            <article>
-              <h1>Roma</h1>
-              <img src="images/roma.png" alt="Roma">
-            </article>
-            <article>
-              <h1>Toronto</h1>
-              <img src="images/toronto.png" alt="Toronto">
-            </article>
-            <article>
-              <h1>Caraibi</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
-          </div>
-          <div>
-            <article>
-              <h1>Mosca</h1>
-              <img src="images/cremlino.png" alt="Cremlino">
-            </article>
-            <article>
-              <h1>Luogo 8</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
-            <article>
-              <h1>Luogo 9</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
+                <%for(c=8; c<12; c++ ) { %>
+                    <article>
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                        <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <h3 class="h3-home">
+                          A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                          <%if(pushedFlights.get(c).getDifference()>0) {%>
+                            Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                          <%}%>
+                      </h3>
+                      
+                      </a>
+                      <% if (loggedOn) {%>
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                            <h3>
+                                Aggiungi alla Wishlist
+                            </h3> 
+                            <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
+                      </a>
+                      <%}%> 
+                    </article>       
+                <%}%>
           </div>
         </div>
-        <aside class="m-sidebar">
+        
+        <aside class="m-sidebar">            
             <div>
-                <h3>See your Wishlist!</h3>
-                <article>
-              <h1>Caraibi</h1>
-              <img src="images/Caraibi.png" alt="Caraibi">
-            </article>
-            <article>
-              <h1>Maldive</h1>
-              <img src="images/maldive.png" alt="Maldive">
-            </article>
-            <article>
-              <h1>New York</h1>
-              <img src="images/nycity.png" alt="New York">
-            </article>
+                <% if(loggedOn) {%>
+                
+                    <%if(wishlist.size()>0) { %>
+                    <h3><strong>See your Wishlist!</strong></h3>
+                    <%for(int i=0; i<wishlist.size(); i++){ %>
+                        
+                        <article class="sidebar-article">
+                            <h1 class="sidebar-h1"><%=wishlist.get(i).getArrivalcity()%></h1>
+                          <img class="width-fix" src="images/Destinations/<%=wishlist.get(i).getArrivalcity().concat(".png")%>" alt="<%=wishlist.get(i).getArrivalcity()%>">
+                          <h3 class="h3-home">
+                              <strong class="strong-home"> A partire da <%=Math.floor(wishlist.get(i).getFinalprice()*100)/100%>€ </strong> <br>
+                              <% if(wishlist.get(i).getDifference()>0) {%>
+                                Il prezzo è calato di <%=Math.floor(wishlist.get(i).getDifference()*100)/100%>€ rispetto al prezzo base, affrettati a prenotare!
+                                <%} else if(wishlist.get(i).getDifference()<-20){%>
+                                    Attenzione ! Il prezzo sta aumentando !
+                                <%}%>                              
+                              <br>
+                              
+                              <a href="javascript:goToPrenotation('<%=wishlist.get(i).getDepartureairport()%>', '<%=wishlist.get(i).getArrivalairport()%>', '<%=wishlist.get(i).getHtmlDate()%>');">
+                                <img class="menuimg" src="images/ok.png" alt ="ok" >
+                              </a>
+                              <a href="javascript:deleteFromWishlist('<%=wishlist.get(i).getFlightcode()%>',<%=wishlist.get(i).getDeparturedate().getMillis() %>);">
+                                <img class="menuimg" src="images/delete.png" alt="ok">
+                              </a>
+                          </h3>
+                        </article>
+                    <%}%>
+               <%} else {%>
+               <h1>
+                   Aggiungi dei voli alla Wishlist per tenerli sott'occhio !
+               </h1>
+               <%}%>
+               <%} else {%>
+               <h1>
+                   Effettua il login per visualizzare la tua wishlist !
+               </h1>
+               <%}%>
+               
+               
             </div>
+               <%if(!loggedOn) {%>
+                <%for(c=12; c<15; c++ ) { %>
+                    <article>
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                        <h1 class="sidebar-h1"><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img class="sidebar-img" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <h3 class="h3-home">
+                          A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                          <%if(pushedFlights.get(c).getDifference()>0) {%>
+                            Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                          <%}%>
+                      </h3>
+                      
+                      </a>
+                      <% if (loggedOn) {%>
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                            <h3>
+                                Aggiungi alla Wishlist
+                            </h3> 
+                            <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
+                      </a>
+                      <%}%>  
+                    </article>       
+                <%}%>
+                <%} else { %>
+                    <%if(wishlist.size()==0) {%>
+                    <%for(c=12; c<15; c++ ) { %>
+                    <article>
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                        <h1 class="sidebar-h1"><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img class="sidebar-img" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <h3 class="h3-home">
+                          A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
+                          <%if(pushedFlights.get(c).getDifference()>0) {%>
+                            Affrettati! Risparmi fino a <%=Math.floor(pushedFlights.get(c).getDifference()*100)/100%>€ se prenoti subito !
+                          <%}%>
+                      </h3>
+                      
+                      </a>
+                      <% if (loggedOn) {%>
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                            <h3>
+                                Aggiungi alla Wishlist
+                            </h3> 
+                            <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
+                      </a>
+                      <%}%> 
+                    </article>       
+                    <%}%>
+                    <%}%>
+                <%}%>
         </aside>
       </main>
       <%@include file="/include/footer.jspf"%>
     </body>
+    <form action="Dispatcher" method="post">
+        <input type="hidden" name="controllerAction" value="WishlistManager.view">
+        <input type="submit" value="submit">
+    </form>
+    
+    <form name="searchPushedFlights" action="Dispatcher" method="post">
+        <input type="hidden" name="departureAirportName" id="departureAirportName">
+        <input type="hidden" name="arrivalAirportName" id="arrivalAirportName"> 
+        <input type="hidden" name="departuredate" id="departuredate">
+        <input type="hidden" name="controllerAction" value="ConcreteFlightManager.viewConcreteFlightPerDepartureDate">
+    </form>
+    
+    <form name="deleteWishlistFlight" action="Dispatcher" method="post">
+        <input type="hidden" name="flightcodeDelete" id="flightcodeDelete">
+        <input type="hidden" name="flightdateDelete" id="flightdateDelete">
+        <input type="hidden" name="controllerAction" value="HomeManager.deleteFromWishlist">
+    </form>
+    
+    <form name="addWishlistFlight" action="Dispatcher" method="post">
+        <input type="hidden" name="flightcodeAdd" id="flightcodeAdd">
+        <input type="hidden" name="flightdateAdd" id="flightdateAdd">
+        <input type="hidden" name="controllerAction" value="HomeManager.addToWishlist">
+    </form>
 </html>
