@@ -53,6 +53,10 @@ and open the template in the editor.
                 whichForm(<%=thisform%>);
             }
             
+            function gotoPrenotation(){
+                document.prenotations.submit();
+            }
+            
         </script>
     </head>
     <body>
@@ -64,7 +68,7 @@ and open the template in the editor.
           </div>
           <section class="utilities">
             <div>
-                <a href="javascript:">Prenotazioni</a>
+                <a href="javascript:gotoPrenotation()">Prenotazioni</a>
             </div>
             <div>
                 <a href="javascript:">Wishlist</a>
@@ -128,5 +132,8 @@ and open the template in the editor.
       </main>
       <%@include file="/include/footer.jspf"%>
     </body>
+    <form name="prenotations" action="Dispatcher" method="post">
+        <input type="hidden" name="controllerAction" value="UserManager.prenotationView"/>
+    </form>
 </html>
 
