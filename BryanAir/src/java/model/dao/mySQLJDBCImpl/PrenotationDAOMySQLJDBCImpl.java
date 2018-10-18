@@ -65,7 +65,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
         }
 
         try{
-            prenotation.setSesso(rs.getString("passengergender"));
+            prenotation.setSesso(rs.getString("title"));
         }catch(SQLException sqle){
         }
 
@@ -143,7 +143,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                       + "     pricetotal,"
                       + "     passengerfirstname,"
                       + "     passengerlastname,"
-                      + "     passengergender,"
+                      + "     passsengergender,"
                       + "     flightcode,"
                       + "     departuredate,"
                       + "     arrivaldate,"

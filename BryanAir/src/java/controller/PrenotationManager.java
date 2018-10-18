@@ -181,6 +181,71 @@ public class PrenotationManager {
         }
     }
     
+    public static void onlyDepartureViewMillis (HttpServletRequest request, HttpServletResponse response){
+        Logger logger = LogService.getApplicationLogger();
+        LoggedUserDAO loggedUserDAO;
+        LoggedUser loggedUser;
+        DAOFactory daoFactory = null;
+        SessionDAOFactory sessionDAOFactory;
+        
+        sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+        sessionDAOFactory.initSession(request, response);
+        
+        loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+        loggedUser = loggedUserDAO.find();
+        
+        int numeroPosti = Integer.parseInt(request.getParameter("numeroposti"));
+        
+        String flightCode = request.getParameter("flightcode");
+        DateTime departureDate = new DateTime(Long.parseLong(request.getParameter("departuredate")));
+        DateTime arrivalDate = new DateTime(Long.parseLong(request.getParameter("arrivaldate")));
+        
+        try{
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            
+            daoFactory.beginTransaction();
+            ConcreteFlightDAO concreteFlightDAO = daoFactory.getConcreteFlightDAO();
+            VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
+            AirportDAO airportDAO = daoFactory.getAirportDAO();
+            
+            ConcreteFlight selectedFlight = concreteFlightDAO.findByFlightCodeAndDate(flightCode, 
+                                                 departureDate, arrivalDate);
+            selectedFlight.setVirtualFlight(virtualFlightDAO.findByFlightCode(flightCode));
+            String departureIata = selectedFlight.getVirtualFlight().getDepartureAirport().getIata();
+            String arrivalIata = selectedFlight.getVirtualFlight().getArrivalAirport().getIata();
+            selectedFlight.getVirtualFlight().setDepartureAirport(airportDAO.findByIata(departureIata));
+            selectedFlight.getVirtualFlight().setArrivalAirport(airportDAO.findByIata(arrivalIata));
+            
+            daoFactory.commitTransaction();
+            
+            request.setAttribute("departureflight", selectedFlight);
+            request.setAttribute("numeroposti", numeroPosti);
+            request.setAttribute("loggedUser", loggedUser);
+            request.setAttribute("loggedOn", loggedUser != null);
+            request.setAttribute("applicationMessage", null);
+            request.setAttribute("viewUrl", "prenotationManager/view");
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE, "Controller Error", e);
+            
+            
+            try {
+                if(daoFactory != null){
+                    daoFactory.rollbackTransaction();
+                }
+            }catch (Throwable t){
+        }
+        throw new RuntimeException(e);
+        } finally {
+            try {
+                if(daoFactory != null) {
+                    daoFactory.closeTransaction();
+                }
+            }catch(Throwable t){
+            }
+        }
+    }
+    
     public static void createPrenotation(HttpServletRequest request, HttpServletResponse response){
         Logger logger = LogService.getApplicationLogger();
         LoggedUserDAO loggedUserDAO;
@@ -401,5 +466,94 @@ public class PrenotationManager {
 
         request.setAttribute("airports", airports);
         request.setAttribute("pushedFlights", pushedFlights);
+    }
+    
+    public static void prenotationView(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+
+                //daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                //daoFactory.beginTransaction();
+                //daoFactory.commitTransaction();
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "prenotationManager/prenotations");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    
+    public static void prenotationViewDetails(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+
+                //daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                //daoFactory.beginTransaction();
+                //daoFactory.commitTransaction();
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "prenotationManager/prenotationsDetails");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
     }
 }

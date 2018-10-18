@@ -26,7 +26,7 @@
             <h2 class="prenotationblocks">
                 Malpensa --> Bali
             </h2>
-            <table class="prenotationblocks float prentable">
+            <table class="prenotationblocks float prentable border">
                 <tr>
                     <th>
                         <h3 class="table-padding">
@@ -107,7 +107,7 @@
                 </tr>
             </table>
             
-            <table class="float prentable">
+            <table class="float prentable border">
                 <tr>
                     <th>
                         <h3>
@@ -133,7 +133,7 @@
                     </th>
                 </tr>
             </table> 
-            <img src="images/Destinations/Denpasar-Bali.png" class="prenimg"/>
+            <img src="images/Destinations/Denpasar-Bali.png" class="prenimg border"/>
             
             
             

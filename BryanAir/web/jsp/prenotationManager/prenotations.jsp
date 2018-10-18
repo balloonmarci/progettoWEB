@@ -112,7 +112,7 @@
         </main>
       
       <form name="prenotationViewDetails" action="Dispatcher" method="post">
-          <input type="hidden" name="controllerAction" id="controllerAction" value="UserManager.prenotationViewDetails">          
+          <input type="hidden" name="controllerAction" id="controllerAction" value="PrenotationManager.prenotationViewDetails">          
       </form>
       
       <%@include file="/include/footer.jspf"%>
