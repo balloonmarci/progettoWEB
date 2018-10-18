@@ -29,9 +29,9 @@ public interface ConcreteFlightDAO {
 
     public void update(ConcreteFlight concreteFlight) throws DuplicatedObjectException;
     public void delete(ConcreteFlight concreteFlight);
-    public List<ConcreteFlight> findByDate(String departureAirportName, String arrivalAirportName, DateTime flightdate); 
+    public List<ConcreteFlight> findByDate(String departureAirportName, String arrivalAirportName, DateTime flightdate, int numeroPosti); 
     public List<ConcreteFlight> findConcreteFlightsByFlightCode(String flightCode);
     public ConcreteFlight findByFlightCodeAndDate(String flightCode, DateTime departureDate, DateTime arrivalDate);
-    public List<ConcreteFlight> findByMonth(String flightcode, String month);
-    public List<ConcreteFlight> findByAirportsName(String departureAirportName, String arrivalAirportName);
+    public List<ConcreteFlight> findByMonth(String flightcode, String month, DateTime minDepartureDate, int numeroPosti);
+    public List<ConcreteFlight> findByAirportsName(String departureAirportName, String arrivalAirportName, DateTime minDepartureDate, int numeroPosti);
 }

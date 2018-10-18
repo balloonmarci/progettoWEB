@@ -219,7 +219,7 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
 
     @Override
     public List<ConcreteFlight> findByDate(String departureAirport, String arrivalAirport,
-            DateTime flightDate){
+            DateTime flightDate, int numeroPosti){
         PreparedStatement ps;
         ArrayList<ConcreteFlight> concreteFlights = new ArrayList<ConcreteFlight>();
 
@@ -231,6 +231,8 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
                     + "WHERE vf.departureairport = (SELECT iata from airport where airportname = ?) "
                     + "AND vf.arrivalairport = (SELECT iata from airport where airportname = ?) "
                     + "AND cf.departuredate BETWEEN ? AND (SELECT DATE_ADD( ?, INTERVAL 1 DAY)) "
+                    + "AND cf.seatfirst >= ? "
+                    + "AND cf.seatsecond >= ? "
                     + "AND cf.deleted = FALSE "
                     + "AND vf.deleted = FALSE";
 
@@ -239,6 +241,8 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
             ps.setString(2, arrivalAirport);
             ps.setTimestamp(3, new Timestamp(flightDate.getMillis()));
             ps.setTimestamp(4, new Timestamp(flightDate.getMillis()));
+            ps.setInt(5, numeroPosti);
+            ps.setInt(6, numeroPosti);
 
             ResultSet resultSet = ps.executeQuery();
 
@@ -331,7 +335,7 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
     }
     
     @Override
-    public List<ConcreteFlight> findByMonth(String flightcode, String month){
+    public List<ConcreteFlight> findByMonth(String flightcode, String month, DateTime minDepartureDate, int numeroPosti){
       PreparedStatement ps;
       ArrayList<ConcreteFlight> concreteFlights = new ArrayList<ConcreteFlight>();
 
@@ -342,13 +346,17 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
                   + "WHERE "
                   + "flightcode = ? AND "
                   + "departuredate LIKE ? AND "
-                  + "departuredate >= NOW() AND "
+                  + "departuredate >= ? AND "
+                  + "( seatfirst >= ? OR seatsecond >= ? ) AND "
                   + "deleted = '0' "
                   + "ORDER BY departuredate ASC";
 
           ps = conn.prepareStatement(sq1);
           ps.setString(1, flightcode);
           ps.setString(2, "%-"+month+"-%");
+          ps.setTimestamp(3, new Timestamp(minDepartureDate.getMillis()));
+          ps.setInt(4, numeroPosti);
+          ps.setInt(5, numeroPosti);
 
           ResultSet resultSet = ps.executeQuery();
 
@@ -369,7 +377,7 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
     }
     
      @Override
-    public List<ConcreteFlight> findByAirportsName(String departureAirportName, String arrivalAirportName){
+    public List<ConcreteFlight> findByAirportsName(String departureAirportName, String arrivalAirportName, DateTime minDepartureDate, int numeroPosti){
          PreparedStatement ps;
          ArrayList<ConcreteFlight> concreteFlights = new ArrayList<ConcreteFlight>();
 
@@ -380,13 +388,17 @@ public class ConcreteFlightDAOMySQLJDBCImpl implements ConcreteFlightDAO{
                     + "ON vf.flightcode = cf.flightcode "
                     + "WHERE vf.departureairport = (SELECT iata from airport where airportname = ?) "
                     + "AND vf.arrivalairport = (SELECT iata from airport where airportname = ?) "
-                    + "AND cf.departuredate >= NOW() "
+                    + "AND cf.departuredate >= ? "
+                    + "AND ( cf.seatfirst >= ? OR cf.seatsecond >= ? ) "
                     + "AND cf.deleted = FALSE "
                     + "AND vf.deleted = FALSE";
 
           ps = conn.prepareStatement(sql);
           ps.setString(1, departureAirportName);
           ps.setString(2, arrivalAirportName);
+          ps.setTimestamp(3, new Timestamp(minDepartureDate.getMillis()));
+          ps.setInt(4, numeroPosti);
+          ps.setInt(5, numeroPosti);
 
           ResultSet resultSet = ps.executeQuery();
 

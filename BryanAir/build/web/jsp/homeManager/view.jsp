@@ -24,7 +24,7 @@
         function searchFlights(){
             var f;
             var c;
-            /*var checkDates = document.concreteFlightsForm.ableFlightsDate;*/
+            
             f = document.concreteFlightsForm;
             c = f.viaggio;
             f.controllerAction.value = "ConcreteFlightManager.viewConcreteFlightsPerAirportsName";
@@ -35,6 +35,7 @@
             
             f.submit();
         }
+        
         /*function checkDates(){
             var checkdates = document.concreteFlightsForm.ableFlightsDate;
             
@@ -97,7 +98,7 @@
              <%}%>
                 </select>
             </datalist>
-            <input type="text" name="arrivalAirportName" list="arrivalAirports" placeholder="Aeroporto di destinazione" autocomplete="off" required></br></br>
+            <input type="text" name="arrivalAirportName" list="arrivalAirports" placeholder="Aeroporto di destinazione" autocomplete="off" required>
             <datalist id="arrivalAirports">
                 <select name="arrivalAirports">
              <%for(int i=0; i<airports.size(); i++) {%>
@@ -105,9 +106,7 @@
              <%}%>
                 </select>
             </datalist>
-            <!--<input type = "checkbox" name="ableFlightsDate" checked>
-            <input type="date" name="departuredate" required>
-            <input type="date" name="returndate" required>-->
+            <input type="number" name="numeroposti" placeholder="N° passeggeri" min="1" max="6" required>
 
             <input type="submit" value="Cerca" class="submit-dimensioni submit-color">
             <input type="hidden" name="controllerAction"> <!--value="ConcreteFlightManager.viewConcreteFlightPerDate"-->

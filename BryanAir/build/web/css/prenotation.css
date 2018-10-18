@@ -1,0 +1,130 @@
+html,body{
+  background-color: #eee;
+}
+
+input[type="button"]{
+  background-color: #eee;
+}
+
+main{
+  margin-bottom: 3%;
+}
+
+.setflightsclasses{
+  float:left;
+  padding: 2%;
+  margin: 8% 0 0 1%;
+  width: 59%;
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #5bb5d3;
+}
+
+.dpflight{
+  display: inline-block;
+  margin-right: 1%;
+  width: 49%;
+  float:left;
+}
+
+.onlydpflight{
+    width: 100%;
+}
+
+.flightclass{
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 2%;
+  width: 45%;
+  height: 12em;
+  float: left;
+  text-align: center;
+}
+
+.selectedClass{
+    
+}
+
+.ban{
+  color: #d1d1d1;
+}
+
+.flightclass *{
+  display: block;
+  margin: 1% 0;
+}
+
+.flightclass a:visited{
+    color: #63b752;
+}
+
+.priceclass, totalprice{
+  font-size: 130%;
+  padding: 1% 0;
+  margin: 4% 0;
+  border-top: 1px solid #999;
+}
+
+.totalprice{
+    border: none;
+}
+
+.passengerData{
+  border: 1px solid #5bb5d3;
+  width: 57%;
+  padding: 3%;
+  margin: 2% 0 0 1%;
+  background-color: #fff;
+  float: left;
+}
+
+.title{
+  padding-bottom: 2%;
+  margin-bottom: 3%;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+
+.flightInfo{
+  float: right;
+  margin: 8% 2% 0 0;
+  padding: 0 2%;
+  width: 28%;
+  background-color: #fff;
+  border: 1px solid #5bb5d3;
+}
+.flightInfo div{
+  padding: 4% 0;
+  border-bottom: 2px solid #eee;
+}
+
+.flightInfo input[type="text"],
+.flightInfo span
+{
+  display: block;
+  padding: 1%;
+  margin: 1% 0;
+}
+
+.flightInfo input[type="button"]{
+  border: none;
+  padding: 2%;
+  width: 30%;
+  margin: 2% 0;
+}
+
+.passengerData input[type="text"]{
+  border: 1px solid #eee;
+  padding: 2%;
+  width: 27%;
+}
+
+.passenger{
+  margin: 2% 0;
+}
+
+@media screen and (min-width: 1281px){
+    .insertflightTitle{
+        top: 3em;
+    }
+}

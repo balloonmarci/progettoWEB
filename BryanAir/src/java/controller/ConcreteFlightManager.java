@@ -56,9 +56,6 @@ public class ConcreteFlightManager {
         loggedAdmin = loggedAdminDAO.find();
         
         try{
-            
-            
-            
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
           
             String flightCode = (String)request.getParameter("flightcode");
@@ -210,13 +207,14 @@ public class ConcreteFlightManager {
             VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
             AirportDAO airportDAO = daoFactory.getAirportDAO();
             
+            int numeroPosti = Integer.parseInt(request.getParameter("numeroposti"));
             String departureairportname = (String)request.getParameter("departureAirportName");
             String arrivalairportname = (String)request.getParameter("arrivalAirportName");
             
             String date = request.getParameter("departuredate");
             DateTime departuredate = new DateTime(date);
             
-            concreteDepartureFlights = concreteFlightDAO.findByDate(departureairportname, arrivalairportname, departuredate);
+            concreteDepartureFlights = concreteFlightDAO.findByDate(departureairportname, arrivalairportname, departuredate, numeroPosti);
             
             for(int i = 0; i < concreteDepartureFlights.size(); i++){
                 virtualFlight = concreteDepartureFlights.get(i).getVirtualFlight();
@@ -234,6 +232,7 @@ public class ConcreteFlightManager {
             if(concreteDepartureFlights.isEmpty())
                 request.setAttribute("noflights", "No flights found");
             
+            request.setAttribute("numeroposti", numeroPosti);
             request.setAttribute("departureflights", concreteDepartureFlights);
             request.setAttribute("loggedOn", loggedUser != null);
             request.setAttribute("loggedUser", loggedUser);
@@ -280,6 +279,7 @@ public class ConcreteFlightManager {
             
             String departureairportname = (String)request.getParameter("departureAirportName");
             String arrivalairportname = (String)request.getParameter("arrivalAirportName");
+            int numeroPosti = Integer.parseInt(request.getParameter("numeroposti"));
             Boolean returnFlight = Boolean.parseBoolean(request.getParameter("return"));
             
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
@@ -289,9 +289,7 @@ public class ConcreteFlightManager {
             VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
             AirportDAO airportDAO = daoFactory.getAirportDAO();
             
-            concreteDepartureFlights = concreteFlightDAO.findByAirportsName(departureairportname, arrivalairportname);
-            
-            List<ConcreteFlight> concreteReturnFlights = concreteFlightDAO.findByAirportsName(arrivalairportname, departureairportname);
+            concreteDepartureFlights = concreteFlightDAO.findByAirportsName(departureairportname, arrivalairportname, DateTime.now(), numeroPosti);
                     
             for(int i = 0; i < concreteDepartureFlights.size(); i++){
                 virtualFlight = concreteDepartureFlights.get(i).getVirtualFlight();
@@ -303,6 +301,7 @@ public class ConcreteFlightManager {
                 concreteDepartureFlights.get(i).getVirtualFlight().setArrivalAirport(airportDAO.findByIata(arriata));
             }
             
+            request.setAttribute("numeroposti", numeroPosti);
             request.setAttribute("return", returnFlight);
             request.setAttribute("departureflights", concreteDepartureFlights);
             request.setAttribute("loggedOn", loggedUser != null);
@@ -354,6 +353,7 @@ public class ConcreteFlightManager {
             
             String departureAirportName = request.getParameter("departureAirportName");
             String arrivalAirportName = request.getParameter("arrivalAirportName");
+            int numeroPosti = Integer.parseInt(request.getParameter("numeroposti"));
             
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
             daoFactory.beginTransaction();
@@ -363,7 +363,7 @@ public class ConcreteFlightManager {
             AirportDAO airportDAO = daoFactory.getAirportDAO();
             
             ConcreteFlight selectedDepartureFlight = concreteFlightDAO.findByFlightCodeAndDate(flightcode, departureDate, arrivalDate);
-            concreteDepartureFlights = concreteFlightDAO.findByAirportsName(departureAirportName, arrivalAirportName);
+            concreteDepartureFlights = concreteFlightDAO.findByAirportsName(departureAirportName, arrivalAirportName, departureDate, numeroPosti);
                     
             for(int i = 0; i < concreteDepartureFlights.size(); i++){
                 virtualFlight = concreteDepartureFlights.get(i).getVirtualFlight();
@@ -375,6 +375,7 @@ public class ConcreteFlightManager {
                 concreteDepartureFlights.get(i).getVirtualFlight().setArrivalAirport(airportDAO.findByIata(arriata));
             }
             
+            request.setAttribute("numeroposti", numeroPosti);
             request.setAttribute("return", false);
             request.setAttribute("selectedDepartureFlight", selectedDepartureFlight);
             request.setAttribute("departureflights", concreteDepartureFlights);
@@ -423,7 +424,9 @@ public class ConcreteFlightManager {
             
             String flightCode = request.getParameter("flightcode");
             String month = request.getParameter("month");
+            DateTime minDepartureDate = new DateTime(request.getParameter("firstDepartureDate"));
             Boolean returnFlight = Boolean.parseBoolean(request.getParameter("return"));
+            int numeroPosti = Integer.parseInt(request.getParameter("numeroposti"));
             
             daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
             daoFactory.beginTransaction();
@@ -432,7 +435,7 @@ public class ConcreteFlightManager {
             VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
             AirportDAO airportDAO = daoFactory.getAirportDAO();
             
-            concreteDepartureFlights = concreteFlightDAO.findByMonth(flightCode, month);
+            concreteDepartureFlights = concreteFlightDAO.findByMonth(flightCode, month, minDepartureDate, numeroPosti);
                     
             for(int i = 0; i < concreteDepartureFlights.size(); i++){
                 virtualFlight = concreteDepartureFlights.get(i).getVirtualFlight();
@@ -444,6 +447,7 @@ public class ConcreteFlightManager {
                 concreteDepartureFlights.get(i).getVirtualFlight().setArrivalAirport(airportDAO.findByIata(arriata));
             }
             
+            request.setAttribute("numeroposti", numeroPosti);
             request.setAttribute("return", returnFlight);
             request.setAttribute("departureflights", concreteDepartureFlights);
             request.setAttribute("loggedOn", loggedUser != null);
