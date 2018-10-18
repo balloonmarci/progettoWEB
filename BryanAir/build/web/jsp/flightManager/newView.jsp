@@ -18,6 +18,7 @@
 <% LoggedUser loggedUser = (LoggedUser) request.getAttribute("loggedUser");
     String applicationMessage = (String)request.getAttribute("applicationMessage");
     
+    int numeroPosti = (int)request.getAttribute("numeroposti");
     List<ConcreteFlight> concreteDeparture = (List<ConcreteFlight>) request.getAttribute("departureflights");
     ConcreteFlight selectedDepartureFlight = (ConcreteFlight) request.getAttribute("selectedDepartureFlight");
     
@@ -51,20 +52,22 @@ and open the template in the editor.
                 var arrivalDate = flightdate.split("#")[1];
                 
                 <%if(selectedDepartureFlight != null){%>
-                    document.prenotationViewForm.departuredate.value = departureDate;
-                    document.prenotationViewForm.arrivaldate.value = arrivalDate;
-                    document.prenotationViewForm.submit();
-                <%}%>
+                    document.prenotationForm.departuredate.value = departureDate;
+                    document.prenotationForm.arrivaldate.value = arrivalDate;
+                    document.prenotationForm.submit();
+                <%}else{
                 
-                <%if(returnFlight){%>
-                    document.goReturnPageForm.departuredate.value = departureDate;
-                    document.goReturnPageForm.arrivaldate.value = arrivalDate;
-                    document.goReturnPageForm.submit();
-                <%}else{%>
-                    document.onlyDeparturePrenotationForm.departuredate.value = departureDate;
-                    document.onlyDeparturePrenotationForm.arrivaldate.value = arrivalDate;
-                    document.onlyDeparturePrenotationForm.submit()
-                <%}%>
+                    if(returnFlight){%>
+                        document.goReturnPageForm.departuredate.value = departureDate;
+                        document.goReturnPageForm.arrivaldate.value = arrivalDate;
+                        document.goReturnPageForm.submit();
+                    <%}else{%>
+                        document.onlyDeparturePrenotationForm.departuredate.value = departureDate;
+                        document.onlyDeparturePrenotationForm.arrivaldate.value = arrivalDate;
+                        document.onlyDeparturePrenotationForm.submit()
+                    <%}
+                  }%>
+                        
             }
             
             function setAvailableMonths(dates){
@@ -128,8 +131,10 @@ and open the template in the editor.
                        </datalist>
                        <input type="submit">
                        <input type="hidden" name="flightcode" value="<%=concreteDeparture.get(0).getVirtualFlight().getFlightCode()%>"/>
+                       <input type="hidden" name="numeroposti" value="<%=numeroPosti%>"/>
                        <input type="hidden" name="controllerAction" value="ConcreteFlightManager.viewConcreteFlightsPerMonth"/>
                        <input type="hidden" name="month"/>
+                       <input type="hidden" name="firstDepartureDate" value="<%=concreteDeparture.get(0).getDate()%>">
                        <input type="hidden" name = "return" value = "<%=returnFlight%>">
                    </form>
                </div>
@@ -182,7 +187,8 @@ and open the template in the editor.
                   String flightcode=concreteDeparture.get(0).getVirtualFlight().getFlightCode();
                   %>
                 <input type="hidden" name = "flightcode" value="<%=flightcode%>"/>
-                <input type="hidden" name = "controllerAction" value = "PrenotationManager.view"/>
+                <input type="hidden" name="numeroposti" value="<%=numeroPosti%>"/>
+                <input type="hidden" name = "controllerAction" value = "PrenotationManager.onlyDepartureView"/>
                 <input type="hidden" name = "departuredate" />
                 <input type="hidden" name = "arrivaldate"/>
                 <%}catch(Exception e){}%>
@@ -197,6 +203,7 @@ and open the template in the editor.
                 <input type="hidden" name = "flightcode" value = "<%=flightcode%>"/>
                 <input type="hidden" name = "departureAirportName" value = "<%=departureAirportName%>"/>
                 <input type="hidden" name = "arrivalAirportName" value = "<%=arrivalAirportName%>"/>
+                <input type="hidden" name="numeroposti" value="<%=numeroPosti%>"/>
                 <input type="hidden" name = "controllerAction" value = "ConcreteFlightManager.viewReturnConcreteFlightsPerAirportsName"/>
                 <input type="hidden" name = "departuredate" />
                 <input type="hidden" name = "arrivaldate"/>
@@ -215,6 +222,7 @@ and open the template in the editor.
                 <input type="hidden" name = "departureflightdeparturedate" value="<%=departureflightdeparturedate%>"/>
                 <input type="hidden" name = "departureflightarrivaldate" value="<%=departureflightarrivaldate%>"/>
                 <input type="hidden" name = "returnflightcode" value="<%=returnflightcode%>"/>
+                <input type="hidden" name=  "numeroposti" value="<%=numeroPosti%>"/>
                 <input type="hidden" name = "controllerAction" value = "PrenotationManager.view"/>
                 <input type="hidden" name = "departuredate" />
                 <input type="hidden" name = "arrivaldate"/>

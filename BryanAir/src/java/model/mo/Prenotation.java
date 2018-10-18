@@ -18,7 +18,7 @@ public class Prenotation {
     private String passengerfirstname;
     private String passengerlastname;
     private String sesso;
-    private ConcreteFlight concreteFligth;
+    private ConcreteFlight concreteFlight;
     private DateTime prenotationdate;
     private User user;
     private boolean deleted;
@@ -63,19 +63,27 @@ public class Prenotation {
         this.passengerlastname = passengerlastname;
     }
     
-    public ConcreteFlight getConcreteFligth() {
-        return concreteFligth;
+    public String getSesso() {
+        return sesso;
     }
 
-    public void setConcreteFligth(ConcreteFlight concreteFligth) {
-        this.concreteFligth = concreteFligth;
+    public void setSesso(String sesso) {
+        this.sesso = sesso;
     }
     
-    public DateTime getPrenotationdate() {
+    public ConcreteFlight getConcreteFlight() {
+        return concreteFlight;
+    }
+
+    public void setConcreteFlight(ConcreteFlight concreteFligth) {
+        this.concreteFlight = concreteFligth;
+    }
+    
+    public DateTime getPrenotationDate() {
         return prenotationdate;
     }
 
-    public void setPrenotationdate(DateTime prenotationdate) {
+    public void setPrenotationDate(DateTime prenotationdate) {
         this.prenotationdate = prenotationdate;
     }
 
@@ -94,10 +102,4 @@ public class Prenotation {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
-    
-    
-    
-    
-    
-    
 }
