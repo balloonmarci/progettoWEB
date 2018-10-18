@@ -397,5 +397,98 @@ public class UserManager {
 
         request.setAttribute("airports", airports);
    }
+    
+    public static void prenotationView(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+
+                //daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                //daoFactory.beginTransaction();
+                //daoFactory.commitTransaction();
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "userManager/prenotations");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    public static void prenotationViewDetails(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+
+                //daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                //daoFactory.beginTransaction();
+                //daoFactory.commitTransaction();
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "userManager/prenotationsDetails");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
 }
+    
+
+
+
+
 
