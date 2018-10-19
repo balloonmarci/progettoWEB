@@ -36,17 +36,6 @@
             f.submit();
         }
         
-        /*function checkDates(){
-            var checkdates = document.concreteFlightsForm.ableFlightsDate;
-            
-            if(!checkdates.checked){
-                document.concreteFlightsForm.departuredate.disabled = true;
-                document.concreteFlightsForm.returndate.disabled = true;
-            }else{
-                document.concreteFlightsForm.departuredate.disabled = false;
-                document.concreteFlightsForm.returndate.disabled = false;
-            }
-        }*/
         function goToPrenotation(flightcode, millisdeparture, millisarrival){
             
             var number = parseInt(prompt("Inserisci il numero di posti che desideri acquistare: "));
