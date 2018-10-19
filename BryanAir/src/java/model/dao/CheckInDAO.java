@@ -1,6 +1,6 @@
 package model.dao;
 
 public interface CheckInDAO {
-    public void insertCheckIns(String doctype,  String doccode, Long prencode);
+    public void insertCheckIns(String doctype,  Long doccode, String prencode);
     
 }

@@ -665,13 +665,13 @@ public class PrenotationManager {
                 
                 int passengers = Integer.parseInt(request.getParameter("passengers"));
                 ArrayList<String> doctype = new ArrayList<String>(passengers);
-                ArrayList<String> doccode = new ArrayList<String>(passengers);
-                ArrayList<Long> prencode = new ArrayList<Long>(passengers);
+                ArrayList<Long> doccode = new ArrayList<Long>(passengers);
+                ArrayList<String> prencode = new ArrayList<String>(passengers);
                 
                 for(int i=0; i<passengers; i++){
                     doctype.add(request.getParameter("documento"+Integer.toString(i)));
-                    doccode.add(request.getParameter("documentocodice"+Integer.toString(i)));
-                    prencode.add(Long.parseLong(request.getParameter("prencode"+Integer.toString(i))));
+                    doccode.add(Long.parseLong(request.getParameter("documentocodice"+Integer.toString(i))));
+                    prencode.add(request.getParameter("prencode"+Integer.toString(i)));
                 }                
                 
                 daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);

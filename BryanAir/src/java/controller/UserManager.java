@@ -146,7 +146,7 @@ public class UserManager {
                 loggedUser = loggedUserDAO.find();
                 loggedUser = loggedUserDAO.create(user.getUserId(), user.getUsername(), user.getFirstname(), user.getLastname());
                 
-                commonView(daoFactory, request);
+                commonView(daoFactory, request, loggedUser);
 
                 request.setAttribute("loggedOn", loggedUser != null);
                 request.setAttribute("loggedUser", loggedUser);
@@ -347,7 +347,7 @@ public class UserManager {
                 userDAO.delete(user);
                 loggedUserDAO.destroy();
                 loggedUser = null;
-                commonView(daoFactory, request);
+                commonView(daoFactory, request, loggedUser);
                 
                 request.setAttribute("viewUrl", "homeManager/view");
                 
@@ -385,7 +385,7 @@ public class UserManager {
         }
     }
     
-    private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+    private static void commonView(DAOFactory daoFactory, HttpServletRequest request, LoggedUser loggedUser){
 
         List<Airport> airports = new ArrayList();
         
@@ -394,7 +394,11 @@ public class UserManager {
         
         PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
         List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
-
+        List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+        if(loggedUser != null){
+            wishlist = pushedFlightDAO.getWishlist(loggedUser);
+        }
+        request.setAttribute("wishlist", wishlist);
         request.setAttribute("airports", airports);
         request.setAttribute("pushedFlights", pushedFlights);
    }
