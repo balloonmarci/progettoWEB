@@ -62,9 +62,8 @@
           <div class="m-services">
             <ul class="m-list-ul">
               <li><a href="javascript:goHome();">Home</a></li>
-              <li><a href="">Prenota</a></li>
+              <li><a href="javascript:goPren();">Prenotazioni</a></li>
               <li><a href="javascript:goSupport();">Supporto</a></li>
-              <li><a href="">Viaggi</a></li>
               <li><a href="javascript:goProfile();">Profilo</a></li>
             </ul>
           </div>
@@ -80,5 +79,8 @@
         </form>
         <form name="profileForm" method="post" action="Dispatcher">
             <input type="hidden" name="controllerAction" value="UserManager.view"/>
+        </form>
+        <form name="prenotationForm" method="post" action="Dispatcher">
+            <input type="hidden" name="controllerAction" value="PrenotationManager.prenotationView">
         </form>
       </header>
