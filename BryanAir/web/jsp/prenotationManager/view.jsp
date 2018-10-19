@@ -178,8 +178,8 @@ and open the template in the editor.
                 <span>Biglietti flessibili</span>
                 <span>Bagaglio da 20kg</span>
                 <span>Bagagli assicurati</span>
-                <span class="priceclass"><%=new DecimalFormat("#.##").format(departureFlight.getVirtualFlight().getPriceFirst() * 
-                        departureFlight.getMultiplier())%> €</span>
+                <span class="priceclass"><%=Math.floor(departureFlight.getVirtualFlight().getPriceFirst() * 
+                        departureFlight.getMultiplier()*100)/100%> €</span>
               </div>
               <div class="flightclass">
                 <a href="javascript:getPriceFromDepartureSecondClass();"><b>Seconda classe</b></a>
@@ -188,8 +188,8 @@ and open the template in the editor.
                 <span class="ban">Biglietti flessibili</span>
                 <span class="ban">Bagaglio da 20kg</span>
                 <span class="ban">Bagagli assicurati</span>
-                <span class="priceclass"><%=new DecimalFormat("#.##").format(departureFlight.getVirtualFlight().getPriceSecond() * 
-                        departureFlight.getMultiplier())%> €</span>
+                <span class="priceclass"><%=Math.floor(departureFlight.getVirtualFlight().getPriceSecond() * 
+                        departureFlight.getMultiplier()*100)/100%> €</span>
               </div>
           </div>
           <%if(returnFlight != null){%>
@@ -204,8 +204,8 @@ and open the template in the editor.
               <span>Biglietti flessibili</span>
               <span>Bagaglio da 20kg</span>
               <span>Bagagli assicurati</span>
-              <span class="priceclass"><%=new DecimalFormat("#.##").format(returnFlight.getVirtualFlight().getPriceFirst() * 
-                        returnFlight.getMultiplier())%> €</span>
+              <span class="priceclass"><%=Math.floor(returnFlight.getVirtualFlight().getPriceFirst() * 
+                        returnFlight.getMultiplier()*100)/100%> €</span>
               </div>
             
             <div class="flightclass">
@@ -215,8 +215,8 @@ and open the template in the editor.
               <span class="ban">Biglietti flessibili</span>
               <span class="ban">Bagaglio da 20kg</span>
               <span class="ban">Bagagli assicurati</span>
-              <span class="priceclass"><%=new DecimalFormat("#.##").format(returnFlight.getVirtualFlight().getPriceSecond() * 
-                        returnFlight.getMultiplier())%> €</span>
+              <span class="priceclass"><%=Math.floor(returnFlight.getVirtualFlight().getPriceSecond() * 
+                        returnFlight.getMultiplier()*100)/100%> €</span>
             </div>
           </div>
             <%}%>
@@ -267,8 +267,8 @@ and open the template in the editor.
               <input type="text" name="passengertitle<%=i%>"  class="jsCheck"  list="Title" placeholder="Inserisci sesso" required />
               <datalist id="Title">
                 <select name="Title">
-                  <option value="Maschio">
-                  <option value="Femmina">
+                  <option value="Mr">
+                  <option value="Mrs">
                   <option value="Altro">
                 </select>
               </datalist>
