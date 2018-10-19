@@ -71,12 +71,6 @@ and open the template in the editor.
                 <a href="javascript:gotoPrenotation()">Prenotazioni</a>
             </div>
             <div>
-                <a href="javascript:">Wishlist</a>
-            </div>
-            <div>
-                <a href="javascript:visualizeAccount()">Account</a>
-            </div>
-            <div>
                 <a href="javascript:changePassword()">Cambia password</a>
             </div>
             <div>
