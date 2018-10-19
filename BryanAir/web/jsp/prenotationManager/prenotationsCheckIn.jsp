@@ -146,7 +146,7 @@
                             <label for="documento">
                                 Codice documento
                             </label> 
-                            <input required type="text" name="documentocodice<%=i%>" id="documentocodice<%=i%>">
+                            <input required type="number" max="9999999" name="documentocodice<%=i%>" id="documentocodice<%=i%>">
                         </h4>
                     </th>
                     <input type="hidden" type="text" name="prencode<%=i%>" value="<%=prenotations.get(i).getId()%>">

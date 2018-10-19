@@ -25,7 +25,7 @@ public class CheckInDAOMySQLJDBCImpl implements CheckInDAO {
     }
 
     @Override
-    public void insertCheckIns(String doctype, String doccode, Long prencode) {
+    public void insertCheckIns(String doctype, Long doccode, String prencode) {
         PreparedStatement ps;
         Random i = new Random();
         long id = 0;
@@ -63,8 +63,8 @@ public class CheckInDAOMySQLJDBCImpl implements CheckInDAO {
             
             ps.setLong(1, id );
             ps.setString(2, doctype);
-            ps.setString(3, doccode);
-            ps.setLong(4, prencode);
+            ps.setLong(3, doccode);
+            ps.setString(4, prencode);
             
             ps.executeUpdate();
             ps.close();
