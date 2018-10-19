@@ -27,7 +27,14 @@
   
   int numeroPosti = (int)request.getAttribute("numeroposti");
   ConcreteFlight departureFlight = (ConcreteFlight)request.getAttribute("departureflight");
-  ConcreteFlight returnFlight = (ConcreteFlight)request.getAttribute("returnflight");%>
+  ConcreteFlight returnFlight = (ConcreteFlight)request.getAttribute("returnflight");
+  
+  boolean departureHasAvailableSeatFirst = numeroPosti <= departureFlight.getSeatFirst();
+  boolean departureHasAvailableSeatSecond =  numeroPosti <= departureFlight.getSeatSecond();
+  boolean returnHasAvailableSeatFirst = true,  returnHasAvailableSeatSecond = true;
+  if(returnFlight != null){
+    returnHasAvailableSeatFirst = numeroPosti <= returnFlight.getSeatFirst();
+    returnHasAvailableSeatSecond =  numeroPosti <= returnFlight.getSeatSecond();}%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -59,28 +66,44 @@ and open the template in the editor.
             }
             
             function getPriceFromDepartureFirstClass(){
+               <%if(departureHasAvailableSeatFirst){%>
                var prices = document.querySelectorAll(".totalprice");
                setTotalPrice(prices[0], prices[1], "block","none");
                var classes = document.querySelectorAll(".priceclass");
                setSelectedClass(classes[0], "1");
+               <%}else{%>
+                   alert("Non ci sono posti diponibili in prima classe.");
+               <%}%>
             }
             function getPriceFromDepartureSecondClass(){
+               <%if(departureHasAvailableSeatSecond){%>
                var prices = document.querySelectorAll(".totalprice");
                setTotalPrice(prices[0], prices[1], "none","block");
                var classes = document.querySelectorAll(".priceclass");
                setSelectedClass(classes[1], "2");
+               <%}else{%>
+                   alert("Non ci sono posti diponibili in seconda classe.");
+               <%}%>
             }
             function getPriceFromReturnFirstClass(){
+               <%if(returnHasAvailableSeatFirst){%>
                var prices = document.querySelectorAll(".totalprice");
                setTotalPrice(prices[2], prices[3], "block","none");
                var classes = document.querySelectorAll(".priceclass");
                setReturnSelectedClass(classes[2], "1");
+               <%}else{%>
+                   alert("Non ci sono posti diponibili in prima classe.");
+               <%}%>
             }
             function getPriceFromReturnSecondClass(){
+               <%if(returnHasAvailableSeatSecond){%>
                var prices = document.querySelectorAll(".totalprice");
                setTotalPrice(prices[2], prices[3], "none","block");
                var classes = document.querySelectorAll(".priceclass");
                setReturnSelectedClass(classes[3], "2");
+               <%}else{%>
+                   alert("Non ci sono posti diponibili in seconda classe.");
+               <%}%>
             }
             
             function goToInsertPrenotation(){
@@ -103,16 +126,26 @@ and open the template in the editor.
             
             function setPage(){
                var classes = document.querySelectorAll(".priceclass");
-               setDepartureSelectedClass(classes[0], "1");
-               <%if(returnFlight != null){%>
-                setReturnSelectedClass(classes[2], "1");
-               <%}%>
                var prices = document.querySelectorAll(".totalprice");
-               setTotalPrice(prices[0], prices[1], "block","none");
-               
-               <%if(returnFlight != null){%>
-                    setTotalPrice(prices[2], prices[3], "block","none");
-               <%}%>
+               <%if(!departureHasAvailableSeatFirst && departureHasAvailableSeatSecond){%>
+                       
+                    setDepartureSelectedClass(classes[1], "2");
+                    setTotalPrice(prices[0], prices[1], "none","block");
+                    
+               <%}else{%>
+                   
+                    setTotalPrice(prices[0], prices[1], "block","none");
+                    setDepartureSelectedClass(classes[0], "1");
+                    
+               <%}if(returnFlight != null){
+                    if(!returnHasAvailableSeatFirst && returnHasAvailableSeatSecond){%>
+                       setReturnSelectedClass(classes[3], "2");
+                       setTotalPrice(prices[2], prices[3], "none","block");
+                     <%}else{%>
+                       setReturnSelectedClass(classes[2], "1");
+                       setTotalPrice(prices[2], prices[3], "block","none");
+                <%}
+              }%>
             }
             
             function prenotationLoadHandler(){
@@ -120,7 +153,7 @@ and open the template in the editor.
                for(i=1; i <= <%=numeroPosti%>; i++){
                    document.forms["prenotationsForm"]["passengerfirstname"+i].addEventListener("change",checkField);
                    document.forms["prenotationsForm"]["passengerlastname"+i].addEventListener("change",checkField);
-                   document.forms["prenotationsForm"]["passengergender"+i].addEventListener("change",checkField);
+                   document.forms["prenotationsForm"]["passengertitle"+i].addEventListener("change",checkField);
                }
                
                setPage();
@@ -138,6 +171,7 @@ and open the template in the editor.
                 <span><b>Partenza</b></span>
               </div>
               <div class="flightclass">
+                
                 <a href="javascript:getPriceFromDepartureFirstClass();"><b>Prima classe</b></a>
                 <span>Tariffa più bassa</span>
                 <span>Posto prenotato</span>
@@ -230,9 +264,9 @@ and open the template in the editor.
             <div class="passenger">
               <input type="text" name="passengerfirstname<%=i%>" class="jsCheck" placeholder="Inserisci nome" required />
               <input type="text" name="passengerlastname<%=i%>" class="jsCheck" placeholder="Inserisci cognome" required />
-              <input type="text" name="passengergender<%=i%>"  class="jsCheck"  list="Gender" placeholder="Inserisci sesso" required />
-              <datalist id="Gender">
-                <select name="Gender">
+              <input type="text" name="passengertitle<%=i%>"  class="jsCheck"  list="Title" placeholder="Inserisci sesso" required />
+              <datalist id="Title">
+                <select name="Title">
                   <option value="Maschio">
                   <option value="Femmina">
                   <option value="Altro">

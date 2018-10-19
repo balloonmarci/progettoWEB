@@ -396,6 +396,7 @@ public class UserManager {
         List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
 
         request.setAttribute("airports", airports);
+        request.setAttribute("pushedFlights", pushedFlights);
    }
     
     

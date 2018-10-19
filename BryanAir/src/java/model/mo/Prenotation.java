@@ -17,7 +17,7 @@ public class Prenotation {
     private float pricetotal;
     private String passengerfirstname;
     private String passengerlastname;
-    private String sesso;
+    private String passengertitle;
     private ConcreteFlight concreteFlight;
     private DateTime prenotationdate;
     private User user;
@@ -63,12 +63,12 @@ public class Prenotation {
         this.passengerlastname = passengerlastname;
     }
     
-    public String getSesso() {
-        return sesso;
+    public String getPassengerTitle() {
+        return passengertitle;
     }
 
-    public void setSesso(String sesso) {
-        this.sesso = sesso;
+    public void setPassengerTitle(String title) {
+        this.passengertitle = title;
     }
     
     public ConcreteFlight getConcreteFlight() {

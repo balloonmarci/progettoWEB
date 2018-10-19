@@ -302,10 +302,6 @@
       </main>
       <%@include file="/include/footer.jspf"%>
     </body>
-    <form action="Dispatcher" method="post">
-        <input type="hidden" name="controllerAction" value="WishlistManager.view">
-        <input type="submit" value="submit">
-    </form>
     
     <form name="searchPushedFlights" action="Dispatcher" method="post">
         <input type="hidden" name="numeroposti" id="numeroposti">

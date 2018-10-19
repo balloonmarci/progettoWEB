@@ -289,8 +289,9 @@ public class ConcreteFlightManager {
             VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
             AirportDAO airportDAO = daoFactory.getAirportDAO();
             
+            
             concreteDepartureFlights = concreteFlightDAO.findByAirportsName(departureairportname, arrivalairportname, DateTime.now(), numeroPosti);
-                    
+            
             for(int i = 0; i < concreteDepartureFlights.size(); i++){
                 virtualFlight = concreteDepartureFlights.get(i).getVirtualFlight();
                 String flightcode = virtualFlight.getFlightCode();

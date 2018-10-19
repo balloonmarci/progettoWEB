@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/css/supportmodule.css</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/jsp/supportManager/viewAdmin.jsp</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/src/java/controller/AdminManager.java</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/web/jsp/supportManager/adminChat.jsp</file>
-            <file>file:/C:/Progetti/progettoWEB/BryanAir/src/java/controller/SupportManager.java</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/controller/HomeManager.java</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/model/dao/mySQLJDBCImpl/PrenotationDAOMySQLJDBCImpl.java</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/controller/UserManager.java</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/web/jsp/prenotationManager/view.jsp</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/model/mo/Prenotation.java</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/controller/PrenotationManager.java</file>
+            <file>file:/C:/Users/Filippo/Documents/GitHub/progettoWEB/BryanAir/src/java/model/dao/ConcreteFlightDAO.java</file>
         </group>
     </open-files>
 </project-private>

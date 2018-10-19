@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import model.dao.AirportDAO;
 import model.dao.CheckInDAO;
 import model.dao.ConcreteFlightDAO;
@@ -18,6 +20,7 @@ import model.dao.DAOFactory;
 import model.dao.PrenotationDAO;
 import model.dao.PushedFlightDAO;
 import model.dao.VirtualFlightDAO;
+
 import model.mo.Airport;
 import model.mo.ConcreteFlight;
 import model.mo.Prenotation;
@@ -25,9 +28,11 @@ import model.mo.PrenotationView;
 import model.mo.PushedFlight;
 import model.mo.User;
 import model.mo.VirtualFlight;
+
 import model.session.dao.LoggedUserDAO;
 import model.session.dao.SessionDAOFactory;
 import model.session.mo.LoggedUser;
+
 import org.joda.time.DateTime;
 import services.config.Configuration;
 import services.logservice.LogService;
@@ -291,7 +296,7 @@ public class PrenotationManager {
             prenotation.setPricetotal(departurePrice);
             prenotation.setPassengerfirstname(request.getParameter("passengerfirstname"+i));
             prenotation.setPassengerlastname(request.getParameter("passengerlastname"+i));
-            prenotation.setSesso(request.getParameter("passengergender"+i));
+            prenotation.setPassengerTitle(request.getParameter("passengertitle"+i));
             prenotation.setPrenotationDate(DateTime.now());
             prenotation.setConcreteFlight(departureFlight);
             prenotation.setUser(user);
@@ -306,7 +311,7 @@ public class PrenotationManager {
             prenotation.setPricetotal(returnPrice);
             prenotation.setPassengerfirstname(departurePrenotations.get(i).getPassengerfirstname());
             prenotation.setPassengerlastname(departurePrenotations.get(i).getPassengerlastname());
-            prenotation.setSesso(departurePrenotations.get(i).getSesso());
+            prenotation.setPassengerTitle(departurePrenotations.get(i).getPassengerTitle());
             prenotation.setPrenotationDate(DateTime.now());
             prenotation.setConcreteFlight(returnFlight);
             prenotation.setUser(user);
@@ -340,7 +345,11 @@ public class PrenotationManager {
         concreteFlightDAO.update(concreteDepartureFlight);
         concreteFlightDAO.update(concreteReturnFlight);
         
-        commonView(daoFactory, request);
+        commonView(daoFactory, request, loggedUser);
+        
+        
+        
+        
         daoFactory.commitTransaction();
         
         request.setAttribute("viewUrl", "homeManager/view");
@@ -404,7 +413,7 @@ public class PrenotationManager {
             prenotation.setPricetotal(departurePrice);
             prenotation.setPassengerfirstname(request.getParameter("passengerfirstname"+i));
             prenotation.setPassengerlastname(request.getParameter("passengerlastname"+i));
-            prenotation.setSesso(request.getParameter("passengergender"+i));
+            prenotation.setPassengerTitle(request.getParameter("passengertitle"+i));
             prenotation.setPrenotationDate(DateTime.now());
             prenotation.setConcreteFlight(departureFlight);
             prenotation.setUser(user);
@@ -428,7 +437,7 @@ public class PrenotationManager {
             concreteFlight.setSeatSecond(concreteFlight.getSeatSecond() - numeroPosti);
         
         concreteFlightDAO.update(concreteFlight);
-        commonView(daoFactory, request);
+        commonView(daoFactory, request, loggedUser);
         daoFactory.commitTransaction();
         
         request.setAttribute("viewUrl", "homeManager/view");
@@ -457,7 +466,7 @@ public class PrenotationManager {
         }
     }
     
-    private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+    private static void commonView(DAOFactory daoFactory, HttpServletRequest request, LoggedUser loggedUser){
 
         List<Airport> airports = new ArrayList();
         PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
@@ -465,7 +474,12 @@ public class PrenotationManager {
 
         AirportDAO airportDAO = daoFactory.getAirportDAO();
         airports = airportDAO.findAllAirport();
-
+        
+        List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+        if(loggedUser != null){
+            wishlist = pushedFlightDAO.getWishlist(loggedUser);
+        }
+        request.setAttribute("wishlist", wishlist);
         request.setAttribute("airports", airports);
         request.setAttribute("pushedFlights", pushedFlights);
     }
