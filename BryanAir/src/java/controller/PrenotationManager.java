@@ -9,23 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import model.dao.AirportDAO;
 import model.dao.ConcreteFlightDAO;
 import model.dao.DAOFactory;
 import model.dao.PrenotationDAO;
 import model.dao.PushedFlightDAO;
 import model.dao.VirtualFlightDAO;
+
 import model.mo.Airport;
 import model.mo.ConcreteFlight;
 import model.mo.Prenotation;
 import model.mo.PushedFlight;
 import model.mo.User;
 import model.mo.VirtualFlight;
+
 import model.session.dao.LoggedUserDAO;
 import model.session.dao.SessionDAOFactory;
 import model.session.mo.LoggedUser;
+
 import org.joda.time.DateTime;
 import services.config.Configuration;
 import services.logservice.LogService;

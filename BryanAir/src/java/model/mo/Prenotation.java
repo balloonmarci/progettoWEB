@@ -68,7 +68,7 @@ public class Prenotation {
     }
 
     public void setPassengerTitle(String title) {
-        this.passengertitle = passengertitle;
+        this.passengertitle = title;
     }
     
     public ConcreteFlight getConcreteFlight() {
