@@ -47,10 +47,20 @@
                 document.concreteFlightsForm.returndate.disabled = false;
             }
         }*/
-        function goToPrenotation(departureairport, arrivalairport, departuredate){            
-            document.getElementById("departureAirportName").value=departureairport;
-            document.getElementById("arrivalAirportName").value=arrivalairport;
-            document.getElementById("departuredate").value=departuredate;
+        function goToPrenotation(flightcode, millisdeparture, millisarrival){
+            
+            var number = parseInt(prompt("Inserisci il numero di posti che desideri acquistare: "));
+            
+            while(isNaN(number)||number>6 || number <1){
+                number = parseInt(prompt("Non hai inserito un numero inferiore a 6. Inserisci il numero di posti che desideri acquistare: "));
+            }
+            
+            document.getElementById("numeroposti").value=number;
+            
+            
+            document.getElementById("flightcode").value=flightcode;
+            document.getElementById("departuredate").value=millisdeparture;
+            document.getElementById("arrivaldate").value=millisarrival;
             document.searchPushedFlights.submit();
         }
         
@@ -121,7 +131,7 @@
           <div>
                 <%for(c=0; c<4; c++ ) { %>
                 <article>
-                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
                       <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
@@ -146,7 +156,7 @@
           <div>
                 <%for(c=4; c<8; c++ ) { %>
                     <article>
-                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
                       <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
@@ -164,14 +174,14 @@
                             </h3> 
                             <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
                       </a>
-                      <%}%> 
-                    </article>       
+                      <%}%>      
+                    </article>     
                 <%}%>
           </div>
           <div>
                 <%for(c=8; c<12; c++ ) { %>
                     <article>
-                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
                       <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
@@ -189,8 +199,8 @@
                             </h3> 
                             <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
                       </a>
-                      <%}%> 
-                    </article>       
+                      <%}%>      
+                    </article>      
                 <%}%>
           </div>
         </div>
@@ -215,7 +225,7 @@
                                 <%}%>                              
                               <br>
                               
-                              <a href="javascript:goToPrenotation('<%=wishlist.get(i).getDepartureairport()%>', '<%=wishlist.get(i).getArrivalairport()%>', '<%=wishlist.get(i).getHtmlDate()%>');">
+                              <a href="javascript:goToPrenotation('<%=wishlist.get(i).getFlightcode()%>', <%=wishlist.get(i).getDeparturedate().getMillis()%>, <%=wishlist.get(i).getArrivaldate().getMillis()%>);">
                                 <img class="menuimg" src="images/ok.png" alt ="ok" >
                               </a>
                               <a href="javascript:deleteFromWishlist('<%=wishlist.get(i).getFlightcode()%>',<%=wishlist.get(i).getDeparturedate().getMillis() %>);">
@@ -240,9 +250,9 @@
                <%if(!loggedOn) {%>
                 <%for(c=12; c<15; c++ ) { %>
                     <article>
-                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
-                        <h1 class="sidebar-h1"><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img class="sidebar-img" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
+                        <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img class="width-fix" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
@@ -258,16 +268,16 @@
                             </h3> 
                             <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
                       </a>
-                      <%}%>  
-                    </article>       
+                      <%}%>      
+                    </article>      
                 <%}%>
                 <%} else { %>
                     <%if(wishlist.size()==0) {%>
                     <%for(c=12; c<15; c++ ) { %>
                     <article>
-                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getDepartureairport()%>', '<%=pushedFlights.get(c).getArrivalairport()%>', '<%=pushedFlights.get(c).getHtmlDate()%>');">  
-                        <h1 class="sidebar-h1"><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img class="sidebar-img" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
+                        <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
+                      <img class="width-fix" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
@@ -283,8 +293,8 @@
                             </h3> 
                             <img class="menuimg-wishlist" src="images/addToWishlist.png" alt="addToWishlist">
                       </a>
-                      <%}%> 
-                    </article>       
+                      <%}%>      
+                    </article>      
                     <%}%>
                     <%}%>
                 <%}%>
@@ -298,10 +308,11 @@
     </form>
     
     <form name="searchPushedFlights" action="Dispatcher" method="post">
-        <input type="hidden" name="departureAirportName" id="departureAirportName">
-        <input type="hidden" name="arrivalAirportName" id="arrivalAirportName"> 
+        <input type="hidden" name="numeroposti" id="numeroposti">
+        <input type="hidden" name="flightcode" id="flightcode"> 
         <input type="hidden" name="departuredate" id="departuredate">
-        <input type="hidden" name="controllerAction" value="ConcreteFlightManager.viewConcreteFlightPerDepartureDate">
+        <input type="hidden" name="arrivaldate" id="arrivaldate">
+        <input type="hidden" name="controllerAction" value="PrenotationManager.onlyDepartureViewMillis">
     </form>
     
     <form name="deleteWishlistFlight" action="Dispatcher" method="post">

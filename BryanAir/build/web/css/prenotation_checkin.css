@@ -14,6 +14,10 @@
     margin-left: 4%;
 }
 
+.border{
+    border: 1px solid #5bb5d3;
+}
+
 .float{
     float: left;
     margin-top: 0%;
@@ -30,6 +34,10 @@ table, th, td {
    white-space: nowrap;
 }
 
+th{
+    padding-right: 10%;
+}
+
 .table-padding{
     /*padding: 8%;*/
 }
@@ -39,8 +47,12 @@ table, th, td {
 }
 
 .prenimg{
-    padding:4%;
+    padding:2%;
     max-width: 40%;
     background: white;
     margin-left: 2%
+}
+
+.rightarrow{
+    max-width: 1%;
 }

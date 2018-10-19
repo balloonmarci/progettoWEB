@@ -86,7 +86,7 @@ public class MessageDAOMySQLJDBCImpl implements MessageDAO{
         try{
             String sq1
                     =" SELECT * FROM message "
-                    +" WHERE idconv = ? "
+                    +" WHERE idconv = ? AND deleted = '0' "
                     +" ORDER BY time; ";
             
             ps = conn.prepareStatement(sq1);

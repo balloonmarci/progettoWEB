@@ -232,3 +232,11 @@ body{
 .rightarrow{
     width: 2%;
 }
+
+.section-padding{
+    padding-top: 7%;
+}
+
+.leftarrow{
+    width: 1.5%;
+}

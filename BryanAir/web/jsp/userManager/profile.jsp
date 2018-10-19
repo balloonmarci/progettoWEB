@@ -133,7 +133,7 @@ and open the template in the editor.
       <%@include file="/include/footer.jspf"%>
     </body>
     <form name="prenotations" action="Dispatcher" method="post">
-        <input type="hidden" name="controllerAction" value="UserManager.prenotationView"/>
+        <input type="hidden" name="controllerAction" value="PrenotationManager.prenotationView"/>
     </form>
 </html>
 
