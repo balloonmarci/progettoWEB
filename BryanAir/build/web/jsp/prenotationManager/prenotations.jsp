@@ -1,3 +1,6 @@
+<%@page import="model.mo.Prenotation"%>
+<%@page import="model.mo.PrenotationView"%>
+<%@page import="java.util.List"%>
 <%@page import="model.session.mo.LoggedUser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -5,8 +8,13 @@
   LoggedUser loggedUser = (LoggedUser)request.getAttribute("loggedUser");
   Boolean loggedOn = (Boolean)request.getAttribute("loggedOn");
   String applicationMessage = (String)request.getAttribute("applicationMessage");
+  List<PrenotationView> prenotations = (List<PrenotationView>)request.getAttribute("prenotations");
+  List<PrenotationView> checkPrenotations = (List<PrenotationView>)request.getAttribute("checkprenotations");
+  int i=0;
+
 %>
-<!DOCTYPE html>
+
+
 <html>
     <head>
         <%@include file="/include/head.jspf"%>
@@ -14,7 +22,22 @@
         <link rel="stylesheet" type="text/css" href="css/profilostyle.css">
         <link rel="stylesheet" type="text/css" href="css/supportmodule.css">
         <script language="javascript">
-            function goToViewPrenotation(){
+            function goToViewPrenotation(flightcode, departuremillis, arrivalmillis){
+                
+                document.getElementById("flightcode").value=flightcode;
+                document.getElementById("departuredate").value=departuremillis;
+                document.getElementById("arrivaldate").value=arrivalmillis;
+                
+                document.prenotationViewDetails.submit();
+            }
+            
+            function goToCheckIn(flightcode, departuremillis, arrivalmillis){
+                
+                document.getElementById("flightcode").value=flightcode;
+                document.getElementById("departuredate").value=departuremillis;
+                document.getElementById("arrivaldate").value=arrivalmillis;
+                document.getElementById("controllerAction").value="PrenotationManager.prenotationViewCheckIn";
+                
                 document.prenotationViewDetails.submit();
             }
             
@@ -23,7 +46,10 @@
     <body>
       <%@include file="/include/header.jspf"%>
       <main class="support-main">
-            <section class="support-section support-section-color support-section-font">                  
+            
+          
+          
+          <section class="support-section support-section-color support-section-font">                  
                 Gestore Prenotazioni
             </section>
             <div class="wrapper">
@@ -31,28 +57,36 @@
                     Visualizza i dettagli delle prenotazioni effettuate:
                     <br><br>
                     <div>
-                        <a href="javascript:goToViewPrenotation()">
+                        <%for(i=0; i<prenotations.size(); i++) {%>
+                            
+                            <a href="javascript:goToViewPrenotation('<%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>', <%=prenotations.get(i).getConcreteFlight().getDate().getMillis()%>, <%=prenotations.get(i).getConcreteFlight().getArrivalDate().getMillis()%>);">
+                            
                             <article class="support-article-chat clearfix">
                                 <img src="images/aereostil.png" alt="Chat" class="support-img-chat">
                                 <div class='support-article-centraldiv'>
                                     <h2 class='support-h2'>
-                                        ID Prenotazione: 146548
+                                        <%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>, 
+                                        <%=prenotations.get(i).getPassengers()%> passeggeri
                                     </h2>
                                     <h3 class='support-h3'>
-                                        Malpensa
+                                        <%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getDepartureAirport().getAirportname()%>
                                         <img src="images/double-arrow-right.png" class="rightarrow">
-                                        Bali
+                                        <%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getArrivalAirport().getAirportname()%>
                                     </h3>
                                 </div>
                                 <div class='support-article-rightdiv'>
                                     <h2 class='support-h2'>
-                                        Partenza il: 10/11/2018
+                                        Partenza il: <%=prenotations.get(i).getConcreteFlight().getDate().getDayOfMonth()%>/<%=prenotations.get(i).getConcreteFlight().getDate().getMonthOfYear()%>/<%=prenotations.get(i).getConcreteFlight().getDate().getYear()%>
                                     </h2>
                                 </div>
                             </article>
-                        </a>
+                            
+                            </a>
+                                    
+                            <%}%>
                         
-                        <article class="support-article-chat clearfix">
+                            <% if(prenotations.size()==0) {%>
+                            <article class="support-article-chat clearfix">
                                 <img src="images/error.png" alt="Chat" class="support-img-chat">
                                 <div class='support-article-centraldiv'>
                                     <h2 class='support-h2'>
@@ -63,6 +97,7 @@
                                     </h3>
                                 </div>
                             </article>
+                            <%}%>
                         
                     </div>
                 </div>
@@ -70,26 +105,38 @@
                     Effettua il check in online delle seguenti prenotazioni per risparmiare tempo in aereoporto:
                     <br>
                     <div>
-                        <a href="javascript:">
+                        
+                            
+                            <%for(i=0; i<checkPrenotations.size(); i++) {%>
+                            
+                            <a href="javascript:goToCheckIn('<%=checkPrenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>', <%=checkPrenotations.get(i).getConcreteFlight().getDate().getMillis()%>, <%=checkPrenotations.get(i).getConcreteFlight().getArrivalDate().getMillis()%>)">
+                            
+                            
                             <article class="support-article-chat clearfix">
                                 <img src="images/notes.png" alt="Chat" class="support-img-chat">
                                 <div class='support-article-centraldiv'>
                                     <h2 class='support-h2'>
-                                        ID Prenotazione: 777
+                                        <%=checkPrenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>, 
+                                        <%=checkPrenotations.get(i).getPassengers()%> passeggeri
                                     </h2>
                                     <h3 class='support-h3'>
-                                        Malpensa 
+                                        <%=checkPrenotations.get(i).getConcreteFlight().getVirtualFlight().getDepartureAirport().getAirportname()%>
                                         <img src="images/double-arrow-right.png" class="rightarrow">
-                                        San Francisco
+                                        <%=checkPrenotations.get(i).getConcreteFlight().getVirtualFlight().getArrivalAirport().getAirportname()%>
                                     </h3>
                                 </div>
                                 <div class='support-article-rightdiv'>
                                     <h2 class='support-h2'>
-                                        Partenza il: 10/11/2018
+                                        Partenza il: <%=checkPrenotations.get(i).getConcreteFlight().getDate().getDayOfMonth()%>/<%=checkPrenotations.get(i).getConcreteFlight().getDate().getMonthOfYear()%>/<%=checkPrenotations.get(i).getConcreteFlight().getDate().getYear()%>
                                     </h2>
                                 </div>
                             </article>
-                        </a>
+                            
+                            </a>
+                                    
+                        <%}%>
+                            
+                        <% if(checkPrenotations.size()==0) {%>
                         
                         
                         <article class="support-article-chat clearfix">
@@ -102,21 +149,30 @@
                                         Puoi effettuare il check in online a partire da una settimana prima della partenza.
                                     </h3>
                                 </div>
-                            </article>
+                        </article>
+                        
+                        <%}%>
+                        
                     </div>
                     
                     
                 </div>    
-            </div> 
-            
+            </div>
         </main>
-      
+                
+        
+        
       <form name="prenotationViewDetails" action="Dispatcher" method="post">
+          <input type="hidden" name="flightcode" id="flightcode">
+          <input type="hidden" name="departuredate" id ="departuredate">
+          <input type="hidden" name="arrivaldate" id="arrivaldate">
           <input type="hidden" name="controllerAction" id="controllerAction" value="PrenotationManager.prenotationViewDetails">          
       </form>
       
       <%@include file="/include/footer.jspf"%>
     </body>
+    
+   
 </html>
 
 

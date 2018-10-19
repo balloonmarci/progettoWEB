@@ -47,8 +47,17 @@
                 document.concreteFlightsForm.returndate.disabled = false;
             }
         }*/
-        function goToPrenotation(flightcode, millisdeparture, millisarrival){            
-            document.getElementById("numeroposti").value=prompt("Inserisci il numero di posti: ");
+        function goToPrenotation(flightcode, millisdeparture, millisarrival){
+            
+            var number = parseInt(prompt("Inserisci il numero di posti che desideri acquistare: "));
+            
+            while(isNaN(number)||number>6 || number <1){
+                number = parseInt(prompt("Non hai inserito un numero inferiore a 6. Inserisci il numero di posti che desideri acquistare: "));
+            }
+            
+            document.getElementById("numeroposti").value=number;
+            
+            
             document.getElementById("flightcode").value=flightcode;
             document.getElementById("departuredate").value=millisdeparture;
             document.getElementById("arrivaldate").value=millisarrival;

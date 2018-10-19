@@ -17,6 +17,7 @@ import services.config.Configuration;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import model.dao.CheckInDAO;
 import model.dao.MessageDAO;
 import model.dao.PrenotationDAO;
 import model.dao.PushedFlightDAO;
@@ -108,5 +109,9 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
         return new PushedFligthDAOMySQLJDBCImpl(connection);
     }
     
+    @Override
+    public CheckInDAO getCheckInDAO() {
+        return new CheckInDAOMySQLJDBCImpl(connection);
+    }
     
 }

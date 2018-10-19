@@ -10,7 +10,6 @@
   Boolean loggedOn = (Boolean)request.getAttribute("loggedOn");
   String applicationMessage = (String)request.getAttribute("applicationMessage");
   List<Prenotation> prenotations = (List<Prenotation>)request.getAttribute("prenotations");
-  DateTime checkInDate = prenotations.get(0).getConcreteFlight().getDate().minusWeeks(1);
 %>
 
 <%! private String getDate(DateTime dt){
@@ -109,47 +108,54 @@
                         </h4>
                     </th>
                 </tr>
-                <tr>
-                    <th>
-                        <h3 class="table-padding">
-                            Passeggeri:
-                        </h3>
-                    </th>
-                    <th>
-                        <h4 class="tableh4 table-padding">
-                            <%for(int i=0; i<prenotations.size();i++) {%>
-                            
-                                <%=prenotations.get(i).getPassengerfirstname()%> <%=prenotations.get(i).getPassengerlastname()%> <br>
-                            
-                            <%}%>
-                            
-                        </h4>
-                    </th>
-                </tr>
             </table>
-            
+            <form action="Dispatcher" method="post" name="checkInForm">
             <table class="float prentable border">
                 <tr>
                     <th>
                         <h3>
-                            CheckIn Online:
+                            CheckIn Online
                         </h3>
                     </th>
-                </tr>    
+                    <th>
+                        <input type="submit" value="Invia">
+                    </th>
+                </tr>
+                <%for(int i=0; i<prenotations.size(); i++) {%>
                 <tr>
                     <th>
-                        <h3>
-                            Disponibile da:
-                        </h3>
+                        <h4>
+                            <%=prenotations.get(i).getPassengerfirstname()%> <%=prenotations.get(i).getPassengerlastname()%>:
+                        </h4>
                     </th>
                     <th>
                         <h4>
-                            <%=getDate(checkInDate)%></h4>
+                            <label for="documento">
+                                Tipo documento
+                            </label> 
+                            <select name="documento<%=i%>">
+                                <option disabled="disabled" selected="selected">Seleziona un'opzione.</option>
+                                <option value="Passaporto">Passaporto</option>
+                                <option value="Carta Identita">Carta Identita</option>
+                            </select>
+                        </h4>
                     </th>
-                </tr>
-            </table> 
-            <img src="images/Destinations/<%=prenotations.get(0).getConcreteFlight().getVirtualFlight().getArrivalAirport().getCity()%>.png" class="prenimg border"/>
-            
+                    
+                    <th>
+                        <h4>
+                            <label for="documento">
+                                Codice documento
+                            </label> 
+                            <input required type="text" name="documentocodice<%=i%>" id="documentocodice<%=i%>">
+                        </h4>
+                    </th>
+                    <input type="hidden" type="text" name="prencode<%=i%>" value="<%=prenotations.get(i).getId()%>">
+                </tr>                    
+                <%}%>
+            </table>
+                <input type="hidden" name="passengers" value="<%=prenotations.size()%>">
+                <input type="hidden" name="controllerAction" value="PrenotationManager.insertCheckIn">
+            </form>
             
             
             

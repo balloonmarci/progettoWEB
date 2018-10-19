@@ -50,6 +50,10 @@
                                 
             }
             
+            function goBack(){
+                document.goBackForm.submit();
+            }
+            
         </script>
     </head>
     <body class="adminviewbody">
@@ -59,8 +63,8 @@
         </header>
             
             <main class="support-main-admin">
-            <section class="support-section support-section-color support-section-font">                  
-                Supporto Tecnico
+            <section class="support-section support-section-color support-section-font section-padding">                  
+                <a href="javascript:goBack();"> <img src="images/leftarrow.png" class="leftarrow"> </a> Supporto Tecnico
             </section>
             <div class="wrapper">
                 <div class="left-admin support-div">
@@ -143,10 +147,14 @@
             <input type="hidden" name="convidJoin" id="convidJoin"/>
             <input type="hidden" name="controllerAction" value="SupportManager.adminJoinConversation"/>
         </form>
-        
+
         <form name="supportFormAdminChat" method="post" action="Dispatcher">
             <input type="hidden" name="convidChat" id="convidChat"/>
             <input type="hidden" name="controllerAction" value="SupportManager.adminViewChat"/>
+        </form>
+        
+        <form name="goBackForm" method="post" action="Dispatcher">
+            <input type="hidden" name="controllerAction" value="AdminManager.viewHome">
         </form>
                     
                     
