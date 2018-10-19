@@ -1,0 +1,58 @@
+.backarrow{
+    max-width: 1.5%;
+}
+
+.prenotationmain{
+    padding-top: 6%;
+    text-align: left;
+    overflow: auto;
+    font-family: inherit;
+}
+
+.prenotationblocks{
+    margin: 1%;
+    margin-left: 4%;
+}
+
+.border{
+    border: 1px solid #5bb5d3;
+}
+
+.float{
+    float: left;
+    margin-top: 0%;
+}
+
+.prentable{
+    background: white;
+}
+
+table, th, td {
+   border-bottom: 1px solid #ddd;
+   padding: 1%;
+   width: fit-content;
+   white-space: nowrap;
+}
+
+th{
+    padding-right: 10%;
+}
+
+.table-padding{
+    /*padding: 8%;*/
+}
+
+.tableh4 {
+    font-size: 100%;
+}
+
+.prenimg{
+    padding:2%;
+    max-width: 40%;
+    background: white;
+    margin-left: 2%
+}
+
+.rightarrow{
+    max-width: 1%;
+}

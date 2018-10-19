@@ -32,7 +32,7 @@
                 b.submit();
             }
             function goBack(){
-                document.goback.submit();
+                document.goBackForm.submit();
             }
             
             function sendMessage(){
@@ -48,10 +48,7 @@
             <a href="javascript:logout()" class="logoutclass">Logout</a>
         </header>
         <main class="support-main-admin">
-            <section class="support-section support-section-color support-section-font support-section-chat ">
-                <form name="goback" method="post" action="Dispatcher">
-                    <input type="hidden" name="controllerAction" value="SupportManager.adminView">
-                </form>
+            <section class="support-section support-section-color support-section-font support-section-chat section-padding">
                 <a href="javascript:goBack()" class="displayblockchat">
                     <img src="images/leftarrow.png" class="chatimage" alt="left">
                 </a>
@@ -111,6 +108,10 @@
                 </div>
             </div>
         </main>
+        <form name="goBackForm" method="post" action="Dispatcher">
+            <input type="hidden" name="controllerAction" value="SupportManager.adminView">
+        </form>
+                
         <form name="logoutForm" action="Dispatcher" method="post">
             <input type="hidden" name="controllerAction" value="AdminManager.view">
         </form>

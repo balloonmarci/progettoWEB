@@ -33,7 +33,8 @@ div.m-content{
 article{
   max-width: 100%;
   margin: 4%;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.9);
+  /*background: #a3dbf1;*/
   border-radius: 2%;
   text-align: center;
 }

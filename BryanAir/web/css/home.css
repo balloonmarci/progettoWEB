@@ -4,5 +4,34 @@
 }
 
 .strong-home{
-    color:#ff3333;
+    color:crimson;
+}
+
+.width-fix{
+    max-width: 100%;
+}
+
+.menuimg{
+    margin: 2%;
+    max-width: 10% !important;
+    
+}
+
+.menuimg-wishlist {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10% !important;
+}
+.sidebar-article{
+    background: #e6e6eb;
+}
+
+.sidebar-img{
+    max-width: 100%;
+}
+
+.sidebar-h1{
+    font-size: 150%;
+    font-weight: bold;
 }

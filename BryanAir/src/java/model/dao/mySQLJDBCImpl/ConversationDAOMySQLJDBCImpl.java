@@ -44,7 +44,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
             do{
                 sq1 = " SELECT idconv "
                     + " FROM conversation "
-                    + " WHERE idconv = ? ";                    
+                    + " WHERE idconv = ? ;";                    
                 
                 l = new Long(rand.nextInt(2147483647));
                 
@@ -159,7 +159,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
                     +"WHERE A.id IS NULL "
-                    +"AND end IS NULL;";
+                    +"AND end IS NULL AND C.deleted = '0' ;";
             
             ps = conn.prepareStatement(sq1);
             ResultSet resultSet = ps.executeQuery();
@@ -186,7 +186,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
                     +"WHERE C.iduser = ? "
-                    +"AND end IS NULL "
+                    +"AND end IS NULL AND C.deleted = '0' "
                     +"ORDER BY C.start;";
             
             ps = conn.prepareStatement(sq1);
@@ -232,7 +232,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"FROM conversation AS C "
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE C.idconv = ?";
+                    +"WHERE C.idconv = ? AND C.deleted = '0' ";
             
             ps = conn.prepareStatement(sq1);
             ps.setLong(1, id);
@@ -257,7 +257,7 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
                     +"FROM conversation AS C "
                     +"JOIN user AS U ON C.iduser=U.id "
                     +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE C.idadmin = ? "
+                    +"WHERE C.idadmin = ? AND C.deleted = '0' "
                     + "AND end IS NULL "
                     + "ORDER BY C.start;";
             

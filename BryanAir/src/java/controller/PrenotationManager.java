@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.dao.AirportDAO;
+import model.dao.CheckInDAO;
 import model.dao.ConcreteFlightDAO;
 import model.dao.DAOFactory;
 import model.dao.PrenotationDAO;
@@ -23,6 +24,7 @@ import model.dao.VirtualFlightDAO;
 import model.mo.Airport;
 import model.mo.ConcreteFlight;
 import model.mo.Prenotation;
+import model.mo.PrenotationView;
 import model.mo.PushedFlight;
 import model.mo.User;
 import model.mo.VirtualFlight;
@@ -186,6 +188,71 @@ public class PrenotationManager {
         }
     }
     
+    public static void onlyDepartureViewMillis (HttpServletRequest request, HttpServletResponse response){
+        Logger logger = LogService.getApplicationLogger();
+        LoggedUserDAO loggedUserDAO;
+        LoggedUser loggedUser;
+        DAOFactory daoFactory = null;
+        SessionDAOFactory sessionDAOFactory;
+        
+        sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+        sessionDAOFactory.initSession(request, response);
+        
+        loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+        loggedUser = loggedUserDAO.find();
+        
+        int numeroPosti = Integer.parseInt(request.getParameter("numeroposti"));
+        
+        String flightCode = request.getParameter("flightcode");
+        DateTime departureDate = new DateTime(Long.parseLong(request.getParameter("departuredate")));
+        DateTime arrivalDate = new DateTime(Long.parseLong(request.getParameter("arrivaldate")));
+        
+        try{
+            daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+            
+            daoFactory.beginTransaction();
+            ConcreteFlightDAO concreteFlightDAO = daoFactory.getConcreteFlightDAO();
+            VirtualFlightDAO virtualFlightDAO = daoFactory.getVirtualFlightDAO();
+            AirportDAO airportDAO = daoFactory.getAirportDAO();
+            
+            ConcreteFlight selectedFlight = concreteFlightDAO.findByFlightCodeAndDate(flightCode, 
+                                                 departureDate, arrivalDate);
+            selectedFlight.setVirtualFlight(virtualFlightDAO.findByFlightCode(flightCode));
+            String departureIata = selectedFlight.getVirtualFlight().getDepartureAirport().getIata();
+            String arrivalIata = selectedFlight.getVirtualFlight().getArrivalAirport().getIata();
+            selectedFlight.getVirtualFlight().setDepartureAirport(airportDAO.findByIata(departureIata));
+            selectedFlight.getVirtualFlight().setArrivalAirport(airportDAO.findByIata(arrivalIata));
+            
+            daoFactory.commitTransaction();
+            
+            request.setAttribute("departureflight", selectedFlight);
+            request.setAttribute("numeroposti", numeroPosti);
+            request.setAttribute("loggedUser", loggedUser);
+            request.setAttribute("loggedOn", loggedUser != null);
+            request.setAttribute("applicationMessage", null);
+            request.setAttribute("viewUrl", "prenotationManager/view");
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE, "Controller Error", e);
+            
+            
+            try {
+                if(daoFactory != null){
+                    daoFactory.rollbackTransaction();
+                }
+            }catch (Throwable t){
+        }
+        throw new RuntimeException(e);
+        } finally {
+            try {
+                if(daoFactory != null) {
+                    daoFactory.closeTransaction();
+                }
+            }catch(Throwable t){
+            }
+        }
+    }
+    
     public static void createPrenotation(HttpServletRequest request, HttpServletResponse response){
         Logger logger = LogService.getApplicationLogger();
         LoggedUserDAO loggedUserDAO;
@@ -278,7 +345,11 @@ public class PrenotationManager {
         concreteFlightDAO.update(concreteDepartureFlight);
         concreteFlightDAO.update(concreteReturnFlight);
         
-        commonView(daoFactory, request);
+        commonView(daoFactory, request, loggedUser);
+        
+        
+        
+        
         daoFactory.commitTransaction();
         
         request.setAttribute("viewUrl", "homeManager/view");
@@ -366,7 +437,7 @@ public class PrenotationManager {
             concreteFlight.setSeatSecond(concreteFlight.getSeatSecond() - numeroPosti);
         
         concreteFlightDAO.update(concreteFlight);
-        commonView(daoFactory, request);
+        commonView(daoFactory, request, loggedUser);
         daoFactory.commitTransaction();
         
         request.setAttribute("viewUrl", "homeManager/view");
@@ -395,7 +466,7 @@ public class PrenotationManager {
         }
     }
     
-    private static void commonView(DAOFactory daoFactory, HttpServletRequest request){
+    private static void commonView(DAOFactory daoFactory, HttpServletRequest request, LoggedUser loggedUser){
 
         List<Airport> airports = new ArrayList();
         PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
@@ -403,8 +474,245 @@ public class PrenotationManager {
 
         AirportDAO airportDAO = daoFactory.getAirportDAO();
         airports = airportDAO.findAllAirport();
-
+        
+        List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
+        if(loggedUser != null){
+            wishlist = pushedFlightDAO.getWishlist(loggedUser);
+        }
+        request.setAttribute("wishlist", wishlist);
         request.setAttribute("airports", airports);
         request.setAttribute("pushedFlights", pushedFlights);
+    }
+    
+    public static void prenotationView(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+
+                daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                
+                daoFactory.beginTransaction();
+                
+                PrenotationDAO prenotationDAO = daoFactory.getPrenotationDAO();
+                
+                List<PrenotationView> prenotations = prenotationDAO.findUserPrenotations(loggedUser);
+                
+                List<PrenotationView> checkPrenotations = prenotationDAO.findUserPrenotationsCheckIn(loggedUser);
+                
+                daoFactory.commitTransaction();
+                request.setAttribute("prenotations", prenotations);
+                request.setAttribute("checkprenotations", checkPrenotations);
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "prenotationManager/prenotations");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    
+    
+    public static void prenotationViewDetails(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+                
+                String flightcode = request.getParameter("flightcode");
+                DateTime departuredate = new DateTime(Long.parseLong(request.getParameter("departuredate")));
+                DateTime arrivaldate = new DateTime(Long.parseLong(request.getParameter("arrivaldate")));
+                daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                
+                daoFactory.beginTransaction();
+                
+                PrenotationDAO prenotationDAO = daoFactory.getPrenotationDAO();
+                List<Prenotation> prenotations = prenotationDAO.findPrenotationDetail(loggedUser, flightcode, departuredate, arrivaldate);
+                
+                daoFactory.commitTransaction();
+                
+                request.setAttribute("prenotations", prenotations);
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "prenotationManager/prenotationsDetails");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    public static void prenotationViewCheckIn(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+                
+                String flightcode = request.getParameter("flightcode");
+                DateTime departuredate = new DateTime(Long.parseLong(request.getParameter("departuredate")));
+                DateTime arrivaldate = new DateTime(Long.parseLong(request.getParameter("arrivaldate")));
+                daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                
+                daoFactory.beginTransaction();
+                
+                PrenotationDAO prenotationDAO = daoFactory.getPrenotationDAO();
+                List<Prenotation> prenotations = prenotationDAO.findPrenotationDetail(loggedUser, flightcode, departuredate, arrivaldate);
+                
+                daoFactory.commitTransaction();
+                
+                request.setAttribute("prenotations", prenotations);
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "prenotationManager/prenotationsCheckIn");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
+    }
+    
+    public static void insertCheckIn(HttpServletRequest request, HttpServletResponse response){
+        SessionDAOFactory sessionDAOFactory;
+        DAOFactory daoFactory = null;
+        LoggedUser loggedUser;
+        String applicationMessage = null;
+        
+        Logger logger = LogService.getApplicationLogger();
+        
+        try{
+                sessionDAOFactory = SessionDAOFactory.getSessionDAOFactory(Configuration.SESSION_IMPL);
+                sessionDAOFactory.initSession(request, response);
+
+                LoggedUserDAO loggedUserDAO = sessionDAOFactory.getLoggedUserDAO();
+                loggedUser = loggedUserDAO.find();
+                
+                int passengers = Integer.parseInt(request.getParameter("passengers"));
+                ArrayList<String> doctype = new ArrayList<String>(passengers);
+                ArrayList<String> doccode = new ArrayList<String>(passengers);
+                ArrayList<Long> prencode = new ArrayList<Long>(passengers);
+                
+                for(int i=0; i<passengers; i++){
+                    doctype.add(request.getParameter("documento"+Integer.toString(i)));
+                    doccode.add(request.getParameter("documentocodice"+Integer.toString(i)));
+                    prencode.add(Long.parseLong(request.getParameter("prencode"+Integer.toString(i))));
+                }                
+                
+                daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
+                
+                daoFactory.beginTransaction();
+                
+                PrenotationDAO prenotationDAO = daoFactory.getPrenotationDAO();
+                CheckInDAO checkInDAO = daoFactory.getCheckInDAO();
+                for(int i=0; i<passengers; i++){
+                    checkInDAO.insertCheckIns(doctype.get(i), doccode.get(i), prencode.get(i));
+                }
+                List<PrenotationView> prenotations = prenotationDAO.findUserPrenotations(loggedUser);
+                
+                List<PrenotationView> checkPrenotations = prenotationDAO.findUserPrenotationsCheckIn(loggedUser);
+                
+                daoFactory.commitTransaction();
+                request.setAttribute("prenotations", prenotations);
+                request.setAttribute("checkprenotations", checkPrenotations);
+                request.setAttribute("loggedOn", loggedUser != null);
+                request.setAttribute("loggedUser", loggedUser);
+                request.setAttribute("viewUrl", "prenotationManager/prenotations");
+            }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Controller Error", e);
+
+            try {
+                if (daoFactory != null) {
+                    daoFactory.rollbackTransaction();
+                }
+            } 
+            catch (Throwable t) {
+            }
+            throw new RuntimeException(e);
+        } 
+        finally {
+            try {
+                    if (daoFactory != null) {
+                        daoFactory.closeTransaction();
+                }
+            } catch (Throwable t) {
+            }
+        }
     }
 }

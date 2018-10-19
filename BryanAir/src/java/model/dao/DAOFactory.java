@@ -26,6 +26,7 @@ public abstract class DAOFactory {
     public abstract ConversationDAO getConversationDAO();
     public abstract MessageDAO getMessageDAO();
     public abstract PushedFlightDAO getPushedFlightDAO();
+    public abstract CheckInDAO getCheckInDAO();
     
     public static DAOFactory getDAOFactory(String whichFactory){
         if(whichFactory.equals(MYSQLJDBCIMPL)){
