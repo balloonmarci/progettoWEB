@@ -224,7 +224,7 @@ public class PrenotationManager {
             prenotation.setPricetotal(departurePrice);
             prenotation.setPassengerfirstname(request.getParameter("passengerfirstname"+i));
             prenotation.setPassengerlastname(request.getParameter("passengerlastname"+i));
-            prenotation.setSesso(request.getParameter("passengergender"+i));
+            prenotation.setPassengerTitle(request.getParameter("passengertitle"+i));
             prenotation.setPrenotationDate(DateTime.now());
             prenotation.setConcreteFlight(departureFlight);
             prenotation.setUser(user);
@@ -239,7 +239,7 @@ public class PrenotationManager {
             prenotation.setPricetotal(returnPrice);
             prenotation.setPassengerfirstname(departurePrenotations.get(i).getPassengerfirstname());
             prenotation.setPassengerlastname(departurePrenotations.get(i).getPassengerlastname());
-            prenotation.setSesso(departurePrenotations.get(i).getSesso());
+            prenotation.setPassengerTitle(departurePrenotations.get(i).getPassengerTitle());
             prenotation.setPrenotationDate(DateTime.now());
             prenotation.setConcreteFlight(returnFlight);
             prenotation.setUser(user);
@@ -337,7 +337,7 @@ public class PrenotationManager {
             prenotation.setPricetotal(departurePrice);
             prenotation.setPassengerfirstname(request.getParameter("passengerfirstname"+i));
             prenotation.setPassengerlastname(request.getParameter("passengerlastname"+i));
-            prenotation.setSesso(request.getParameter("passengergender"+i));
+            prenotation.setPassengerTitle(request.getParameter("passengertitle"+i));
             prenotation.setPrenotationDate(DateTime.now());
             prenotation.setConcreteFlight(departureFlight);
             prenotation.setUser(user);

@@ -65,7 +65,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
         }
 
         try{
-            prenotation.setSesso(rs.getString("passengergender"));
+            prenotation.setPassengerTitle(rs.getString("passengertitle"));
         }catch(SQLException sqle){
         }
 
@@ -119,7 +119,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                     + " deleted ='0' AND "
                     + " code = ?";
                 
-                l = new Long(i.nextInt(9999999));
+                l = new Long(i.nextInt(Integer.MAX_VALUE));
                 
                 ps = conn.prepareStatement(sql);
                 ps.setLong(1, l);
@@ -143,7 +143,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                       + "     pricetotal,"
                       + "     passengerfirstname,"
                       + "     passengerlastname,"
-                      + "     passengergender,"
+                      + "     passengertitle,"
                       + "     flightcode,"
                       + "     departuredate,"
                       + "     arrivaldate,"
@@ -161,7 +161,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                         ps.setFloat(3, prenotation.getPricetotal());
                         ps.setString(4, prenotation.getPassengerfirstname());
                         ps.setString(5, prenotation.getPassengerlastname());
-                        ps.setString(6, prenotation.getSesso());
+                        ps.setString(6, prenotation.getPassengerTitle());
                         ps.setString(7, prenotation.getConcreteFlight().getVirtualFlight().getFlightCode());
                         ps.setTimestamp(8, new Timestamp(prenotation.getConcreteFlight().getDate().getMillis()));
                         ps.setTimestamp(9, new Timestamp(prenotation.getConcreteFlight().getArrivalDate().getMillis()));
