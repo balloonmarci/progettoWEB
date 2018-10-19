@@ -34,6 +34,10 @@
             function goBack(){
                 document.prenotationView.submit();
             }
+            function submit(){
+                alert("Il check-in è stato effettuato con successo. Le auguriamo un piacevole volo.");
+                document.checkInForm.submit();
+            }
         </script>
     </head>
     <body>
@@ -118,7 +122,8 @@
                         </h3>
                     </th>
                     <th>
-                        <input type="submit" value="Invia">
+                        
+                        <input type="button" value="Invia" onclick="submit()">
                     </th>
                 </tr>
                 <%for(int i=0; i<prenotations.size(); i++) {%>

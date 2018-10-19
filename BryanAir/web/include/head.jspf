@@ -30,6 +30,14 @@
                 } else {
                     alert("Devi effettuare il login per entrare nel profilo");
                 }
+            }            
+            
+            function goPren(){
+                if(<%=loggedOn%>){
+                    document.prenotationFormMenu.submit();
+                } else {
+                    alert("Devi effettuare il login per visualizzare le prenotazioni");
+                }
             }
             
             function onLoadHandler(){

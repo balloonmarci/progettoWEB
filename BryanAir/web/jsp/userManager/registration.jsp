@@ -3,10 +3,14 @@
     Created on : 6-ago-2018, 15.55.43
     Author     : Filippo
 --%>
+<%@page import="model.session.mo.LoggedUser"%>
 <%@page session="false"%>
 <%@page import="model.mo.User"%>
 <%String applicationMessage = (String) request.getAttribute("applicationMessage");
-  User user = (User)request.getAttribute("user");%>
+  User user = (User)request.getAttribute("user");
+  Boolean loggedOn=false;
+  LoggedUser loggedUser = null;
+%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -15,52 +19,12 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Sito</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/base.css">
-        <link rel="stylesheet" type="text/css" href="css/headerstyle.css">
+        <%@include file="/include/head.jspf"%>
         <link rel="stylesheet" type="text/css" href="css/registermodule.css">
-        <link rel="stylesheet" type="text/css" href="css/footerstyle.css">
-        <link rel="stylesheet" type="text/css" href="css/form.css">
-        <link rel="stylesheet" type="text/css" href="css/state.css">
-        <script src="script/effetti.js" type="application/javascript"></script>
+        <title>Sito</title>
     </head>
     <body>
-        <header>
-            <div class="m-topbar m-topbar-position clearfix">
-                <div class="m-utente">
-                    <ul class="m-list-ul clearfix">
-                        <li><a href="registrazione.html">Iscriviti</a></li>
-                        <li class="m-dropdown">
-                            <span>Accedi</span>
-                            <div class="m-form-login m-dropdown-content m-dropdown-content-position">
-                                <form name="loginForm" action="Dispatcher" method="post" class="loginform-dimensioni">
-                                    <input type="text" name="username" maxlength="40" placeholder="Username" required>
-                                    <input type="password" name="password" maxlength="40" placeholder="Password" required>
-                                    </br></br>
-                                    <input type="hidden" name="controllerAction" value="HomeManager.login"/>
-                                    <input type="submit" value="Login" class="submit-dimensioni submit-color">
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                    </div>
-                    <div class="m-logo">
-                        <a href="home.html">BryanAir</a>
-                    </div>
-                    <div class="m-services">
-                        <ul class="m-list-ul">
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Prenota</a></li>
-                            <li><a href="">Servizi</a></li>
-                            <li><a href="">Viaggi</a></li>
-                            <li><a href="">Profilo</a></li>
-                        </ul>
-                    </div>
-                
-        </header>
+        <%@include file="/include/header.jspf"%>
         <main class="m-main">
             <section class="m-section m-section-color m-section-font">
                 Registrazione

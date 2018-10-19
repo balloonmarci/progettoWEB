@@ -64,7 +64,7 @@ and open the template in the editor.
       <main class="m-main clearfix">
         <aside class="sidebar">
           <div class="propic">
-            <img src="images/me.png" alt="me">
+            <img src="images/profilo.png" alt="profilo">
           </div>
           <section class="utilities">
             <div>

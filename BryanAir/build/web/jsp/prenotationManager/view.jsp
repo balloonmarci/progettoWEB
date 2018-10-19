@@ -108,8 +108,10 @@ and open the template in the editor.
             
             function goToInsertPrenotation(){
                 <%if(loggedOn){%>
-                    if(document.querySelector(".jsCheck") === null)
+                    if(document.querySelector(".jsCheck") === null){
+                        alert("Pagamento effettuato. Grazie per aver scelto Bryanair!")
                         document.prenotationsForm.submit();
+                    }
                     else
                         alert("Inserire tutti i campi richiesti.");
                 <%}else{%>
