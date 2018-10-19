@@ -64,7 +64,7 @@ and open the template in the editor.
                     <%}else{%>
                         document.onlyDeparturePrenotationForm.departuredate.value = departureDate;
                         document.onlyDeparturePrenotationForm.arrivaldate.value = arrivalDate;
-                        document.onlyDeparturePrenotationForm.submit()
+                        document.onlyDeparturePrenotationForm.submit();
                     <%}
                   }%>
                         
