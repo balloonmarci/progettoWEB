@@ -122,7 +122,7 @@
                 <article>
                       <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity()%>.png" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
@@ -147,7 +147,7 @@
                     <article>
                       <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity()%>.png" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
@@ -172,7 +172,7 @@
                     <article>
                       <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <img src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity()%>.png" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
@@ -204,7 +204,7 @@
                         
                         <article class="sidebar-article">
                             <h1 class="sidebar-h1"><%=wishlist.get(i).getArrivalcity()%></h1>
-                          <img class="width-fix" src="images/Destinations/<%=wishlist.get(i).getArrivalcity().concat(".png")%>" alt="<%=wishlist.get(i).getArrivalcity()%>">
+                          <img class="width-fix" src="images/Destinations/<%=wishlist.get(i).getArrivalcity()%>.png" alt="<%=wishlist.get(i).getArrivalcity()%>">
                           <h3 class="h3-home">
                               <strong class="strong-home"> A partire da <%=Math.floor(wishlist.get(i).getFinalprice()*100)/100%>€ </strong> <br>
                               <% if(wishlist.get(i).getDifference()>0) {%>
@@ -241,7 +241,7 @@
                     <article>
                       <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img class="width-fix" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <img class="width-fix" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity()%>.png" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
@@ -266,7 +266,7 @@
                     <article>
                       <a href="javascript:goToPrenotation('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">  
                         <h1><%=pushedFlights.get(c).getArrivalcity()%></h1>
-                      <img class="width-fix" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity().concat(".png")%>" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
+                      <img class="width-fix" src="images/Destinations/<%=pushedFlights.get(c).getArrivalcity()%>.png" alt="<%=pushedFlights.get(c).getArrivalcity()%>">
                       <h3 class="h3-home">
                           A partire da <strong class="strong-home"><%=Math.floor(pushedFlights.get(c).getFinalprice()*100)/100%>€</strong> !!! <br>
                           <%if(pushedFlights.get(c).getDifference()>0) {%>
