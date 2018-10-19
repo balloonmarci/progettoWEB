@@ -80,7 +80,7 @@
         <form name="profileForm" method="post" action="Dispatcher">
             <input type="hidden" name="controllerAction" value="UserManager.view"/>
         </form>
-        <form name="prenotationForm" method="post" action="Dispatcher">
+        <form name="prenotationFormMenu" method="post" action="Dispatcher">
             <input type="hidden" name="controllerAction" value="PrenotationManager.prenotationView">
         </form>
       </header>
