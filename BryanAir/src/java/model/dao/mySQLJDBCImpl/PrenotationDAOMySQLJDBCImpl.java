@@ -435,7 +435,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                     + " JOIN virtualflight AS V ON P.flightcode=V.flightcode "
                     + " JOIN airport AS A1 ON V.departureairport=A1.iata "
                     + " JOIN airport AS A2 ON V.arrivalairport=A2.iata "
-                    + " WHERE userid = ? AND P.flightcode = ? "
+                    + " WHERE userid = ? AND P.flightcode = ? AND P.deleted = 0 "
                     + " AND departuredate = ? AND arrivaldate = ? AND P.class = ? AND P.date = ?;";
             
             ps = conn.prepareStatement(sq1);
