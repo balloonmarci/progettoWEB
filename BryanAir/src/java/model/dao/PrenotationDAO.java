@@ -24,6 +24,6 @@ public interface PrenotationDAO{
     public void updateName(String passengerfirst, String passengerlast);
     public List<PrenotationView> findUserPrenotations(LoggedUser user);
     public List<PrenotationView> findUserPrenotationsCheckIn(LoggedUser user);
-    public List<Prenotation> findPrenotationDetail(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate);
+    public List<Prenotation> findPrenotationDetail(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate, int clas, DateTime date);
     
 }
