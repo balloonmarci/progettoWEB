@@ -11,13 +11,13 @@ package model.mo;
  */
 public class PrenotationView extends Prenotation{
     private Long passengers;
-    private boolean checkin;
+    private long checkin;
 
-    public boolean isCheckin() {
+    public long getCheckin() {
         return checkin;
     }
 
-    public void setCheckin(boolean checkin) {
+    public void setCheckin(long checkin) {
         this.checkin = checkin;
     }
 

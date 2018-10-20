@@ -558,12 +558,14 @@ public class PrenotationManager {
                 String flightcode = request.getParameter("flightcode");
                 DateTime departuredate = new DateTime(Long.parseLong(request.getParameter("departuredate")));
                 DateTime arrivaldate = new DateTime(Long.parseLong(request.getParameter("arrivaldate")));
+                int clas = Integer.parseInt(request.getParameter("class"));
+                DateTime date = new DateTime(Long.parseLong(request.getParameter("date")));
                 daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
                 
                 daoFactory.beginTransaction();
                 
                 PrenotationDAO prenotationDAO = daoFactory.getPrenotationDAO();
-                List<Prenotation> prenotations = prenotationDAO.findPrenotationDetail(loggedUser, flightcode, departuredate, arrivaldate);
+                List<Prenotation> prenotations = prenotationDAO.findPrenotationDetail(loggedUser, flightcode, departuredate, arrivaldate, clas, date);
                 
                 daoFactory.commitTransaction();
                 
@@ -612,12 +614,14 @@ public class PrenotationManager {
                 String flightcode = request.getParameter("flightcode");
                 DateTime departuredate = new DateTime(Long.parseLong(request.getParameter("departuredate")));
                 DateTime arrivaldate = new DateTime(Long.parseLong(request.getParameter("arrivaldate")));
+                int clas = Integer.parseInt(request.getParameter("class"));
+                DateTime date = new DateTime(Long.parseLong(request.getParameter("date")));
                 daoFactory = DAOFactory.getDAOFactory(Configuration.DAO_IMPL);
                 
                 daoFactory.beginTransaction();
                 
                 PrenotationDAO prenotationDAO = daoFactory.getPrenotationDAO();
-                List<Prenotation> prenotations = prenotationDAO.findPrenotationDetail(loggedUser, flightcode, departuredate, arrivaldate);
+                List<Prenotation> prenotations = prenotationDAO.findPrenotationDetail(loggedUser, flightcode, departuredate, arrivaldate, clas, date);
                 
                 daoFactory.commitTransaction();
                 
