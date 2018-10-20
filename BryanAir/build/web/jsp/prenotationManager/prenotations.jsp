@@ -11,7 +11,7 @@
   List<PrenotationView> prenotations = (List<PrenotationView>)request.getAttribute("prenotations");
   List<PrenotationView> checkPrenotations = (List<PrenotationView>)request.getAttribute("checkprenotations");
   int i=0;
-
+  long l;
 %>
 
 
@@ -22,20 +22,25 @@
         <link rel="stylesheet" type="text/css" href="css/profilostyle.css">
         <link rel="stylesheet" type="text/css" href="css/supportmodule.css">
         <script language="javascript">
-            function goToViewPrenotation(flightcode, departuremillis, arrivalmillis){
+            function goToViewPrenotation(flightcode, departuremillis, arrivalmillis, clas, datemillis){
                 
                 document.getElementById("flightcode").value=flightcode;
                 document.getElementById("departuredate").value=departuremillis;
                 document.getElementById("arrivaldate").value=arrivalmillis;
+                document.getElementById("class").value=clas;
+                document.getElementById("date").value=datemillis;
                 
                 document.prenotationViewDetails.submit();
             }
             
-            function goToCheckIn(flightcode, departuremillis, arrivalmillis){
+            function goToCheckIn(flightcode, departuremillis, arrivalmillis, clas, datemillis){
                 
                 document.getElementById("flightcode").value=flightcode;
                 document.getElementById("departuredate").value=departuremillis;
                 document.getElementById("arrivaldate").value=arrivalmillis;
+                document.getElementById("class").value=clas;
+                document.getElementById("date").value=datemillis;
+                
                 document.getElementById("controllerAction").value="PrenotationManager.prenotationViewCheckIn";
                 
                 document.prenotationViewDetails.submit();
@@ -59,7 +64,7 @@
                     <div>
                         <%for(i=0; i<prenotations.size(); i++) {%>
                             
-                            <a href="javascript:goToViewPrenotation('<%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>', <%=prenotations.get(i).getConcreteFlight().getDate().getMillis()%>, <%=prenotations.get(i).getConcreteFlight().getArrivalDate().getMillis()%>);">
+                        <a href="javascript:goToViewPrenotation('<%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>', <%=prenotations.get(i).getConcreteFlight().getDate().getMillis()%>, <%=prenotations.get(i).getConcreteFlight().getArrivalDate().getMillis()%>, <%=prenotations.get(i).getClas()%>, <%=prenotations.get(i).getPrenotationDate().getMillis()%>);">
                             
                             <article class="support-article-chat clearfix">
                                 <img src="images/aereostil.png" alt="Chat" class="support-img-chat">
@@ -72,6 +77,14 @@
                                         <%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getDepartureAirport().getAirportname()%>
                                         <img src="images/double-arrow-right.png" class="rightarrow">
                                         <%=prenotations.get(i).getConcreteFlight().getVirtualFlight().getArrivalAirport().getAirportname()%>
+                                        <br>
+                                        <% if(prenotations.get(i).getCheckin()==0){%>
+                                        
+                                            Check-In Online non ancora effettuato
+                                        
+                                        <%} else {%>
+                                            <strong>Check-In Online effettuato</strong>
+                                        <%}%>
                                     </h3>
                                 </div>
                                 <div class='support-article-rightdiv'>
@@ -109,7 +122,7 @@
                             
                             <%for(i=0; i<checkPrenotations.size(); i++) {%>
                             
-                            <a href="javascript:goToCheckIn('<%=checkPrenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>', <%=checkPrenotations.get(i).getConcreteFlight().getDate().getMillis()%>, <%=checkPrenotations.get(i).getConcreteFlight().getArrivalDate().getMillis()%>)">
+                            <a href="javascript:goToCheckIn('<%=checkPrenotations.get(i).getConcreteFlight().getVirtualFlight().getFlightCode()%>', <%=checkPrenotations.get(i).getConcreteFlight().getDate().getMillis()%>, <%=checkPrenotations.get(i).getConcreteFlight().getArrivalDate().getMillis()%>, <%=checkPrenotations.get(i).getClas()%>, <%=checkPrenotations.get(i).getPrenotationDate().getMillis()%>)">
                             
                             
                             <article class="support-article-chat clearfix">
@@ -166,7 +179,9 @@
           <input type="hidden" name="flightcode" id="flightcode">
           <input type="hidden" name="departuredate" id ="departuredate">
           <input type="hidden" name="arrivaldate" id="arrivaldate">
+          <input type="hidden" name="class" id="class">
           <input type="hidden" name="controllerAction" id="controllerAction" value="PrenotationManager.prenotationViewDetails">          
+          <input type="hidden" name="date" id="date">
       </form>
       
       <%@include file="/include/footer.jspf"%>

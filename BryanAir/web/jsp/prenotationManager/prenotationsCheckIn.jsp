@@ -34,10 +34,6 @@
             function goBack(){
                 document.prenotationView.submit();
             }
-            function submit(){
-                alert("Il check-in è stato effettuato con successo. Le auguriamo un piacevole volo.");
-                document.checkInForm.submit();
-            }
         </script>
     </head>
     <body>
@@ -123,7 +119,7 @@
                     </th>
                     <th>
                         
-                        <input type="button" value="Invia" onclick="submit()">
+                        <input type="submit" value="Invia">
                     </th>
                 </tr>
                 <%for(int i=0; i<prenotations.size(); i++) {%>
@@ -138,9 +134,8 @@
                             <label for="documento">
                                 Tipo documento
                             </label> 
-                            <select name="documento<%=i%>">
-                                <option disabled="disabled" selected="selected">Seleziona un'opzione.</option>
-                                <option value="Passaporto">Passaporto</option>
+                            <select required name="documento<%=i%>" id="documento<%=i%>">
+                                <option selected="selected" value="Passaporto">Passaporto</option>
                                 <option value="Carta Identita">Carta Identita</option>
                             </select>
                         </h4>
@@ -151,7 +146,7 @@
                             <label for="documento">
                                 Codice documento
                             </label> 
-                            <input required type="number" max="9999999" name="documentocodice<%=i%>" id="documentocodice<%=i%>">
+                            <input required type="number" max="999999" name="documentocodice<%=i%>" id="documentocodice<%=i%>">
                         </h4>
                     </th>
                     <input type="hidden" type="text" name="prencode<%=i%>" value="<%=prenotations.get(i).getId()%>">

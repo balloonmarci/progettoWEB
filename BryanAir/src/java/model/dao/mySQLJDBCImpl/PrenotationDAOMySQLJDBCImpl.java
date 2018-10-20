@@ -135,6 +135,11 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
         } catch (SQLException sqle) {
         }
         
+         try {
+            prenotation.setPrenotationDate(new DateTime(rs.getTimestamp("prenotationdate")));
+        } catch (SQLException sqle) {
+        }
+        
         try {
             prenotation.getConcreteFlight().getVirtualFlight().getDepartureAirport().setAirportname(rs.getString("departureairport"));
         } catch (SQLException sqle) {
@@ -148,6 +153,15 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
             prenotation.setPassengers(rs.getLong("passengers"));
         } catch (SQLException sqle) {
         }
+        
+        try {
+            prenotation.setCheckin(rs.getLong("id"));
+        } catch (SQLException sqle) {
+        }
+        
+        
+        
+        
         
         return prenotation;
     }
@@ -211,7 +225,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
         }
 
         try{
-            prenotation.setPrenotationDate(new DateTime(rs.getTimestamp("date")));
+            prenotation.setPrenotationDate(new DateTime(rs.getTimestamp("prenottiondate")));
         }catch(SQLException sqle){
         }
         
@@ -339,14 +353,15 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
         try{
             String sq1
                     = " SELECT P.class AS class, P.flightcode AS flightcode, P.departuredate AS departuredate, P.arrivaldate AS arrivaldate, "
-                    + " A1.airportname AS departureairport, A2.airportname AS arrivalairport, "
-                    + " COUNT(code) AS passengers "
+                    + " A1.airportname AS departureairport, A2.airportname AS arrivalairport, P.date AS prenotationdate, "
+                    + " COUNT(code) AS passengers, C.id "
                     + " FROM prenotation AS P "
                     + " JOIN virtualflight AS V ON P.flightcode = V.flightcode "
                     + " JOIN airport AS A1 ON V.departureairport = A1.iata "
                     + " JOIN airport AS A2 ON V.arrivalairport = A2.iata "
+                    + " LEFT JOIN checkin AS C ON C.prencode = P.code"
                     + " WHERE userid = ? AND NOW() < P.departuredate AND P.deleted = '0' "
-                    + " GROUP BY P.flightcode, P.departuredate, P.arrivaldate;";
+                    + " GROUP BY P.flightcode, P.departuredate, P.arrivaldate, P.class, P.date;";
                      
             
             ps = conn.prepareStatement(sq1);
@@ -375,7 +390,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
         try{
             String sq1
                     = " SELECT P.class AS class, P.flightcode AS flightcode, P.departuredate AS departuredate, P.arrivaldate AS arrivaldate, "
-                    + " A1.airportname AS departureairport, A2.airportname AS arrivalairport, "
+                    + " A1.airportname AS departureairport, A2.airportname AS arrivalairport, P.date AS prenotationdate, "
                     + " COUNT(code) AS passengers "
                     + " FROM prenotation AS P "
                     + " JOIN virtualflight AS V ON P.flightcode = V.flightcode "
@@ -384,7 +399,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                     + " WHERE userid = ? AND (NOW() BETWEEN DATE_SUB(P.departuredate, INTERVAL 1 WEEK) AND P.departuredate) "
                     + " AND NOW() < P.departuredate AND P.deleted = '0' "
                     + " AND P.code NOT IN (SELECT prencode FROM checkin) "
-                    + " GROUP BY P.flightcode, P.departuredate, P.arrivaldate; ";
+                    + " GROUP BY P.flightcode, P.departuredate, P.arrivaldate, P.class, P.date ";
                      
             
             ps = conn.prepareStatement(sq1);
@@ -406,7 +421,7 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
     }
     
     @Override
-    public List<Prenotation> findPrenotationDetail(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate) {
+    public List<Prenotation> findPrenotationDetail(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate, int clas, DateTime date) {
         PreparedStatement ps;
         List<Prenotation> prenotations = new ArrayList<Prenotation>();
         
@@ -420,14 +435,16 @@ public class PrenotationDAOMySQLJDBCImpl implements PrenotationDAO {
                     + " JOIN virtualflight AS V ON P.flightcode=V.flightcode "
                     + " JOIN airport AS A1 ON V.departureairport=A1.iata "
                     + " JOIN airport AS A2 ON V.arrivalairport=A2.iata "
-                    + " WHERE userid = ? AND P.flightcode = ? "
-                    + " AND departuredate = ? AND arrivaldate = ?;";
+                    + " WHERE userid = ? AND P.flightcode = ? AND P.deleted = 0 "
+                    + " AND departuredate = ? AND arrivaldate = ? AND P.class = ? AND P.date = ?;";
             
             ps = conn.prepareStatement(sq1);
             ps.setLong(1, user.getUserId());
             ps.setString(2, flightcode);
             ps.setTimestamp(3, new Timestamp(departuredate.getMillis()));
             ps.setTimestamp(4, new Timestamp (arrivaldate.getMillis()));
+            ps.setInt(5, clas);
+            ps.setTimestamp(6, new Timestamp(date.getMillis()));
             ResultSet resultSet = ps.executeQuery();
             
             

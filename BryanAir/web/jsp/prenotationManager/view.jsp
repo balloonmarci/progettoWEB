@@ -266,7 +266,7 @@ and open the template in the editor.
             <div class="passenger">
               <input type="text" name="passengerfirstname<%=i%>" class="jsCheck" placeholder="Inserisci nome" required />
               <input type="text" name="passengerlastname<%=i%>" class="jsCheck" placeholder="Inserisci cognome" required />
-              <input type="text" name="passengertitle<%=i%>"  class="jsCheck"  list="Title" placeholder="Inserisci sesso" required />
+              <input type="text" name="passengertitle<%=i%>"  class="jsCheck"  list="Title" placeholder="Inserisci titolo" required />
               <datalist id="Title">
                 <select name="Title">
                   <option value="Mr">
