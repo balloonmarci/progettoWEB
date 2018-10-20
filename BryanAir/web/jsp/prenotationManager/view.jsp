@@ -70,7 +70,7 @@ and open the template in the editor.
                var prices = document.querySelectorAll(".totalprice");
                setTotalPrice(prices[0], prices[1], "block","none");
                var classes = document.querySelectorAll(".priceclass");
-               setSelectedClass(classes[0], "1");
+               setDepartureSelectedClass(classes[0], "1");
                <%}else{%>
                    alert("Non ci sono posti diponibili in prima classe.");
                <%}%>
@@ -80,7 +80,7 @@ and open the template in the editor.
                var prices = document.querySelectorAll(".totalprice");
                setTotalPrice(prices[0], prices[1], "none","block");
                var classes = document.querySelectorAll(".priceclass");
-               setSelectedClass(classes[1], "2");
+               setDepartureSelectedClass(classes[1], "2");
                <%}else{%>
                    alert("Non ci sono posti diponibili in seconda classe.");
                <%}%>
