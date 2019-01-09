@@ -53,18 +53,20 @@
             document.searchPushedFlights.submit();
         }
         
-        function deleteFromWishlist(flightcode, millis){
+        function deleteFromWishlist(flightcode, depmillis, arrmillis){
             if(confirm("Sei sicuro di voler eliminare il volo dalla wishlist ?")){
                 document.getElementById("flightcodeDelete").value=flightcode;
-                document.getElementById("flightdateDelete").value=millis;
+                document.getElementById("departuredateDelete").value=depmillis;
+                document.getElementById("arrivaldateDelete").value=arrmillis;
                 document.deleteWishlistFlight.submit();
             }
         }
         
-        function addToWishlist(flightcode, millis){
+        function addToWishlist(flightcode, depmillis, arrmillis){
             if(confirm("Sei sicuro di voler aggiungere il volo alla wishlist ?")){
                 document.getElementById("flightcodeAdd").value=flightcode;
-                document.getElementById("flightdateAdd").value=millis;
+                document.getElementById("departuredateAdd").value=depmillis;
+                document.getElementById("arrivaldateAdd").value=arrmillis;
                 document.addWishlistFlight.submit();
             }
         }
@@ -132,7 +134,7 @@
                       
                       </a>
                       <% if (loggedOn) {%>
-                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%> );">
                             <h3>
                                 Aggiungi alla Wishlist
                             </h3> 
@@ -157,7 +159,7 @@
                       
                       </a>
                       <% if (loggedOn) {%>
-                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%> , <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">
                             <h3>
                                 Aggiungi alla Wishlist
                             </h3> 
@@ -182,7 +184,7 @@
                       
                       </a>
                       <% if (loggedOn) {%>
-                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">
                             <h3>
                                 Aggiungi alla Wishlist
                             </h3> 
@@ -217,7 +219,7 @@
                               <a href="javascript:goToPrenotation('<%=wishlist.get(i).getFlightcode()%>', <%=wishlist.get(i).getDeparturedate().getMillis()%>, <%=wishlist.get(i).getArrivaldate().getMillis()%>);">
                                 <img class="menuimg" src="images/ok.png" alt ="ok" >
                               </a>
-                              <a href="javascript:deleteFromWishlist('<%=wishlist.get(i).getFlightcode()%>',<%=wishlist.get(i).getDeparturedate().getMillis() %>);">
+                              <a href="javascript:deleteFromWishlist('<%=wishlist.get(i).getFlightcode()%>',<%=wishlist.get(i).getDeparturedate().getMillis()%>, <%=wishlist.get(i).getArrivaldate().getMillis() %>);">
                                 <img class="menuimg" src="images/delete.png" alt="ok">
                               </a>
                           </h3>
@@ -251,7 +253,7 @@
                       
                       </a>
                       <% if (loggedOn) {%>
-                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>, <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">
                             <h3>
                                 Aggiungi alla Wishlist
                             </h3> 
@@ -276,7 +278,7 @@
                       
                       </a>
                       <% if (loggedOn) {%>
-                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%>);">
+                      <a href="javascript:addToWishlist('<%=pushedFlights.get(c).getFlightcode()%>', <%=pushedFlights.get(c).getDeparturedate().getMillis()%> , <%=pushedFlights.get(c).getArrivaldate().getMillis()%>);">
                             <h3>
                                 Aggiungi alla Wishlist
                             </h3> 
@@ -302,13 +304,15 @@
     
     <form name="deleteWishlistFlight" action="Dispatcher" method="post">
         <input type="hidden" name="flightcodeDelete" id="flightcodeDelete">
-        <input type="hidden" name="flightdateDelete" id="flightdateDelete">
+        <input type="hidden" name="departuredateDelete" id="departuredateDelete">
+        <input type="hidden" name="arrivaldateDelete" id="arrivaldateDelete">
         <input type="hidden" name="controllerAction" value="HomeManager.deleteFromWishlist">
     </form>
     
     <form name="addWishlistFlight" action="Dispatcher" method="post">
         <input type="hidden" name="flightcodeAdd" id="flightcodeAdd">
-        <input type="hidden" name="flightdateAdd" id="flightdateAdd">
+        <input type="hidden" name="departuredateAdd" id="departuredateAdd">
+        <input type="hidden" name="arrivaldateAdd" id="arrivaldateAdd">
         <input type="hidden" name="controllerAction" value="HomeManager.addToWishlist">
     </form>
 </html>

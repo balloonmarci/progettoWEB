@@ -301,8 +301,9 @@ public class HomeManager {
           PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
           
           String flightcode = request.getParameter("flightcodeDelete");
-          DateTime departure = new DateTime (Long.parseLong(request.getParameter("flightdateDelete")));
-          pushedFlightDAO.deleteFromWishlist(loggedUser, flightcode, departure);
+          DateTime departure = new DateTime (Long.parseLong(request.getParameter("departuredateDelete")));
+          DateTime arrival = new DateTime (Long.parseLong(request.getParameter("arrivaldateDelete")));
+          pushedFlightDAO.deleteFromWishlist(loggedUser, flightcode, departure, arrival);
                     
           List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
           List<PushedFlight> wishlist = new ArrayList<PushedFlight>();
@@ -358,8 +359,9 @@ public class HomeManager {
           PushedFlightDAO pushedFlightDAO = daoFactory.getPushedFlightDAO();
           
           String flightcode = request.getParameter("flightcodeAdd");
-          DateTime departure = new DateTime (Long.parseLong(request.getParameter("flightdateAdd")));
-          pushedFlightDAO.addToWishlist(loggedUser, flightcode, departure);
+          DateTime departure = new DateTime (Long.parseLong(request.getParameter("departuredateAdd")));
+          DateTime arrival = new DateTime (Long.parseLong(request.getParameter("arrivaldateAdd")));
+          pushedFlightDAO.addToWishlist(loggedUser, flightcode, departure, arrival);
                     
           List<PushedFlight> pushedFlights = pushedFlightDAO.getPushedFlights();
           List<PushedFlight> wishlist = new ArrayList<PushedFlight>();

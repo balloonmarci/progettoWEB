@@ -18,6 +18,6 @@ import org.joda.time.DateTime;
 public interface PushedFlightDAO {
     public List<PushedFlight> getPushedFlights();     
     public List<PushedFlight> getWishlist(LoggedUser loggeduser);
-    public void deleteFromWishlist(LoggedUser user, String flightcode, DateTime date);
-    public void addToWishlist(LoggedUser user, String flightcode, DateTime date);
+    public void deleteFromWishlist(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate);
+    public void addToWishlist(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate);
 }

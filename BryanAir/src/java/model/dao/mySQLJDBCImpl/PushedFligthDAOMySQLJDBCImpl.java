@@ -47,7 +47,7 @@ public class PushedFligthDAOMySQLJDBCImpl implements PushedFlightDAO {
                   + " JOIN airport AS A2 "
                   + " ON A2.iata = V.arrivalairport "
                   + " WHERE C.PUSH = 1 AND A1.iata ='MXP' "
-                  + " AND C.deleted = 0 "
+                  + " AND C.deleted = 0 AND C.departuredate >= NOW()"
                   + " ORDER BY RAND() LIMIT 15; ";
 
           ps = conn.prepareStatement(sq1);
@@ -88,7 +88,7 @@ public class PushedFligthDAOMySQLJDBCImpl implements PushedFlightDAO {
                   + " JOIN airport AS A2 "
                   + " ON A2.iata = V.arrivalairport "
                   + " JOIN wishlist as W "
-                  + " ON C.flightcode = W.flightcode AND C.departuredate = W.flightdate "
+                  + " ON C.flightcode = W.flightcode AND C.departuredate = W.departuredate AND C.arrivaldate = W.arrivaldate"
                   + " WHERE W.userid = ? "
                   + " AND C.deleted = 0 "
                   + " ORDER BY finalprice; ";
@@ -115,17 +115,18 @@ public class PushedFligthDAOMySQLJDBCImpl implements PushedFlightDAO {
     }
     
     @Override
-    public void deleteFromWishlist(LoggedUser user, String flightcode, DateTime date){
+    public void deleteFromWishlist(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate){
         
         PreparedStatement ps;
         try{
             String sq1
                     = "DELETE FROM wishlist "
-                    + "WHERE userid = ? AND flightcode = ? AND flightdate = ?;";
+                    + "WHERE userid = ? AND flightcode = ? AND departuredate = ? AND arrivaldate = ?;";
             ps = conn.prepareStatement(sq1);
             ps.setLong(1, user.getUserId());
             ps.setString(2, flightcode);
-            ps.setTimestamp (3, new Timestamp(date.getMillis()));
+            ps.setTimestamp (3, new Timestamp(departuredate.getMillis()));
+            ps.setTimestamp (4, new Timestamp(arrivaldate.getMillis()));
             
             ps.executeUpdate();
             ps.close();
@@ -187,16 +188,17 @@ public class PushedFligthDAOMySQLJDBCImpl implements PushedFlightDAO {
     }
 
     @Override
-    public void addToWishlist(LoggedUser user, String flightcode, DateTime date) {
+    public void addToWishlist(LoggedUser user, String flightcode, DateTime departuredate, DateTime arrivaldate) {
         PreparedStatement ps;
         try{
             String sq1
-                    = "INSERT INTO wishlist(userid, flightcode, flightdate) "
-                    + "VALUES ( ?, ?, ?);";
+                    = "INSERT INTO wishlist(userid, flightcode, departuredate, arrivaldate) "
+                    + "VALUES ( ?, ?, ?, ?);";
             ps = conn.prepareStatement(sq1);
             ps.setLong(1, user.getUserId());
             ps.setString(2, flightcode);
-            ps.setTimestamp (3, new Timestamp(date.getMillis()));
+            ps.setTimestamp (3, new Timestamp(departuredate.getMillis()));
+            ps.setTimestamp(4, new Timestamp(arrivaldate.getMillis()));
             
             ps.executeUpdate();
             ps.close();

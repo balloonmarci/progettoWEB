@@ -253,11 +253,12 @@ public class ConversationDAOMySQLJDBCImpl implements ConversationDAO {
         
         try{
             String sq1
-                    ="SELECT C.idconv, C.title, C.start, C.end, C.deleted, U.id AS iduser, U.username, A.id AS idadmin, A.firstname AS adminfirstname "
-                    +"FROM conversation AS C "
-                    +"JOIN user AS U ON C.iduser=U.id "
-                    +"LEFT JOIN admin AS A ON C.idadmin=A.id "
-                    +"WHERE C.idadmin = ? AND C.deleted = '0' "
+                    ="SELECT C.idconv, C.title, C.start, C.end, C.deleted, U.id AS iduser, "
+                    + "U.username, A.id AS idadmin, A.firstname AS adminfirstname "
+                    + "FROM conversation AS C "
+                    + "JOIN user AS U ON C.iduser=U.id "
+                    + "LEFT JOIN admin AS A ON C.idadmin=A.id "
+                    + "WHERE C.idadmin = ? AND C.deleted = '0' "
                     + "AND end IS NULL "
                     + "ORDER BY C.start;";
             
